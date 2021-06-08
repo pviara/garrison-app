@@ -1,0 +1,14 @@
+.container {
+  background: url('../assets/img/backgrounds/global-wallpaper.jpg') no-repeat center center fixed;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+
+  font-family: 'Friz Quadrata';
+
+  height: 100vh;
+
+  // TODO remove tmp prop
+  color: white;
+}
