@@ -1,10 +1,42 @@
 @font-face {
-  font-family: "Friz Quadrata";
-  src: url("./assets/fonts/friz-quadrata-std-medium.otf")
+  font-family: 'Friz Quadrata';
+  src: url('./assets/fonts/friz-quadrata-std-medium.otf')
 }
 
 body,
 html {
   padding: 0;
   margin: 0;
+}
+
+button {
+  background: url('./assets/img/textures/game-entity-item-dark.jpg');
+  
+  border: 5px solid transparent;
+  border-image: url('./assets/img/textures/game-menu-item-border.jpg') 5;
+
+  box-shadow: 0px 0px 10px rgb(0, 0, 0, 0.3);
+
+  font-family: 'Friz Quadrata';
+  color: #aeaeae;
+
+  transition-property: box-shadow, color;
+  transition-duration: 0.1s;
+
+  &:hover {
+    cursor: pointer;
+
+    color: #f8d532;
+    
+    box-shadow: 0px 0px 15px rgb(0, 0, 0, 0.8);
+  }
+}
+  
+@keyframes fadeIn {
+  0% {
+    opacity:0;
+  }
+  100% {
+    opacity:1;
+  }
 }

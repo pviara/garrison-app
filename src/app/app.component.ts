@@ -5,7 +5,7 @@ import {
   Renderer2,
   ViewChild
 } from '@angular/core';
-import { CharacterService } from './services/character.service';
+import { CharacterService } from './shared/services/character.service';
 
 @Component({
   selector: 'app-root',
