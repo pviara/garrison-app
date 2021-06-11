@@ -1,3 +1,4 @@
+import { AuthComponent } from './containers/components/public/components/containers/auth.component';
 import { IndexComponent } from './containers/index.component';
 import { IndexGuard } from './containers/index.guard';
 import { LandingComponent } from './containers/components/public/components/landing.component';
@@ -8,7 +9,6 @@ import { RouterModule } from '@angular/router';
 import { Routes } from '@angular/router';
 import { SignInComponent } from './containers/components/public/components/containers/components/sign-in/sign-in.component';
 import { SignUpComponent } from './containers/components/public/components/containers/components/sign-up/sign-up.component';
-import { AuthComponent } from './containers/components/public/components/containers/auth.component';
 
 const routes: Routes = [{
     path: '',

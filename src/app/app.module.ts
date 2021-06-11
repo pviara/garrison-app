@@ -3,8 +3,8 @@ import { AppRoutingModule } from './app-routing.module';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { IndexModule } from './containers/index.module';
-import { CharacterService } from './services/character.service';
 import { IndexGuard } from './containers/index.guard';
+import { SharedModule } from './shared/shared.module';
 
 @NgModule({
   declarations: [
@@ -13,12 +13,10 @@ import { IndexGuard } from './containers/index.guard';
   imports: [
     AppRoutingModule,
     BrowserModule,
-
-    // custom
-    IndexModule
+    IndexModule,
+    SharedModule
   ],
   providers: [
-    CharacterService,
     IndexGuard
   ],
   bootstrap: [AppComponent]
