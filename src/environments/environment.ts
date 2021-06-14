@@ -3,7 +3,12 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
-  production: false
+  production: false,
+
+  // related to the API and database
+  apiUrl: 'http://localhost:3000/api',
+  dbNameStatic: 'static',
+  dbNameDynamic: 'dynamic'
 };
 
 /*

@@ -14,7 +14,6 @@ import { SharedModule } from 'src/app/shared/shared.module';
     AuthModule,
     RouterModule,
     SharedModule
-  ],
-  providers: []
+  ]
 })
 export class PublicModule {}

@@ -1,3 +1,68 @@
-<div>
-  I am the sign-in component homeboy ......
+<div class="container">
+  <div class="element title">
+    <h1>Sign in</h1>
+    <div class="separator"></div>
+  </div>
+  <div class="element content">
+
+    <ng-container *ngIf="apiError">
+      <div class="error">
+        Incorrect e-mail or password.
+      </div>
+    </ng-container>
+    
+    <form
+      [formGroup]="signIn"
+      (ngSubmit)="onSignIn(signIn)">
+
+      <div class="form-element">
+        <ng-container *ngIf="hasFormControlGotErrors('email') as errors">
+          <div class="error">
+            {{
+              errors.required
+                ? '❌ E-mail is required.'
+                : '❌ This is not an e-mail.'
+            }}
+          </div>
+        </ng-container>
+        <div class="content">
+          <input
+            [ngClass]="hasFormControlGotErrors('email') ? 'error' : ''"
+            type="text"
+            name="email"
+            placeholder="Your e-mail..."
+            formControlName="email">
+        </div>
+      </div>
+      
+      <div class="form-element">
+        <ng-container *ngIf="hasFormControlGotErrors('password') as errors">
+          <div class="error">
+            {{
+              errors.required
+                ? '❌ Password is required.'
+                : ''
+            }}
+          </div>
+        </ng-container>
+        <div class="content">
+          <input
+            [ngClass]="hasFormControlGotErrors('password') ? 'error' : ''"
+            type="password"
+            name="password"
+            placeholder="Your password..."
+            formControlName="password">
+        </div>
+      </div>
+
+      <div class="form-element">
+        <button
+          type="submit"
+          [disabled]="signIn.invalid">
+          Sign in
+        </button>
+      </div>
+      
+    </form>
+  </div>
 </div>
