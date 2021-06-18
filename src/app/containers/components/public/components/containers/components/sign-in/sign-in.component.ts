@@ -13,6 +13,7 @@ import {
   Observable,
   of
 } from 'rxjs';
+import { IAuthenticatedUser } from 'src/models/dynamic/IUser';
 
 @Component({
   selector: 'garrison-public-auth-sign-in',
@@ -37,42 +38,47 @@ export class SignInComponent implements OnInit {
       .group({
         email: this
           ._formBuilder
-          .control('', [Validators.required, Validators.email]),
+          .control('', [
+            Validators.required,
+            Validators.email
+          ]),
         password: this
           ._formBuilder
           .control('', Validators.required)
       });
   }
 
+  hasFormControlGotErrors(key: string) {
+    const formControl = this.signIn.get(key);
+    return this._isInvalidFormControl(key)
+      ? formControl?.errors
+      : null;
+  }
+
   onSignIn(signIn: FormGroup) {
     if (signIn.invalid) return;
 
-    // TODO 🛠 fire service call
-    this._authService
-      .authenticate(signIn.value)
-      .pipe(
-        catchError((err: any, caught: Observable<unknown>) => {
-          this.apiError = err;
-          return of(this.apiError);
-        })
-      ).subscribe((result: any) => {
-        if (result.error) return;
+    console.log(signIn.value);
 
-        
-      });
+    // // this._authService
+    // //   .authenticate(signIn.value)
+    // //   .pipe(
+    // //     catchError((err) => {
+    // //       this.apiError = err;
+    // //       return of(this.apiError);
+    // //     })
+    // //   ).subscribe((result: any) => {
+    // //     if (result.error) return;
+
+    // //     this._authService.addUserToLocalStorage(result);
+    // //     console.log(this._authService.getCurrentUser());
+    // //   });
   }
 
-  isInvalidFormControl(key: string) {
+  private _isInvalidFormControl(key: string) {
     const formControl = this.signIn.get(key);
     return formControl?.touched
       && formControl?.dirty
       && formControl?.invalid;
-  }
-
-  hasFormControlGotErrors(key: string) {
-    const formControl = this.signIn.get(key);
-    return this.isInvalidFormControl(key)
-      ? formControl?.errors
-      : null;
   }
 }

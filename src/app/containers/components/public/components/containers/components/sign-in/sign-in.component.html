@@ -38,11 +38,7 @@
       <div class="form-element">
         <ng-container *ngIf="hasFormControlGotErrors('password') as errors">
           <div class="error">
-            {{
-              errors.required
-                ? '❌ Password is required.'
-                : ''
-            }}
+            ❌ Password is required.
           </div>
         </ng-container>
         <div class="content">

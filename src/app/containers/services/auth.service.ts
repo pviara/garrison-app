@@ -1,50 +1,35 @@
 import { environment } from 'src/environments/environment';
 import { HttpClient } from '@angular/common/http';
-import {
-  IAuthenticatedUser,
-  IUser
-} from 'src/models/dynamic/IUser';
+import { IAuthenticatedUser } from 'src/models/dynamic/IUser';
+import { IAuthenticationPayload } from 'src/models/dynamic/payloads/IAuthenticationPayload';
 import { Injectable } from '@angular/core';
-import { map } from 'rxjs/operators';
-import { Router } from '@angular/router';
 
 @Injectable()
 export class AuthService {
   private _endpoint = 'auth';
 
-  constructor(
-    private _client: HttpClient,
-    private _router: Router
-  ) { }
+  constructor(private _client: HttpClient) { }
 
   getCurrentUser() {
     const userFromStorage = localStorage.getItem('user');
     if (!userFromStorage) return;
 
-    return JSON.parse(userFromStorage) as IUser;
+    return JSON.parse(userFromStorage) as IAuthenticatedUser;
   }
 
-  authenticate(payload: {
-    email: string;
-    password: string;
-  }) {
-    return this._client.post<IUser>(
+  authenticate(payload: IAuthenticationPayload) {
+    return this._client.post<IAuthenticatedUser>(
       `${environment.apiUrl}/${this._endpoint}`,
       payload
-    ).pipe(
-      map((authenticated: any) => {
-        if (!authenticated.token) return;
-
-        this._addUserToLocalStorage(authenticated);
-        this._router.navigate(['/private']);
-        return authenticated;
-      })
     );
   }
 
-  private _addUserToLocalStorage(
+   addUserToLocalStorage(
     authenticatedUser: IAuthenticatedUser
   ) {
+    if (localStorage.getItem('user')) {
+      localStorage.removeItem('user');
+    }
     localStorage.setItem('user', JSON.stringify(authenticatedUser));
   }
 }

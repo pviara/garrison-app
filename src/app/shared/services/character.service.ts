@@ -1,5 +1,5 @@
 import { HttpClient } from '@angular/common/http';
-import { ICharacter } from 'src/models/ICharacter';
+import { ICharacter } from 'src/models/dynamic/ICharacter';
 import { Injectable } from '@angular/core';
 
 @Injectable()

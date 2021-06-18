@@ -1,3 +1,95 @@
 <div class="container">
-  I am the sign-up component homeboy .SSS
+  <div class="element title">
+    <h1>Sign up</h1>
+    <div class="separator"></div>
+  </div>
+  <div class="element content">
+
+    <ng-container *ngIf="apiError">
+      <div class="error">
+        {{ apiError }}
+      </div>
+    </ng-container>
+    
+    <form
+      [formGroup]="signUp"
+      (ngSubmit)="onSignUp(signUp)">
+
+      <div class="form-element">
+        <ng-container *ngIf="hasFormControlGotErrors('email') as errors">
+          <div class="error">
+            {{
+              errors.required
+                ? '❌ E-mail is required.'
+                : '❌ This is not an e-mail.'
+            }}
+          </div>
+        </ng-container>
+        <div class="content">
+          <input
+            [ngClass]="hasFormControlGotErrors('email') ? 'error' : ''"
+            type="text"
+            name="email"
+            placeholder="Your e-mail..."
+            formControlName="email">
+        </div>
+      </div>
+
+      <div class="form-element">
+        <ng-container *ngIf="hasFormControlGotErrors('emailConfirmation') as errors">
+          <div class="error">
+            {{
+              errors.required
+                ? '❌ E-mail confirmation is required.'
+                : '❌ This e-mail is different from the one above.'
+            }}
+          </div>
+        </ng-container>
+        <div class="content">
+          <input
+            [ngClass]="hasFormControlGotErrors('emailConfirmation') ? 'error' : ''"
+            type="text"
+            name="emailConfirmation"
+            placeholder="Confirm your e-mail..."
+            formControlName="emailConfirmation">
+        </div>
+      </div>
+      
+      <div class="form-element">
+        <ng-container *ngIf="hasFormControlGotErrors('username') as errors">
+          <div class="error">
+            ❌ Username is required.
+          </div>
+        </ng-container>
+        <div class="content">
+          <input
+            [ngClass]="hasFormControlGotErrors('username') ? 'error' : ''"
+            type="text"
+            name="username"
+            placeholder="Your username..."
+            formControlName="username">
+        </div>
+      </div>
+
+      <div class="form-element">
+        <button
+          type="submit"
+          [disabled]="signUp.invalid">
+          Sign in
+        </button>
+      </div>
+      
+    </form>
+  </div>
+  <!-- <ng-container *ngIf="getFormErrors(signUp) as errors">
+    <div class="error-window">
+      <div
+        class="error"
+        *ngFor="let error of errors">
+      
+        ❌ {{ error | json }}
+        
+      </div>
+    </div>
+  </ng-container> -->
 </div>

@@ -5,6 +5,7 @@ import { IndexComponent } from './index.component';
 import { PublicGuard } from './components/public/public.guard';
 import { PublicModule } from './components/public/public.module';
 import { ReactiveFormsModule } from '@angular/forms';
+import { RouterModule } from '@angular/router';
 
 @NgModule({
   declarations: [
