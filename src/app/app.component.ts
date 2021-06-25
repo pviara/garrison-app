@@ -14,7 +14,7 @@ import { CharacterService } from './shared/services/character.service';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
 })
-export class AppComponent implements AfterViewInit, OnInit {
+export class AppComponent implements AfterViewInit {
   @ViewChild('appContainer')
   appContainer!: ElementRef;
 
@@ -23,10 +23,6 @@ export class AppComponent implements AfterViewInit, OnInit {
     private _characterService: CharacterService,
     private _renderer: Renderer2,
   ) {}
-
-  ngOnInit() {
-    // localStorage.removeItem('user')
-  }
 
   ngAfterViewInit() {
     this._initBackgroundImage();
