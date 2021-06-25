@@ -7,6 +7,6 @@ import { Component } from '@angular/core';
 })
 export class LandingComponent {
   constructor() {
-    console.log('entered landing component class');
+
   }
 }

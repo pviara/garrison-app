@@ -97,7 +97,7 @@ export class SignUpComponent implements OnInit {
         if (result.error) return;
 
         this._authService.addUserToLocalStorage(result);
-        this._router.navigate(['/private']);
+        this._router.navigate(['/in']);
       });
   }
 

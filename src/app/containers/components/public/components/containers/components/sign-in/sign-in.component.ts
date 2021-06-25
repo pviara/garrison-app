@@ -9,11 +9,8 @@ import {
   FormGroup,
   Validators
 } from '@angular/forms';
-import {
-  Observable,
-  of
-} from 'rxjs';
-import { IAuthenticatedUser } from 'src/models/dynamic/IUser';
+import { of } from 'rxjs';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'garrison-public-auth-sign-in',
@@ -29,7 +26,8 @@ export class SignInComponent implements OnInit {
   
   constructor(
     private _authService: AuthService,
-    private _formBuilder: FormBuilder
+    private _formBuilder: FormBuilder,
+    private _router: Router
   ) {}
 
   ngOnInit() {
@@ -60,19 +58,20 @@ export class SignInComponent implements OnInit {
 
     console.log(signIn.value);
 
-    // // this._authService
-    // //   .authenticate(signIn.value)
-    // //   .pipe(
-    // //     catchError((err) => {
-    // //       this.apiError = err;
-    // //       return of(this.apiError);
-    // //     })
-    // //   ).subscribe((result: any) => {
-    // //     if (result.error) return;
+    this._authService
+      .authenticate(signIn.value)
+      .pipe(
+        catchError((err) => {
+          this.apiError = err;
+          return of(this.apiError);
+        })
+      )
+      .subscribe((result: any) => {
+        if (result.error) return;
 
-    // //     this._authService.addUserToLocalStorage(result);
-    // //     console.log(this._authService.getCurrentUser());
-    // //   });
+        this._authService.addUserToLocalStorage(result);
+        this._router.navigate(['/in']);
+      });
   }
 
   private _isInvalidFormControl(key: string) {

@@ -1,6 +1,6 @@
 import { AuthComponent } from './containers/components/public/components/containers/auth.component';
-import { IndexComponent } from './containers/index.component';
-import { IndexGuard } from './containers/index.guard';
+import { InComponent } from './containers/components/in/in.component';
+import { InGuard } from './containers/components/in/in.guard';
 import { LandingComponent } from './containers/components/public/components/landing.component';
 import { NgModule } from '@angular/core';
 import { PublicComponent } from './containers/components/public/public.component';
@@ -11,17 +11,11 @@ import { SignInComponent } from './containers/components/public/components/conta
 import { SignUpComponent } from './containers/components/public/components/containers/components/sign-up/sign-up.component';
 
 const routes: Routes = [{
-    path: '',
-    component: IndexComponent,
-    canActivate: [IndexGuard],
-    pathMatch: 'full'
-  },
-  {
     path: 'public',
     canActivate: [PublicGuard],
+    component: PublicComponent,
     children: [{
       path: '',
-      component: PublicComponent,
       children: [{
         path: '',
         component: LandingComponent
@@ -42,10 +36,14 @@ const routes: Routes = [{
     }]
   },
   {
+    path: 'in',
+    canActivate: [InGuard],
+    component: InComponent
+  },
+  {
     path: '**',
-    redirectTo: '/'
-  }
-];
+    redirectTo: '/public'
+}];
 
 @NgModule({
   imports: [
