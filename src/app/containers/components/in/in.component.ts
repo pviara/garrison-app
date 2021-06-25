@@ -7,6 +7,5 @@ import { Component } from "@angular/core";
 })
 export class InComponent {
   constructor() {
-    console.log('init the in component');
   }
 }

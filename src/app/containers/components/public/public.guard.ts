@@ -1,4 +1,4 @@
-import { AuthService } from '../../services/auth.service';
+import { AuthService } from '../../../shared/services/auth.service';
 import {
   CanActivate,
   Router
@@ -8,19 +8,19 @@ import { Injectable } from '@angular/core';
 @Injectable()
 export class PublicGuard implements CanActivate {
   constructor(
-    private authService: AuthService,
-    private router: Router
+    private _authService: AuthService,
+    private _router: Router
   ) {}
 
   /**
    * Redirect user if he's already logged in.
    */
   canActivate() {
-    const userFromStorage = this.authService.getCurrentUser();
+    const userFromStorage = this._authService.getCurrentUser();
     
     if (!userFromStorage) return true;
     else {
-      this.router.navigate(['/in']);
+      this._router.navigate(['/in']);
       return false;
     }
   }

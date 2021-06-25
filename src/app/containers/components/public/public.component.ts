@@ -7,6 +7,5 @@ import { Component } from '@angular/core';
 })
 export class PublicComponent {
   constructor() {
-    console.log('init public component');
   }
 }

@@ -1,12 +1,12 @@
 import { AuthModule } from './components/public/components/containers/auth.module';
-import { AuthService } from './services/auth.service';
+import { InGuard } from './components/in/in.guard';
 import { InModule } from './components/in/in.module';
 import { NgModule } from '@angular/core';
 import { PublicGuard } from './components/public/public.guard';
 import { PublicModule } from './components/public/public.module';
 import { ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
-import { InGuard } from './components/in/in.guard';
+import { SharedModule } from '../shared/shared.module';
 
 @NgModule({
   imports: [
@@ -14,10 +14,10 @@ import { InGuard } from './components/in/in.guard';
     InModule,
     PublicModule,
     ReactiveFormsModule,
-    RouterModule
+    RouterModule,
+    SharedModule
   ],
   providers: [
-    AuthService,
     InGuard,
     PublicGuard
   ]

@@ -1,4 +1,4 @@
-import { AuthService } from 'src/app/containers/services/auth.service';
+import { AuthService } from 'src/app/shared/services/auth.service';
 import { catchError } from 'rxjs/operators';
 import {
   Component,
@@ -55,8 +55,6 @@ export class SignInComponent implements OnInit {
 
   onSignIn(signIn: FormGroup) {
     if (signIn.invalid) return;
-
-    console.log(signIn.value);
 
     this._authService
       .authenticate(signIn.value)

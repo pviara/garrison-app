@@ -5,7 +5,7 @@ import {
   ValidationErrors,
   Validators
 } from '@angular/forms';
-import { AuthService } from 'src/app/containers/services/auth.service';
+import { AuthService } from 'src/app/shared/services/auth.service';
 import { catchError } from 'rxjs/operators';
 import {
   Component,

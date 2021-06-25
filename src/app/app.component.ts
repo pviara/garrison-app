@@ -2,9 +2,11 @@ import {
   AfterViewInit,
   Component,
   ElementRef,
+  OnInit,
   Renderer2,
   ViewChild
 } from '@angular/core';
+import { AuthService } from './shared/services/auth.service';
 import { CharacterService } from './shared/services/character.service';
 
 @Component({
@@ -12,21 +14,26 @@ import { CharacterService } from './shared/services/character.service';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
 })
-export class AppComponent implements AfterViewInit {
+export class AppComponent implements AfterViewInit, OnInit {
   @ViewChild('appContainer')
   appContainer!: ElementRef;
 
   constructor(
-    private characterService: CharacterService,
-    private renderer: Renderer2
+    private _authService: AuthService,
+    private _characterService: CharacterService,
+    private _renderer: Renderer2,
   ) {}
+
+  ngOnInit() {
+    // localStorage.removeItem('user')
+  }
 
   ngAfterViewInit() {
     this._initBackgroundImage();
   }
 
   private _initBackgroundImage() {
-    const character = this.characterService.getCurrentCharacter();
+    const character = this._characterService.getCurrentCharacter();
     if (!character) return;
     
     let wallpaperType;
@@ -38,7 +45,7 @@ export class AppComponent implements AfterViewInit {
     } else throw new Error("Character's faction is not valid.");
     
   this
-    .renderer
+    ._renderer
     .setStyle(
       this.appContainer.nativeElement,
       'background-image',

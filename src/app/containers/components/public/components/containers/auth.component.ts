@@ -7,6 +7,5 @@ import { Component } from '@angular/core';
 })
 export class AuthComponent {
   constructor() {
-    console.log('entered auth component class');
   }
 }
