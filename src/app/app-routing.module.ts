@@ -1,7 +1,8 @@
 import { AuthComponent } from './containers/components/public/components/containers/auth.component';
 import { InComponent } from './containers/components/in/in.component';
 import { InGuard } from './containers/components/in/in.guard';
-import { LandingComponent } from './containers/components/public/components/landing.component';
+import { LandingComponent as PublicLandingComponent } from './containers/components/public/components/landing.component';
+import { LandingComponent as InLandingComponent } from './containers/components/in/components/landing.component';
 import { NgModule } from '@angular/core';
 import { PublicComponent } from './containers/components/public/public.component';
 import { PublicGuard } from './containers/components/public/public.guard';
@@ -18,7 +19,7 @@ const routes: Routes = [{
       path: '',
       children: [{
         path: '',
-        component: LandingComponent
+        component: PublicLandingComponent
       },
       {
         path: 'auth',
@@ -38,7 +39,14 @@ const routes: Routes = [{
   {
     path: 'in',
     canActivate: [InGuard],
-    component: InComponent
+    component: InComponent,
+    children: [{
+      path: '',
+      children: [{
+        path: '',
+        component: InLandingComponent
+      }]
+    }]
   },
   {
     path: '**',

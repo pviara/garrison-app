@@ -2,7 +2,10 @@ import { AuthService } from 'src/app/shared/services/auth.service';
 import { catchError } from 'rxjs/operators';
 import {
   Component,
-  OnInit
+  ElementRef,
+  OnInit,
+  Renderer2,
+  ViewChild
 } from '@angular/core';
 import {
   FormBuilder,
@@ -22,11 +25,15 @@ import { Router } from '@angular/router';
 })
 export class SignInComponent implements OnInit {
   apiError!: string;
-  signIn!: FormGroup
+  signIn!: FormGroup;
+  
+  @ViewChild('submitButton')
+  submitButton!: ElementRef;
   
   constructor(
     private _authService: AuthService,
     private _formBuilder: FormBuilder,
+    private _renderer: Renderer2,
     private _router: Router
   ) {}
 
@@ -56,11 +63,23 @@ export class SignInComponent implements OnInit {
   onSignIn(signIn: FormGroup) {
     if (signIn.invalid) return;
 
+    this._renderer.setAttribute(
+      this.submitButton.nativeElement,
+      'disabled',
+      'true'
+    );
+
     this._authService
       .authenticate(signIn.value)
       .pipe(
         catchError((err) => {
           this.apiError = err;
+
+          this._renderer.removeAttribute(
+            this.submitButton.nativeElement,
+            'disabled'
+          );
+          
           return of(this.apiError);
         })
       )
