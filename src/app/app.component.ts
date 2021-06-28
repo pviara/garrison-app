@@ -23,7 +23,7 @@ export class AppComponent implements AfterViewInit, OnInit {
   ) {}
 
   ngOnInit() {
-    // // localStorage.removeItem('user')
+    // // localStorage.removeItem('user');
   }
 
   ngAfterViewInit() {
@@ -31,14 +31,15 @@ export class AppComponent implements AfterViewInit, OnInit {
   }
 
   private _initBackgroundImage() {
-    const character = this._characterService.getCurrentCharacter();
-    if (!character) return;
+    const characterFromStorage = this._characterService
+      .getCurrentCharacterFromStorage();
+    if (!characterFromStorage) return;
     
     let wallpaperType;
       
-    if (character.side.faction === 'alliance') {
+    if (characterFromStorage.side.faction === 'alliance') {
       wallpaperType = 'a2';
-    } else if (character.side.faction === 'horde') {
+    } else if (characterFromStorage.side.faction === 'horde') {
       wallpaperType = 'h2';
     } else throw new Error("Character's faction is not valid.");
     

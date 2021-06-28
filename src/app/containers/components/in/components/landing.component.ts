@@ -18,7 +18,7 @@ export class LandingComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    const userFromStorage = this._authService.getCurrentUser();
+    const userFromStorage = this._authService.getCurrentUserFromStorage();
     if (!userFromStorage) return;
 
     this.user = userFromStorage;

@@ -10,7 +10,7 @@ export class AuthService {
 
   constructor(private _client: HttpClient) { }
 
-  getCurrentUser() {
+  getCurrentUserFromStorage() {
     const userFromStorage = localStorage.getItem('user');
     if (!userFromStorage) return;
 

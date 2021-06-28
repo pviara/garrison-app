@@ -77,7 +77,7 @@ export class SignInComponent implements OnInit {
       .authenticate(signIn.value)
       .pipe(
         catchError((err) => {
-          this.apiError = err.error.message;
+          this.apiError = err;
           this._soundService.play('error');
 
           this._renderer.removeAttribute(

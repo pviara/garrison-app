@@ -1,12 +1,12 @@
-import { AuthService } from './auth.service';
+import { AuthService } from '../../../../shared/services/auth.service';
 import { environment } from 'src/environments/environment';
 import { HttpClient } from '@angular/common/http';
 import { ICharacter } from 'src/models/dynamic/ICharacter';
 import { Injectable } from '@angular/core';
 
 @Injectable()
-export class CharacterService {
-  private _endpoint = 'character';
+export class GarrisonService {
+  private _endpoint = 'garrison';
   
   constructor(
     private _client: HttpClient,
@@ -24,12 +24,5 @@ export class CharacterService {
     return this._client.get<ICharacter>(
       `${environment.apiUrl}/${environment.dbNameDynamic}/${this._endpoint}/${userFromStorage._id}`
     );
-  }
-
-  getCurrentCharacterFromStorage() {
-    const characterFromStorage = localStorage.getItem('character');
-    if (!characterFromStorage) return;
-
-    return JSON.parse(characterFromStorage) as ICharacter;
   }
 }

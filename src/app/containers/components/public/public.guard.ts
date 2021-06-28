@@ -16,7 +16,7 @@ export class PublicGuard implements CanActivate {
    * Redirect user if he's already logged in.
    */
   canActivate() {
-    const userFromStorage = this._authService.getCurrentUser();
+    const userFromStorage = this._authService.getCurrentUserFromStorage();
     
     if (!userFromStorage) return true;
     else {

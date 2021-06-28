@@ -1,4 +1,6 @@
 import { AuthComponent } from './containers/components/public/components/containers/auth.component';
+import { CharacterResolver } from './containers/components/in/resolvers/dynamic/character.resolver';
+import { GarrisonResolver } from './containers/components/in/resolvers/dynamic/garrison.resolver';
 import { InComponent } from './containers/components/in/in.component';
 import { InGuard } from './containers/components/in/in.guard';
 import { LandingComponent as PublicLandingComponent } from './containers/components/public/components/landing.component';
@@ -44,7 +46,11 @@ const routes: Routes = [{
       path: '',
       children: [{
         path: '',
-        component: InLandingComponent
+        component: InLandingComponent,
+        resolve: {
+          character: CharacterResolver,
+          garrison: GarrisonResolver
+        }
       }]
     }]
   },
