@@ -1,8 +1,9 @@
+import { AuthService } from './services/auth.service';
 import { CharacterService } from './services/character.service';
 import { InfoblockComponent } from './components/infoblock/infoblock.component';
 import { NgModule } from '@angular/core';
+import { SoundService } from './services/sound.service';
 import { UserService } from './services/user.service';
-import { AuthService } from './services/auth.service';
 
 @NgModule({
   declarations: [
@@ -15,6 +16,7 @@ import { AuthService } from './services/auth.service';
   providers: [
     AuthService,
     CharacterService,
+    SoundService,
     UserService
   ]
 })

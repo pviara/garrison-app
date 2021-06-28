@@ -16,6 +16,7 @@ import {
 } from '@angular/core';
 import { of } from 'rxjs';
 import { Router } from '@angular/router';
+import { SoundService } from 'src/app/shared/services/sound.service';
 import { UserService } from 'src/app/shared/services/user.service';
 
 @Component({
@@ -24,6 +25,7 @@ import { UserService } from 'src/app/shared/services/user.service';
   styleUrls: ['./sign-up.component.scss'],
   providers: [
     AuthService,
+    SoundService,
     UserService
   ]
 })
@@ -39,6 +41,7 @@ export class SignUpComponent implements OnInit {
     private _formBuilder: FormBuilder,
     private _renderer: Renderer2,
     private _router: Router,
+    private _soundService: SoundService,
     private _userService: UserService
   ) {}
 
@@ -90,6 +93,7 @@ export class SignUpComponent implements OnInit {
   }
 
   onSignUp(signUp: FormGroup) {
+    this._soundService.play('click');
     if (signUp.invalid) return;
 
     this._renderer.setAttribute(
@@ -103,6 +107,7 @@ export class SignUpComponent implements OnInit {
       .pipe(
         catchError((err) => {
           this.apiError = err.error.message;
+          this._soundService.play('error');
 
           this._renderer.removeAttribute(
             this.submitButton.nativeElement,
@@ -117,6 +122,8 @@ export class SignUpComponent implements OnInit {
 
         this._authService.addUserToLocalStorage(result);
         this._router.navigate(['/in']);
+        
+        this._soundService.play('greetings');
       });
   }
 

@@ -1,8 +1,8 @@
 .container {
   animation: fadeIn ease 0.5s;
 
-  min-width: 24em;
-  max-width: 24em;
+  min-width: 50em;
+  max-width: 50em;
 
   display: flex;
   flex-direction: column;
@@ -55,7 +55,17 @@
     }
 
     &.content {
-      flex: 3;
+      display: flex;
+
+      .greetings {
+        margin: 0.6em;
+        flex: 1;
+      }
+
+      .dashboard {
+        margin: 0.6em;
+        flex: 1;
+      }
     }
   }
 }

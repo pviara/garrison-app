@@ -14,13 +14,15 @@ import {
 } from '@angular/forms';
 import { of } from 'rxjs';
 import { Router } from '@angular/router';
+import { SoundService } from 'src/app/shared/services/sound.service';
 
 @Component({
   selector: 'garrison-public-auth-sign-in',
   templateUrl: './sign-in.component.html',
   styleUrls: ['./sign-in.component.scss'],
   providers: [
-    AuthService
+    AuthService,
+    SoundService
   ]
 })
 export class SignInComponent implements OnInit {
@@ -34,7 +36,8 @@ export class SignInComponent implements OnInit {
     private _authService: AuthService,
     private _formBuilder: FormBuilder,
     private _renderer: Renderer2,
-    private _router: Router
+    private _router: Router,
+    private _soundService: SoundService
   ) {}
 
   ngOnInit() {
@@ -61,6 +64,7 @@ export class SignInComponent implements OnInit {
   }
 
   onSignIn(signIn: FormGroup) {
+    this._soundService.play('click');
     if (signIn.invalid) return;
 
     this._renderer.setAttribute(
@@ -73,7 +77,8 @@ export class SignInComponent implements OnInit {
       .authenticate(signIn.value)
       .pipe(
         catchError((err) => {
-          this.apiError = err;
+          this.apiError = err.error.message;
+          this._soundService.play('error');
 
           this._renderer.removeAttribute(
             this.submitButton.nativeElement,
@@ -88,6 +93,8 @@ export class SignInComponent implements OnInit {
 
         this._authService.addUserToLocalStorage(result);
         this._router.navigate(['/in']);
+        
+        this._soundService.play('greetings');
       });
   }
 

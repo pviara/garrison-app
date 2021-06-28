@@ -6,7 +6,6 @@ import {
   Renderer2,
   ViewChild
 } from '@angular/core';
-import { AuthService } from './shared/services/auth.service';
 import { CharacterService } from './shared/services/character.service';
 
 @Component({
@@ -19,13 +18,12 @@ export class AppComponent implements AfterViewInit, OnInit {
   appContainer!: ElementRef;
 
   constructor(
-    private _authService: AuthService,
     private _characterService: CharacterService,
     private _renderer: Renderer2,
   ) {}
 
   ngOnInit() {
-    localStorage.removeItem('user')
+    // // localStorage.removeItem('user')
   }
 
   ngAfterViewInit() {

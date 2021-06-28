@@ -1,7 +1,11 @@
 <div class="container">
   <div class="element buttons">
     <div class="button">
-      <button routerLink="auth">Sign in</button>
+      <button
+        (click)="playClick()"
+        routerLink="auth">
+        Sign in
+      </button>
     </div>
     <div class="separator">
       <div class="bar"></div>
@@ -9,7 +13,11 @@
       <div class="bar"></div>
     </div>
     <div class="button">
-      <button routerLink="auth/sign-up">Sign up</button>
+      <button
+        (click)="playClick()"
+        routerLink="auth/sign-up">
+        Sign up
+      </button>
     </div>
   </div>
   <div class="element content">
