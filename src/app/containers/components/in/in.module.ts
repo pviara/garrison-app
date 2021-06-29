@@ -7,6 +7,8 @@ import { LandingComponent } from "./components/landing.component";
 import { NgModule } from "@angular/core";
 import { SharedModule } from "src/app/shared/shared.module";
 import { RouterModule } from "@angular/router";
+import { CreateModule } from './containers/create/create.module';
+import { CommonModule } from '@angular/common';
 
 @NgModule({
   declarations: [
@@ -14,6 +16,8 @@ import { RouterModule } from "@angular/router";
     LandingComponent
   ],
   imports: [
+    CommonModule,
+    CreateModule,
     RouterModule,
     SharedModule
   ],

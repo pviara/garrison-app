@@ -7,6 +7,7 @@ import {
   of
 } from 'rxjs';
 import { Resolve } from '@angular/router';
+import { tap } from 'rxjs/operators';
 
 @Injectable()
 export class CharacterResolver implements Resolve<Observable<ICharacter>> {
@@ -20,8 +21,11 @@ export class CharacterResolver implements Resolve<Observable<ICharacter>> {
     }
 
     return this._characterService
-      .getCurrentCharacter()
+      .getCurrentCharacters()
       .pipe(
+        tap((characters: ICharacter[])=> {
+          this._characterService.addCharacterToLocalStorage(characters);
+        }),
         catchError((error: any, caught: Observable<any>) => {
           return of(null);
         })

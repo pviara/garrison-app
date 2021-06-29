@@ -1,5 +1,12 @@
 import { AuthComponent } from './containers/components/public/components/containers/auth.component';
+import {
+  CharacterComponent as CreateCharacterComponent
+} from './containers/components/in/containers/create/components/character/character.component';
+import {
+  CharacterGuard as CreateCharacterGuard
+} from './containers/components/in/containers/create/components/character/character.guard';
 import { CharacterResolver } from './containers/components/in/resolvers/dynamic/character.resolver';
+import { CreateComponent } from './containers/components/in/containers/create/create.component';
 import { GarrisonResolver } from './containers/components/in/resolvers/dynamic/garrison.resolver';
 import { InComponent } from './containers/components/in/in.component';
 import { InGuard } from './containers/components/in/in.guard';
@@ -51,6 +58,15 @@ const routes: Routes = [{
           character: CharacterResolver,
           garrison: GarrisonResolver
         }
+      },
+      {
+        path: 'create',
+        component: CreateComponent,
+        children: [{
+          path: '',
+          canActivate: [CreateCharacterGuard],
+          component: CreateCharacterComponent
+        }]
       }]
     }]
   },

@@ -1,0 +1,72 @@
+<div class="container">
+  <div class="element title">
+    <h1>Create your character</h1>
+    <div class="separator"></div>
+  </div>
+  <div class="element content">
+
+    <form
+      [formGroup]="characterCreation"
+      (ngSubmit)="onCharacterCreation(characterCreation)">
+
+      <div class="form-element">
+        
+        <div class="title">
+          <div class="bar"></div>
+          <h5>Chose your faction</h5>
+          <div class="bar"></div>
+        </div>
+        
+        <div class="selection">
+          <div class="faction">
+            <button
+              class="no-background"
+              type="button"
+              (click)="selectFaction('alliance')"
+              [disabled]="characterCreation.get('faction')?.value === 'alliance'"
+              [ngClass]="characterCreation.get('faction')?.value === 'alliance' ? 'selected' : ''">
+                <img
+                  draggable="false"
+                  src="../../../../../../../../assets/img/creation/alliance.png">
+            </button>
+          </div>
+          <div class="faction">
+            <button
+              class="no-background"
+              type="button"
+              (click)="selectFaction('horde')"
+              [disabled]="characterCreation.get('faction')?.value === 'horde'"
+              [ngClass]="characterCreation.get('faction')?.value === 'horde' ? 'selected' : ''">
+                <img
+                  draggable="false"
+                  src="../../../../../../../../assets/img/creation/horde.png">
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-element">
+        <div class="title">
+          <div class="bar"></div>
+          <h5>Write your name</h5>
+          <div class="bar"></div>
+        </div>
+
+        <div class="content">
+          <input
+            type="text"
+            placeholder="Character's name"
+            formControlName="name">
+        </div>
+      </div>
+
+      <div class="form-element">
+        <button>
+          Submit
+        </button>
+      </div>
+      
+    </form>
+
+  </div>
+</div>

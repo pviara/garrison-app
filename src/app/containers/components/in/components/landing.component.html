@@ -13,13 +13,19 @@
       </garrison-shared-infoblock>
     </div>
     <div class="dashboard">
-      <garrison-shared-infoblock>
-        <img src="../../../../../assets/img/ornamental/creation-pic.png">
-        <h1>Dynamic title</h1>
-        <p>
-          Dynamic text and actions...
-        </p>
-      </garrison-shared-infoblock>
+      <ng-container *ngIf="!character">
+        <garrison-shared-infoblock>
+          <img draggable="false" src="../../../../../assets/img/ornamental/creation-pic.png">
+          <h1>You're the hero</h1>
+          <p>
+            You've been summoned by high authority to establish a garrison in the Eastern Kingdoms. But first we need to
+            know who you are and who you're fighting for.
+          </p>
+          <button (click)="playClickAndRedirect()">
+            Create my character
+          </button>
+        </garrison-shared-infoblock>
+      </ng-container>
     </div>
   </div>
 </div>

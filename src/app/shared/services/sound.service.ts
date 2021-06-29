@@ -15,6 +15,18 @@ export class SoundService {
       path: 'global_button-click.ogg'
     },
     {
+      name: 'create',
+      path: 'create_passed.ogg'
+    },
+    {
+      name: 'create_human',
+      path: 'create_human.ogg'
+    },
+    {
+      name: 'create_orc',
+      path: 'create_orc.ogg'
+    },
+    {
       name: 'error',
       path: 'global_error.ogg'
     },

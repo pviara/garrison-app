@@ -10,11 +10,13 @@ export class AuthService {
 
   constructor(private _client: HttpClient) { }
 
-  getCurrentUserFromStorage() {
-    const userFromStorage = localStorage.getItem('user');
-    if (!userFromStorage) return;
-
-    return JSON.parse(userFromStorage) as IAuthenticatedUser;
+  addUserToLocalStorage(
+    authenticatedUser: IAuthenticatedUser
+  ) {
+    if (localStorage.getItem('user')) {
+      localStorage.removeItem('user');
+    }
+    localStorage.setItem('user', JSON.stringify(authenticatedUser));
   }
 
   authenticate(payload: IAuthenticationPayload) {
@@ -24,12 +26,10 @@ export class AuthService {
     );
   }
 
-   addUserToLocalStorage(
-    authenticatedUser: IAuthenticatedUser
-  ) {
-    if (localStorage.getItem('user')) {
-      localStorage.removeItem('user');
-    }
-    localStorage.setItem('user', JSON.stringify(authenticatedUser));
+  getCurrentUserFromStorage() {
+    const userFromStorage = localStorage.getItem('user');
+    if (!userFromStorage) return;
+
+    return JSON.parse(userFromStorage) as IAuthenticatedUser;
   }
 }

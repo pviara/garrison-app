@@ -13,7 +13,15 @@ export class CharacterService {
     private _authService: AuthService
   ) {}
 
-  getCurrentCharacter() {
+  addCharacterToLocalStorage(characters: ICharacter[]) {
+    if (localStorage.getItem('character')) {
+      localStorage.removeItem('character');
+    }
+    localStorage.setItem('character', JSON.stringify(characters[0]));
+    console.log(localStorage.getItem('character'));
+  }
+  
+  getCurrentCharacters() {
     const userFromStorage = this._authService.getCurrentUserFromStorage();
     if (!userFromStorage) {
       throw new Error(
@@ -21,7 +29,7 @@ export class CharacterService {
       );
     }
 
-    return this._client.get<ICharacter>(
+    return this._client.get<ICharacter[]>(
       `${environment.apiUrl}/${environment.dbNameDynamic}/${this._endpoint}/${userFromStorage._id}`
     );
   }
