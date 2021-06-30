@@ -1,4 +1,6 @@
-import { catchError } from 'rxjs/operators';
+import {
+  catchError, tap
+} from 'rxjs/operators';
 import { CharacterService } from 'src/app/shared/services/character.service';
 import { ICharacter } from 'src/models/dynamic/ICharacter';
 import { Injectable } from '@angular/core';
@@ -7,13 +9,14 @@ import {
   of
 } from 'rxjs';
 import { Resolve } from '@angular/router';
-import { tap } from 'rxjs/operators';
 
 @Injectable()
 export class CharacterResolver implements Resolve<Observable<ICharacter>> {
   constructor(private _characterService: CharacterService) {}
 
   resolve(): Observable<ICharacter> {
+    console.log('called resolver');
+    
     const characterFromStorage = this._characterService
       .getCurrentCharacterFromStorage();
     if (characterFromStorage) {
@@ -25,6 +28,7 @@ export class CharacterResolver implements Resolve<Observable<ICharacter>> {
       .pipe(
         tap((characters: ICharacter[])=> {
           this._characterService.addCharacterToLocalStorage(characters);
+          console.log('from resolver', localStorage.getItem('character'));
         }),
         catchError((error: any, caught: Observable<any>) => {
           return of(null);

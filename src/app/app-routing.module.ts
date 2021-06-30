@@ -7,6 +7,13 @@ import {
 } from './containers/components/in/containers/create/components/character/character.guard';
 import { CharacterResolver } from './containers/components/in/resolvers/dynamic/character.resolver';
 import { CreateComponent } from './containers/components/in/containers/create/create.component';
+import { FactionResolver } from './containers/components/in/resolvers/static/faction.resolver';
+import {
+  GarrisonComponent as CreateGarrisonComponent
+} from './containers/components/in/containers/create/components/garrison/garrison.component';
+import {
+  GarrisonGuard as CreateGarrisonGuard
+} from './containers/components/in/containers/create/components/garrison/garrison.guard';
 import { GarrisonResolver } from './containers/components/in/resolvers/dynamic/garrison.resolver';
 import { InComponent } from './containers/components/in/in.component';
 import { InGuard } from './containers/components/in/in.guard';
@@ -55,17 +62,24 @@ const routes: Routes = [{
         path: '',
         component: InLandingComponent,
         resolve: {
-          character: CharacterResolver,
-          garrison: GarrisonResolver
+          character: CharacterResolver
         }
       },
       {
         path: 'create',
         component: CreateComponent,
         children: [{
-          path: '',
+          path: 'character',
           canActivate: [CreateCharacterGuard],
-          component: CreateCharacterComponent
+          component: CreateCharacterComponent,
+          resolve: {
+            factions: FactionResolver
+          }
+        },
+        {
+          path: 'garrison',
+          canActivate: [CreateGarrisonGuard],
+          component: CreateGarrisonComponent
         }]
       }]
     }]

@@ -23,8 +23,8 @@ export class AppComponent implements AfterViewInit, OnInit {
   ) {}
 
   ngOnInit() {
-    localStorage.removeItem('user');
-    // // localStorage.removeItem('character');
+    // // localStorage.removeItem('user');
+    // localStorage.removeItem('character');
   }
 
   ngAfterViewInit() {

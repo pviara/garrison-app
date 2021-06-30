@@ -2,6 +2,7 @@ import { AuthService } from './auth.service';
 import { environment } from 'src/environments/environment';
 import { HttpClient } from '@angular/common/http';
 import { ICharacter } from 'src/models/dynamic/ICharacter';
+import { ICharacterCreate } from 'src/models/dynamic/payloads/ICharacterCreate';
 import { Injectable } from '@angular/core';
 
 @Injectable()
@@ -18,7 +19,13 @@ export class CharacterService {
       localStorage.removeItem('character');
     }
     localStorage.setItem('character', JSON.stringify(characters[0]));
-    console.log(localStorage.getItem('character'));
+  }
+
+  create(payload: ICharacterCreate) {
+    return this._client.post<ICharacter>(
+      `${environment.apiUrl}/${environment.dbNameDynamic}/${this._endpoint}`,
+      payload
+    );
   }
   
   getCurrentCharacters() {

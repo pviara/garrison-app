@@ -1,5 +1,5 @@
 import { catchError } from 'rxjs/operators';
-import { GarrisonService } from '../../services/garrison.service';
+import { GarrisonService } from '../../services/dynamic/garrison.service';
 import { IGarrison } from 'src/models/dynamic/IGarrison';
 import { Injectable } from '@angular/core';
 import {
@@ -13,12 +13,6 @@ export class GarrisonResolver implements Resolve<Observable<IGarrison>> {
   constructor(private _garrisonService: GarrisonService) {}
 
   resolve(): Observable<IGarrison> {
-    return this._garrisonService
-      .getCurrentCharacter()
-      .pipe(
-        catchError((error: any, caught: Observable<any>) => {
-          return of(null);
-        })
-      );
+    return new Observable();
   }
 }

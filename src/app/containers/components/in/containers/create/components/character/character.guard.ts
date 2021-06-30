@@ -16,7 +16,7 @@ export class CharacterGuard implements CanActivate {
     const characterFromStorage = this._characterService
       .getCurrentCharacterFromStorage();
     if (characterFromStorage) {
-      this._router.navigate(['garrison']);
+      this._router.navigate(['/in/create/garrison']);
       return false;
     }
     return true;

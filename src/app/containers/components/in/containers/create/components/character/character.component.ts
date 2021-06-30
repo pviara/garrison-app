@@ -1,4 +1,11 @@
 import {
+  ActivatedRoute,
+  Router
+} from '@angular/router';
+import { AuthService } from 'src/app/shared/services/auth.service';
+import { catchError } from 'rxjs/operators';
+import { CharacterService } from 'src/app/shared/services/character.service';
+import {
   Component,
   ElementRef,
   OnInit,
@@ -10,6 +17,9 @@ import {
   FormGroup,
   Validators
 } from '@angular/forms';
+import { ICharacterCreate } from 'src/models/dynamic/payloads/ICharacterCreate';
+import { IFaction } from 'src/models/static/IFaction';
+import { of } from 'rxjs';
 import { SoundService } from 'src/app/shared/services/sound.service';
 
 @Component({
@@ -18,18 +28,26 @@ import { SoundService } from 'src/app/shared/services/sound.service';
   styleUrls: ['./character.component.scss']
 })
 export class CharacterComponent implements OnInit {
+  apiError!: string;
   characterCreation!: FormGroup;
+  factions!: IFaction[];
   
   @ViewChild('submitButton')
   submitButton!: ElementRef;
   
   constructor(
+    private _authService: AuthService,
+    private _characterService: CharacterService,
     private _formBuilder: FormBuilder,
     private _renderer: Renderer2,
+    private _route: ActivatedRoute,
+    private _router: Router,
     private _soundService: SoundService
   ) {}
 
   ngOnInit() {
+    this.factions = this._route.snapshot.data.factions;
+    
     this.characterCreation = this
       ._formBuilder
       .group({
@@ -52,11 +70,52 @@ export class CharacterComponent implements OnInit {
       'true'
     );
 
-    // TODO 🛠 call character service
-    console.log(characterCreation.value);
+    const userFromStorage = this._authService
+      .getCurrentUserFromStorage();
+    const { name } = characterCreation.value;
+    const { faction } = characterCreation.value;
+
+    const payload: ICharacterCreate = {
+      userId: userFromStorage?._id as string,
+      name,
+      side: {
+        faction,
+        banner: faction === 'alliance'
+          ? 'lordaeron'
+          : 'warsong'
+      }
+    };
+
+    this._characterService
+      .create(payload)
+      .pipe(
+        catchError((err) => {
+          this.apiError = err.error.message;
+          this._soundService.play('error');
+
+          this._renderer.removeAttribute(
+            this.submitButton.nativeElement,
+            'disabled'
+          );
+
+          return of(err);
+        })
+      )
+      .subscribe((result: any) => {
+        if (result.error) return;
+
+        this._characterService.addCharacterToLocalStorage([result]);
+
+        this._router.navigate(['../garrison'], {
+          relativeTo: this._route
+        });
+        
+        this._soundService.play('click');
+        this._soundService.play('create');
+      });
   }
 
-  selectFaction(faction: 'alliance' | 'horde') {
+  selectFaction(faction: string) {
     if (faction === 'alliance') {
       this._soundService.play('create_human');
     } else {

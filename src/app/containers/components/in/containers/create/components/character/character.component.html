@@ -5,6 +5,12 @@
   </div>
   <div class="element content">
 
+    <ng-container *ngIf="apiError">
+      <div class="error">
+        {{ apiError }}
+      </div>
+    </ng-container>
+
     <form
       [formGroup]="characterCreation"
       (ngSubmit)="onCharacterCreation(characterCreation)">
@@ -16,30 +22,18 @@
           <h5>Chose your faction</h5>
           <div class="bar"></div>
         </div>
-        
+
         <div class="selection">
-          <div class="faction">
+          <div class="faction" *ngFor="let faction of factions">
             <button
               class="no-background"
               type="button"
-              (click)="selectFaction('alliance')"
-              [disabled]="characterCreation.get('faction')?.value === 'alliance'"
-              [ngClass]="characterCreation.get('faction')?.value === 'alliance' ? 'selected' : ''">
+              (click)="selectFaction(faction.code)"
+              [disabled]="characterCreation.get('faction')?.value === faction.code"
+              [ngClass]="characterCreation.get('faction')?.value === faction.code ? 'selected' : ''">
                 <img
                   draggable="false"
-                  src="../../../../../../../../assets/img/creation/alliance.png">
-            </button>
-          </div>
-          <div class="faction">
-            <button
-              class="no-background"
-              type="button"
-              (click)="selectFaction('horde')"
-              [disabled]="characterCreation.get('faction')?.value === 'horde'"
-              [ngClass]="characterCreation.get('faction')?.value === 'horde' ? 'selected' : ''">
-                <img
-                  draggable="false"
-                  src="../../../../../../../../assets/img/creation/horde.png">
+                  [src]="'../../../../../../../../assets/img/creation/' + faction.code + '.png'">
             </button>
           </div>
         </div>
@@ -68,8 +62,6 @@
           Create
         </button>
       </div>
-      
     </form>
-
   </div>
 </div>

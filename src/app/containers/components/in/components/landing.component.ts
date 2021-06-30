@@ -37,7 +37,7 @@ export class LandingComponent implements OnInit {
   }
 
   playClickAndRedirect() {
-    this._router.navigate(['./create'], {
+    this._router.navigate(['./create/character'], {
       relativeTo: this._route
     });
     this._soundService.play('click');
