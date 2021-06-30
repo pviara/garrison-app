@@ -30,7 +30,8 @@
               type="button"
               (click)="selectFaction(faction.code)"
               [disabled]="characterCreation.get('faction')?.value === faction.code"
-              [ngClass]="characterCreation.get('faction')?.value === faction.code ? 'selected' : ''">
+              [ngClass]="characterCreation.get('faction')?.value === faction.code ? 'selected' : ''"
+              [title]="faction | fetch_appropriate_word | string_capitalize">
                 <img
                   draggable="false"
                   [src]="'../../../../../../../../assets/img/creation/' + faction.code + '.png'">

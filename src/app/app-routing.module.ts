@@ -14,7 +14,7 @@ import {
 import {
   GarrisonGuard as CreateGarrisonGuard
 } from './containers/components/in/containers/create/components/garrison/garrison.guard';
-import { GarrisonResolver } from './containers/components/in/resolvers/dynamic/garrison.resolver';
+import { GarrisonIdResolver } from './containers/components/in/resolvers/dynamic/garrison.resolver';
 import { InComponent } from './containers/components/in/in.component';
 import { InGuard } from './containers/components/in/in.guard';
 import { LandingComponent as PublicLandingComponent } from './containers/components/public/components/landing.component';
@@ -26,6 +26,7 @@ import { RouterModule } from '@angular/router';
 import { Routes } from '@angular/router';
 import { SignInComponent } from './containers/components/public/components/containers/components/sign-in/sign-in.component';
 import { SignUpComponent } from './containers/components/public/components/containers/components/sign-up/sign-up.component';
+import { ZoneResolver } from './containers/components/in/resolvers/static/zone.resolver';
 
 const routes: Routes = [{
     path: 'public',
@@ -62,7 +63,8 @@ const routes: Routes = [{
         path: '',
         component: InLandingComponent,
         resolve: {
-          character: CharacterResolver
+          character: CharacterResolver,
+          garrisonId: GarrisonIdResolver
         }
       },
       {
@@ -79,7 +81,11 @@ const routes: Routes = [{
         {
           path: 'garrison',
           canActivate: [CreateGarrisonGuard],
-          component: CreateGarrisonComponent
+          component: CreateGarrisonComponent,
+          resolve: {
+            character: CharacterResolver,
+            zones: ZoneResolver
+          }
         }]
       }]
     }]

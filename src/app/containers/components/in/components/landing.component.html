@@ -13,7 +13,7 @@
       </garrison-shared-infoblock>
     </div>
     <div class="dashboard">
-      <ng-container *ngIf="!character">
+      <ng-container *ngIf="!character; else ownsCharacter">
         <garrison-shared-infoblock>
           <img draggable="false" src="../../../../../assets/img/ornamental/creation-pic.png">
           <h1>You're the hero</h1>
@@ -21,11 +21,38 @@
             You've been summoned by high authority to establish a garrison in the Eastern Kingdoms. But first we need to
             know who you are and who you're fighting for.
           </p>
-          <button (click)="playClickAndRedirect()">
+          <button (click)="redirectTo('./create/character')">
             Create my character
           </button>
         </garrison-shared-infoblock>
       </ng-container>
+      <ng-template #ownsCharacter>
+        <ng-container *ngIf="!garrisonId; else ownsGarrison">
+          <garrison-shared-infoblock>
+            <img draggable="false" src="../../../../../assets/img/ornamental/creation-pic.png">
+            <h1>Where to boot ?</h1>
+            <p>
+              Your troops are waiting for {{ character.name | string_capitalize }}'s orders to establish their basement.
+              Go ahead and build your garrison !
+            </p>
+            <button (click)="redirectTo('./create/garrison')">
+              Build my garrison
+            </button>
+          </garrison-shared-infoblock>
+        </ng-container>
+        <ng-template #ownsGarrison>
+          <garrison-shared-infoblock>
+            <img draggable="false" src="../../../../../assets/img/ornamental/creation-pic.png">
+            <h1>Ready to go !</h1>
+            <p>
+              {{ character.name | string_capitalize }} and his troops are only waiting for you to give them some orders.
+            </p>
+            <button (click)="redirectTo('./play')">
+              Play
+            </button>
+          </garrison-shared-infoblock>
+        </ng-template>
+      </ng-template>
     </div>
   </div>
 </div>

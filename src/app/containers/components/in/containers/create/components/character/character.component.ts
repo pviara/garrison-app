@@ -1,3 +1,10 @@
+
+import {
+  AbstractControl,
+  FormBuilder,
+  FormGroup,
+  Validators
+} from '@angular/forms';
 import {
   ActivatedRoute,
   Router
@@ -12,11 +19,6 @@ import {
   Renderer2,
   ViewChild
 } from '@angular/core';
-import {
-  FormBuilder,
-  FormGroup,
-  Validators
-} from '@angular/forms';
 import { ICharacterCreate } from 'src/models/dynamic/payloads/ICharacterCreate';
 import { IFaction } from 'src/models/static/IFaction';
 import { of } from 'rxjs';
@@ -53,7 +55,10 @@ export class CharacterComponent implements OnInit {
       .group({
         faction: this
           ._formBuilder
-          .control(null, Validators.required),
+          .control(null, [
+            Validators.required,
+            this._factionValidator()
+          ]),
         name: this
           ._formBuilder
           .control('', Validators.required)
@@ -70,10 +75,10 @@ export class CharacterComponent implements OnInit {
       'true'
     );
 
+    const { faction } = characterCreation.value;
+    const { name } = characterCreation.value;
     const userFromStorage = this._authService
       .getCurrentUserFromStorage();
-    const { name } = characterCreation.value;
-    const { faction } = characterCreation.value;
 
     const payload: ICharacterCreate = {
       userId: userFromStorage?._id as string,
@@ -122,5 +127,17 @@ export class CharacterComponent implements OnInit {
       this._soundService.play('create_orc');
     }
     this.characterCreation.get('faction')?.setValue(faction);
+  }
+
+  private _factionValidator() {
+    return (control: AbstractControl) => {
+      const isValidZone = this
+        .factions
+        .find(faction => faction.code === control.value);
+
+      return isValidZone ? null : {
+        invalid: { value: control.value }
+      }
+    }
   }
 }

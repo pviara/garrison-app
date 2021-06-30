@@ -1,3 +1,70 @@
 <div class="container">
-  
+  <div class="element title">
+    <h1>Create your garrison</h1>
+    <div class="separator"></div>
+  </div>
+  <div class="element content">
+    
+    <ng-container *ngIf="apiError">
+      <div class="error">
+        {{ apiError }}
+      </div>
+    </ng-container>
+
+    <form
+      [formGroup]="garrisonCreation"
+      (ngSubmit)="onGarrisonCreation(garrisonCreation)">
+    
+      <div class="form-element">
+        <div class="title">
+          <div class="bar"></div>
+          <h5>Chose your zone</h5>
+          <div class="bar"></div>
+        </div>
+
+        <div class="selection">
+          <div
+            class="zone"
+            *ngFor="let zone of zones | filter_zones_by_faction:character.side.faction">
+            <button
+              class="no-background"
+              type="button"
+              (click)="selectZone(zone.code)"
+              [disabled]="garrisonCreation.get('zone')?.value === zone.code"
+              [ngClass]="garrisonCreation.get('zone')?.value === zone.code ? 'selected' : ''"
+              [title]="zone | fetch_appropriate_word | string_capitalize">
+              <img
+                draggable="false"
+                [src]="'../../../../../../../../assets/img/creation/zones/' + zone.code + '.png'">
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-element">
+        <div class="title">
+          <div class="bar"></div>
+          <h5>Give it a name</h5>
+          <div class="bar"></div>
+        </div>
+
+        <div class="content">
+          <input
+            type="text"
+            placeholder="Garrison's name"
+            formControlName="name">
+        </div>
+      </div>
+
+      <div class="form-element">
+        <button
+          #submitButton
+          type="submit"
+          [disabled]="garrisonCreation.invalid">
+          Create
+        </button>
+      </div>
+
+    </form>
+  </div>
 </div>

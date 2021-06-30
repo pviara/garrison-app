@@ -19,7 +19,7 @@ import { SoundService } from 'src/app/shared/services/sound.service';
 })
 export class LandingComponent implements OnInit {
   character!: ICharacter;
-  garrison!: IGarrison;
+  garrisonId!: string;
   user!: IAuthenticatedUser;
   
   constructor(
@@ -30,14 +30,17 @@ export class LandingComponent implements OnInit {
   ) {}
 
   ngOnInit() {
+    this.character = this._route.snapshot.data.character;
+    this.garrisonId = this._route.snapshot.data.garrisonId;
+    
     const userFromStorage = this._authService.getCurrentUserFromStorage();
     if (!userFromStorage) return;
 
     this.user = userFromStorage;
   }
 
-  playClickAndRedirect() {
-    this._router.navigate(['./create/character'], {
+  redirectTo(path: string) {
+    this._router.navigate([path], {
       relativeTo: this._route
     });
     this._soundService.play('click');

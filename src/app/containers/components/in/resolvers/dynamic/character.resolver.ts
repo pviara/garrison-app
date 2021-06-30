@@ -15,12 +15,13 @@ export class CharacterResolver implements Resolve<Observable<ICharacter>> {
   constructor(private _characterService: CharacterService) {}
 
   resolve(): Observable<ICharacter> {
-    console.log('called resolver');
-    
     const characterFromStorage = this._characterService
       .getCurrentCharacterFromStorage();
     if (characterFromStorage) {
-      return of(characterFromStorage);
+      // FIXME please be sure that one only receive an OBJECT and NOT an array
+      return Array.isArray(characterFromStorage)
+        ? of(characterFromStorage[0])
+        : of(characterFromStorage);
     }
 
     return this._characterService
@@ -28,7 +29,6 @@ export class CharacterResolver implements Resolve<Observable<ICharacter>> {
       .pipe(
         tap((characters: ICharacter[])=> {
           this._characterService.addCharacterToLocalStorage(characters);
-          console.log('from resolver', localStorage.getItem('character'));
         }),
         catchError((error: any, caught: Observable<any>) => {
           return of(null);

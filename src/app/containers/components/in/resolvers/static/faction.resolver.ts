@@ -27,7 +27,6 @@ export class FactionResolver implements Resolve<Observable<IFaction[]>> {
       .pipe(
         tap((factions: IFaction[]) => {
           this._factionService.addFactionsToLocalStorage(factions);
-          console.log(localStorage.getItem('factions'))
         }),
         catchError((error: any, caught: Observable<any>) => {
           return of(null);
