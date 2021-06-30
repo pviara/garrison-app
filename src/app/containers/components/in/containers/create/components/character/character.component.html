@@ -61,8 +61,11 @@
       </div>
 
       <div class="form-element">
-        <button>
-          Submit
+        <button
+          #submitButton
+          type="submit"
+          [disabled]="characterCreation.invalid">
+          Create
         </button>
       </div>
       

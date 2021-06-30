@@ -1,6 +1,9 @@
 import {
   Component,
-  OnInit
+  ElementRef,
+  OnInit,
+  Renderer2,
+  ViewChild
 } from '@angular/core';
 import {
   FormBuilder,
@@ -17,8 +20,12 @@ import { SoundService } from 'src/app/shared/services/sound.service';
 export class CharacterComponent implements OnInit {
   characterCreation!: FormGroup;
   
+  @ViewChild('submitButton')
+  submitButton!: ElementRef;
+  
   constructor(
     private _formBuilder: FormBuilder,
+    private _renderer: Renderer2,
     private _soundService: SoundService
   ) {}
 
@@ -35,8 +42,18 @@ export class CharacterComponent implements OnInit {
       });
   }
 
-  onCharacterCreation(form: FormGroup) {
-    console.log(form);
+  onCharacterCreation(characterCreation: FormGroup) {
+    this._soundService.play('click');
+    if (characterCreation.invalid) return;
+
+    this._renderer.setAttribute(
+      this.submitButton.nativeElement,
+      'disabled',
+      'true'
+    );
+
+    // TODO 🛠 call character service
+    console.log(characterCreation.value);
   }
 
   selectFaction(faction: 'alliance' | 'horde') {
