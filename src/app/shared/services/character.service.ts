@@ -42,9 +42,6 @@ export class CharacterService {
   }
 
   getCurrentCharacterFromStorage() {
-    const characterFromStorage = localStorage.getItem('character');
-    if (!characterFromStorage) return;
-
-    return JSON.parse(characterFromStorage) as ICharacter;
+    return this._localStorageService.character;
   }
 }

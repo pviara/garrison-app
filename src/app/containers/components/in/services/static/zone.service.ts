@@ -19,10 +19,7 @@ export class ZoneService {
   }
   
   getZonesFromStorage() {
-    const zonesFromStorage = localStorage.getItem('zones');
-    if (!zonesFromStorage) return;
-
-    return JSON.parse(zonesFromStorage) as IZone[];
+    return this._localStorageService.zones;
   }
   
   getZones() {
