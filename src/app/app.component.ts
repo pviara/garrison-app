@@ -6,7 +6,7 @@ import {
   Renderer2,
   ViewChild
 } from '@angular/core';
-import { CharacterService } from './shared/services/character.service';
+import { LocalStorageService } from './shared/services/local-storage.service';
 
 @Component({
   selector: 'app-root',
@@ -18,15 +18,11 @@ export class AppComponent implements AfterViewInit, OnInit {
   appContainer!: ElementRef;
 
   constructor(
-    private _characterService: CharacterService,
+    private _localStorageService: LocalStorageService,
     private _renderer: Renderer2,
   ) {}
 
   ngOnInit() {
-    // // localStorage.removeItem('user');
-    // // localStorage.removeItem('garrisonId');
-    // // localStorage.removeItem('character');
-    // // localStorage.removeItem('zones');
     // // localStorage.clear();
   }
 
@@ -35,24 +31,26 @@ export class AppComponent implements AfterViewInit, OnInit {
   }
 
   private _initBackgroundImage() {
-    const characterFromStorage = this._characterService
-      .getCurrentCharacterFromStorage();
-    if (!characterFromStorage) return;
-    
-    let wallpaperType;
+    this._localStorageService
+      .characterSubject
+      .subscribe(character => {
+        if (!character) return;
       
-    if (characterFromStorage.side.faction === 'alliance') {
-      wallpaperType = 'a2';
-    } else if (characterFromStorage.side.faction === 'horde') {
-      wallpaperType = 'h2';
-    } else throw new Error("Character's faction is not valid.");
+        let wallpaperType;
+        
+        if (character.side.faction === 'alliance') {
+          wallpaperType = 'a2';
+        } else if (character.side.faction === 'horde') {
+          wallpaperType = 'h2';
+        } else throw new Error("Character's faction is not valid.");
     
-  this
-    ._renderer
-    .setStyle(
-      this.appContainer.nativeElement,
-      'background-image',
-      `url('../assets/img/backgrounds/${wallpaperType}-wallpaper.jpg')`
-    )
+        this
+          ._renderer
+          .setStyle(
+            this.appContainer.nativeElement,
+            'background-image',
+            `url('../assets/img/backgrounds/${wallpaperType}-wallpaper.jpg')`
+          );
+      });
   }
 }

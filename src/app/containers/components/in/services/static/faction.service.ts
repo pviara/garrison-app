@@ -2,25 +2,24 @@ import { environment } from 'src/environments/environment';
 import { HttpClient } from '@angular/common/http';
 import { IFaction } from 'src/models/static/IFaction';
 import { Injectable } from '@angular/core';
+import { LocalStorageService } from 'src/app/shared/services/local-storage.service';
 
 @Injectable()
 export class FactionService {
   private _endpoint = 'faction';
 
-  constructor(private _client: HttpClient) { }
+  constructor(
+    private _client: HttpClient,
+    private _localStorageService: LocalStorageService
+  ) { }
 
   addFactionsToLocalStorage(factions: IFaction[]) {
-    if (localStorage.getItem('factions')) {
-      localStorage.removeItem('factions');
-    }
-    localStorage.setItem('factions', JSON.stringify(factions));
+    this._localStorageService.factions = factions;
+    return this._localStorageService.factions;
   }
   
   getFactionsFromStorage() {
-    const factionsFromStorage = localStorage.getItem('factions');
-    if (!factionsFromStorage) return;
-
-    return JSON.parse(factionsFromStorage) as IFaction[];
+    return this._localStorageService.factions;
   }
   
   getFactions() {

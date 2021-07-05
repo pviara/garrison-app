@@ -121,6 +121,7 @@ export class CharacterComponent implements OnInit {
   }
 
   selectFaction(faction: string) {
+    this._soundService.play('click');
     if (faction === 'alliance') {
       this._soundService.play('create_human');
     } else {

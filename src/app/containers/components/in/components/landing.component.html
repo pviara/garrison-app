@@ -29,7 +29,7 @@
       <ng-template #ownsCharacter>
         <ng-container *ngIf="!garrisonId; else ownsGarrison">
           <garrison-shared-infoblock>
-            <img draggable="false" src="../../../../../assets/img/ornamental/creation-pic.png">
+            <img draggable="false" src="../../../../../assets/img/ornamental/mixedup-buildings.png">
             <h1>Where to boot ?</h1>
             <p>
               Your troops are waiting for {{ character.name | string_capitalize }}'s orders to establish their basement.
@@ -42,7 +42,7 @@
         </ng-container>
         <ng-template #ownsGarrison>
           <garrison-shared-infoblock>
-            <img draggable="false" src="../../../../../assets/img/ornamental/creation-pic.png">
+            <img draggable="false" src="../../../../../assets/img/ornamental/mixedup-buildings.png">
             <h1>Ready to go !</h1>
             <p>
               {{ character.name | string_capitalize }} and his troops are only waiting for you to give them some orders.

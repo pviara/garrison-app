@@ -13,6 +13,7 @@ import { SharedModule } from "src/app/shared/shared.module";
 import { RouterModule } from "@angular/router";
 import { ZoneResolver } from './resolvers/static/zone.resolver';
 import { ZoneService } from './services/static/zone.service';
+import { PlayModule } from './containers/play/play.module';
 
 @NgModule({
   declarations: [
@@ -22,6 +23,7 @@ import { ZoneService } from './services/static/zone.service';
   imports: [
     CommonModule,
     CreateModule,
+    PlayModule,
     RouterModule,
     SharedModule
   ],

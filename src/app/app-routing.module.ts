@@ -27,6 +27,7 @@ import { Routes } from '@angular/router';
 import { SignInComponent } from './containers/components/public/components/containers/components/sign-in/sign-in.component';
 import { SignUpComponent } from './containers/components/public/components/containers/components/sign-up/sign-up.component';
 import { ZoneResolver } from './containers/components/in/resolvers/static/zone.resolver';
+import { PlayComponent } from './containers/components/in/containers/play/play.component';
 
 const routes: Routes = [{
     path: 'public',
@@ -87,6 +88,10 @@ const routes: Routes = [{
             zones: ZoneResolver
           }
         }]
+      },
+      {
+        path: 'play',
+        component: PlayComponent
       }]
     }]
   },

@@ -3,20 +3,22 @@ import { HttpClient } from '@angular/common/http';
 import { IAuthenticatedUser } from 'src/models/dynamic/IUser';
 import { IAuthenticationPayload } from 'src/models/dynamic/payloads/IAuthenticationPayload';
 import { Injectable } from '@angular/core';
+import { LocalStorageService } from './local-storage.service';
 
 @Injectable()
 export class AuthService {
   private _endpoint = 'auth';
 
-  constructor(private _client: HttpClient) { }
+  constructor(
+    private _client: HttpClient,
+    private _localStorageService: LocalStorageService
+  ) { }
 
   addUserToLocalStorage(
     authenticatedUser: IAuthenticatedUser
   ) {
-    if (localStorage.getItem('user')) {
-      localStorage.removeItem('user');
-    }
-    localStorage.setItem('user', JSON.stringify(authenticatedUser));
+    this._localStorageService.user = authenticatedUser;
+    return this._localStorageService.user;
   }
 
   authenticate(payload: IAuthenticationPayload) {
@@ -27,9 +29,6 @@ export class AuthService {
   }
 
   getCurrentUserFromStorage() {
-    const userFromStorage = localStorage.getItem('user');
-    if (!userFromStorage) return;
-
-    return JSON.parse(userFromStorage) as IAuthenticatedUser;
+    return this._localStorageService.user;
   }
 }

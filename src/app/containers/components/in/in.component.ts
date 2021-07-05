@@ -1,4 +1,4 @@
-import { Component } from "@angular/core";
+import { Component, } from "@angular/core";
 
 @Component({
   selector: 'garrison-in',
@@ -6,6 +6,5 @@ import { Component } from "@angular/core";
   styleUrls: ['./in.component.scss']
 })
 export class InComponent {
-  constructor() {
-  }
+  constructor() {}
 }
