@@ -22,6 +22,7 @@ import { IGarrisonCreate } from 'src/models/dynamic/payloads/IGarrisonCreate';
 import { IZone } from 'src/models/static/IZone';
 import { of } from 'rxjs';
 import { SoundService } from 'src/app/shared/services/sound.service';
+import { StaticHelper as _h } from '../../../../utils/helper';
 
 @Component({
   selector: 'garrison-in-create-garrison',
@@ -47,8 +48,16 @@ export class GarrisonComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    this.character = this._route.snapshot.data.character;
-    this.zones = this._route.snapshot.data.zones;
+    const {
+      character,
+      zones
+    } = this._route.snapshot.data;
+
+    this.character = Array.isArray(character)
+      ? _h.extractCharacterOutOf(character)
+      : character;
+
+    this.zones = zones;
     
     this.garrisonCreation = this
       ._formBuilder

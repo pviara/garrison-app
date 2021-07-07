@@ -1,5 +1,5 @@
 import {
-  catchError, tap
+  catchError, first, take, tap
 } from 'rxjs/operators';
 import { CharacterService } from 'src/app/shared/services/character.service';
 import { ICharacter } from 'src/models/dynamic/ICharacter';

@@ -9,8 +9,8 @@ import {
 } from "@angular/core";
 import { IAuthenticatedUser } from "src/models/dynamic/IUser";
 import { ICharacter } from 'src/models/dynamic/ICharacter';
-import { IGarrison } from 'src/models/dynamic/IGarrison';
 import { SoundService } from 'src/app/shared/services/sound.service';
+import { StaticHelper as _h } from '../utils/helper';
 
 @Component({
   selector: 'garrison-in-landing',
@@ -30,8 +30,16 @@ export class LandingComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    this.character = this._route.snapshot.data.character;
-    this.garrisonId = this._route.snapshot.data.garrisonId;
+    const {
+      character,
+      garrisonId
+    } = this._route.snapshot.data;
+
+    this.character = Array.isArray(character)
+      ? _h.extractCharacterOutOf(character)
+      : character;
+
+    this.garrisonId = garrisonId;
     
     const userFromStorage = this._authService.getCurrentUserFromStorage();
     if (!userFromStorage) return;
