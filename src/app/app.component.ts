@@ -1,4 +1,5 @@
 import {
+  AfterViewChecked,
   AfterViewInit,
   Component,
   ElementRef,
@@ -13,7 +14,7 @@ import { LocalStorageService } from './shared/services/local-storage.service';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
 })
-export class AppComponent implements AfterViewInit, OnInit {
+export class AppComponent implements AfterViewChecked, AfterViewInit, OnInit {
   @ViewChild('appContainer')
   appContainer!: ElementRef;
 
@@ -28,6 +29,12 @@ export class AppComponent implements AfterViewInit, OnInit {
 
   ngAfterViewInit() {
     this._initBackgroundImage();
+  }
+
+  ngAfterViewChecked() {
+    this._localStorageService
+      .characterSubject
+      .unsubscribe();
   }
 
   private _initBackgroundImage() {

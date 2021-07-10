@@ -1,9 +1,13 @@
 <div class="container">
-  <div class="element logo">
-    <a routerLink="/in">
-      <img draggable="false" src="../../../../assets/img/logos/landing-logo.png">
-    </a>
-  </div>
+  <ng-container *ngIf="!isPlayScreen">
+    <div
+      class="element logo"
+      [ngClass]="isPlayScreen ? 'hidden' : ''">
+      <a routerLink="/in">
+        <img draggable="false" src="../../../../assets/img/logos/landing-logo.png">
+      </a>
+    </div>
+  </ng-container>
 
   <div class="element content">
     <router-outlet></router-outlet>
