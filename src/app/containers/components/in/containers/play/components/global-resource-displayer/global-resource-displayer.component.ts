@@ -2,10 +2,9 @@ import {
   AfterViewChecked,
   AfterViewInit,
   Component,
-  ElementRef,
+  OnDestroy,
   OnInit,
-  Renderer2,
-  ViewChild
+  Renderer2
 } from "@angular/core";
 import { Subscription } from "rxjs";
 import { LocalStorageService } from "src/app/shared/services/local-storage.service";
@@ -15,31 +14,28 @@ import { LocalStorageService } from "src/app/shared/services/local-storage.servi
   templateUrl: './global-resource-displayer.component.html',
   styleUrls: ['./global-resource-displayer.component.scss']
 })
-export class GlobalResourceDisplayerComponent implements AfterViewChecked, AfterViewInit, OnInit {
+export class GlobalResourceDisplayerComponent implements AfterViewChecked, OnDestroy, OnInit {
   characterSubscription!: Subscription;
 
-  @ViewChild('factionColoredText')
-  factionColoredText!: ElementRef;
+  color!: string;
 
-  timer: any;
+  private _timer: any;
   
   value = 0;
 
-  constructor(
-    private _localStorageService: LocalStorageService,
-    private _renderer: Renderer2
-  ) {}
+  constructor(private _localStorageService: LocalStorageService) {}
 
   ngAfterViewChecked() {
     this.characterSubscription.unsubscribe();
   }
 
-  ngAfterViewInit() {
-    this._initTextColor();
+  ngOnDestroy() {
+    clearInterval(this._timer);
   }
 
   ngOnInit() {
-    this.timer = setInterval((_: any) => {
+    this._initTextColor();
+    this._timer = setInterval((_: any) => {
       this.value++;
     }, 1000);
   }
@@ -51,20 +47,11 @@ export class GlobalResourceDisplayerComponent implements AfterViewChecked, After
       .subscribe(character => {
         if (!character) return;
 
-        let color;
-
         if (character.side.faction === 'alliance') {
-          color = '#8da3af';
+          this.color = '#8da3af';
         } else if (character.side.faction === 'horde') {
-          color = '#af8d8d';
+          this.color = '#af8d8d';
         } else throw new Error("Character's faction is not valid.");
-
-        this._renderer
-          .setStyle(
-            this.factionColoredText.nativeElement,
-            'color',
-            color
-          );
       });
   }
 }

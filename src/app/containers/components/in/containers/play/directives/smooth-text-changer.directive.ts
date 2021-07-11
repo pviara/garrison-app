@@ -12,7 +12,6 @@ export class SmoothTextChangerDirective implements OnDestroy {
   ) {
     this._changes = new MutationObserver((mutations: MutationRecord[]) => {
       mutations.forEach(mutation => {
-        console.log(mutation);
         this._renderer
           .addClass(
             this._element.nativeElement,

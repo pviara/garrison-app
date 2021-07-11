@@ -1,6 +1,9 @@
 import {
   Component,
+  ContentChild,
+  ElementRef,
   Input,
+  Renderer2,
   ViewEncapsulation
 } from '@angular/core';
 
@@ -12,7 +15,22 @@ import {
 })
 export class ResourceDisplayer {
   @Input()
+  color!: string;
+  
+  @ContentChild('factionColoredText')
+  factionColoredText!: ElementRef;
+  
+  @Input()
   type!: 'gold' | 'wood' | 'food' | 'plot';
 
-  constructor() {}
+  constructor(private _renderer: Renderer2) {}
+
+  ngAfterContentInit() {
+    this._renderer
+      .setStyle(
+        this.factionColoredText.nativeElement,
+        'color',
+        this.color
+      );
+  }
 }
