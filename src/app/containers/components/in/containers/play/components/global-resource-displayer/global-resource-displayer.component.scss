@@ -3,6 +3,14 @@
   flex-direction: row;
 
   .element {
-    flex: 1;
+    margin: 1.5em;
+
+    &.resource {
+      flex: 1;
+    }
+
+    &.logo {
+      flex: 3;
+    }
   }
 }
