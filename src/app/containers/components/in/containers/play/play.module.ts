@@ -1,11 +1,13 @@
 import { NgModule } from '@angular/core';
-import { ResourceDisplayer } from './components/resource-displayer/resource-displayer.component';
 import { PlayComponent } from './play.component';
+import { ResourceDisplayer } from './components/resource-displayer/resource-displayer.component';
+import { SmoothTextChangerDirective } from './directives/smooth-text-changer.directive';
 
 @NgModule({
   declarations: [
     PlayComponent,
-    ResourceDisplayer
+    ResourceDisplayer,
+    SmoothTextChangerDirective
   ],
   imports: [],
   providers: []

@@ -53,6 +53,16 @@ button {
 .error {
   color:rgb(189, 49, 49);
 }
+
+.animated-changable-text {
+  animation: smoothTextChange 0.3s;
+}
+
+@keyframes smoothTextChange {
+  50% {
+    color: #f8d532;
+  }
+}
   
 @keyframes fadeIn {
   0% {
