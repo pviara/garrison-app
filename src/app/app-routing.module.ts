@@ -20,6 +20,7 @@ import { InGuard } from './containers/components/in/in.guard';
 import { LandingComponent as PublicLandingComponent } from './containers/components/public/components/landing.component';
 import { LandingComponent as InLandingComponent } from './containers/components/in/components/landing.component';
 import { NgModule } from '@angular/core';
+import { PlayComponent } from './containers/components/in/containers/play/play.component';
 import { PublicComponent } from './containers/components/public/public.component';
 import { PublicGuard } from './containers/components/public/public.guard';
 import { RouterModule } from '@angular/router';
@@ -27,7 +28,6 @@ import { Routes } from '@angular/router';
 import { SignInComponent } from './containers/components/public/components/containers/components/sign-in/sign-in.component';
 import { SignUpComponent } from './containers/components/public/components/containers/components/sign-up/sign-up.component';
 import { ZoneResolver } from './containers/components/in/resolvers/static/zone.resolver';
-import { PlayComponent } from './containers/components/in/containers/play/play.component';
 
 const routes: Routes = [{
     path: 'public',

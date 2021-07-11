@@ -8,6 +8,7 @@ import {
   ViewChild
 } from '@angular/core';
 import { LocalStorageService } from './shared/services/local-storage.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-root',
@@ -18,27 +19,28 @@ export class AppComponent implements AfterViewChecked, AfterViewInit, OnInit {
   @ViewChild('appContainer')
   appContainer!: ElementRef;
 
+  characterSubscription!: Subscription;
+
   constructor(
     private _localStorageService: LocalStorageService,
-    private _renderer: Renderer2,
+    private _renderer: Renderer2
   ) {}
-
-  ngOnInit() {
-    // localStorage.clear();
-  }
 
   ngAfterViewInit() {
     this._initBackgroundImage();
   }
 
   ngAfterViewChecked() {
-    this._localStorageService
-      .characterSubject
-      .unsubscribe();
+    // this.characterSubscription.unsubscribe();
+  }
+
+  ngOnInit() {
+    // localStorage.clear();
   }
 
   private _initBackgroundImage() {
-    this._localStorageService
+    this.characterSubscription = this
+      ._localStorageService
       .characterSubject
       .subscribe(character => {
         if (!character) return;
@@ -51,8 +53,7 @@ export class AppComponent implements AfterViewChecked, AfterViewInit, OnInit {
           wallpaperType = 'h2';
         } else throw new Error("Character's faction is not valid.");
     
-        this
-          ._renderer
+        this._renderer
           .setStyle(
             this.appContainer.nativeElement,
             'background-image',

@@ -1,4 +1,3 @@
-import { Howl, Howler } from 'howler';
 import { Injectable } from '@angular/core';
 
 @Injectable()
@@ -41,12 +40,9 @@ export class SoundService {
     if (!fromAssets) {
       throw new Error(`No sound was found with the name '${sound}'.`);
     }
-    
-    const howl = new Howl({
-      src: [`${this._assetsPath}/${fromAssets.path}`]
-    });
 
-    howl.volume(0.3);
-    howl.play();
+    const audio = new Audio(`${this._assetsPath}/${fromAssets.path}`);
+    audio.volume = 0.3;
+    audio.play();
   }
 }
