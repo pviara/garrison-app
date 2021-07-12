@@ -1,14 +1,7 @@
-import {
-  catchError,
-  tap
-} from 'rxjs/operators';
 import { GarrisonService } from '../../services/dynamic/garrison.service';
 import { IGarrison } from 'src/models/dynamic/IGarrison';
 import { Injectable } from '@angular/core';
-import {
-  Observable,
-  of
-} from 'rxjs';
+import { Observable } from 'rxjs';
 import { Resolve } from '@angular/router';
 
 @Injectable()
