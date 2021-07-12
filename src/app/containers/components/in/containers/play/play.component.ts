@@ -1,20 +1,15 @@
-import {
-  Component,
-  OnInit
-} from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { Component } from '@angular/core';
+import { SoundService } from 'src/app/shared/services/sound.service';
 
 @Component({
   selector: 'garrison-in-play',
   templateUrl: './play.component.html',
   styleUrls: ['./play.component.scss']
 })
-export class PlayComponent implements OnInit {
-  constructor(
-    private _route: ActivatedRoute
-  ) {}
+export class PlayComponent {
+  constructor(private _soundService: SoundService) {}
 
-  ngOnInit() {
-    console.log(this._route.snapshot.data.garrison);
+  playClick() {
+    this._soundService.play('click');
   }
 }

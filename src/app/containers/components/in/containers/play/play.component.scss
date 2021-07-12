@@ -1,0 +1,55 @@
+.container {
+  height: 100vh;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  
+  .element {
+    &.head {
+      flex: 1;
+    }
+
+    &.body {
+      flex: 5;
+      display: flex;
+      width: 100vw;
+
+      .menu {
+        flex: 2;
+        flex-flow: row-reverse;
+        align-items: baseline;
+
+        display: flex;
+        
+        .content {
+          display: flex;
+          flex-direction: column;
+          align-items: flex-end;
+          
+          .item {
+            flex: 1;
+            margin-bottom: 0.5em;
+            
+            button {
+              background: none;
+              background-color: black;
+              border: 4px solid transparent;
+              border-image: url('../../../../../../assets/img/textures/game-menu-item-border.jpg') 4;
+
+              padding: 0.3em;
+              min-width: 9em;
+
+              font-size: 70%;
+              padding: 0.6em;
+            }
+          }
+        }
+      }
+
+      .content {
+        flex: 6;
+      }
+    }
+  }
+}

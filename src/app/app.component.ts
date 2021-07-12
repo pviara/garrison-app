@@ -19,7 +19,7 @@ export class AppComponent implements AfterViewChecked, AfterViewInit, OnInit {
   @ViewChild('appContainer')
   appContainer!: ElementRef;
 
-  characterSubscription!: Subscription;
+  private _characterSubscription!: Subscription;
 
   constructor(
     private _localStorageService: LocalStorageService,
@@ -31,7 +31,7 @@ export class AppComponent implements AfterViewChecked, AfterViewInit, OnInit {
   }
 
   ngAfterViewChecked() {
-    // this.characterSubscription.unsubscribe();
+    // this._characterSubscription.unsubscribe();
   }
 
   ngOnInit() {
@@ -39,7 +39,7 @@ export class AppComponent implements AfterViewChecked, AfterViewInit, OnInit {
   }
 
   private _initBackgroundImage() {
-    this.characterSubscription = this
+    this._characterSubscription = this
       ._localStorageService
       .characterSubject
       .subscribe(character => {

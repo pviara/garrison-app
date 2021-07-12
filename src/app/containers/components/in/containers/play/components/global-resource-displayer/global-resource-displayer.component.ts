@@ -15,7 +15,7 @@ import { LocalStorageService } from "src/app/shared/services/local-storage.servi
   styleUrls: ['./global-resource-displayer.component.scss']
 })
 export class GlobalResourceDisplayerComponent implements AfterViewChecked, OnDestroy, OnInit {
-  characterSubscription!: Subscription;
+  private _characterSubscription!: Subscription;
 
   color!: string;
 
@@ -26,7 +26,7 @@ export class GlobalResourceDisplayerComponent implements AfterViewChecked, OnDes
   constructor(private _localStorageService: LocalStorageService) {}
 
   ngAfterViewChecked() {
-    this.characterSubscription.unsubscribe();
+    this._characterSubscription.unsubscribe();
   }
 
   ngOnDestroy() {
@@ -41,7 +41,7 @@ export class GlobalResourceDisplayerComponent implements AfterViewChecked, OnDes
   }
 
   private _initTextColor() {
-    this.characterSubscription = this
+    this._characterSubscription = this
       ._localStorageService
       .characterSubject
       .subscribe(character => {

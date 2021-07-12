@@ -1,4 +1,6 @@
 .container {
+  display: flex;
+
   background-color: black;
   background: url('../assets/img/backgrounds/global-wallpaper.jpg') no-repeat center center fixed;
   -webkit-background-size: cover;
@@ -12,4 +14,8 @@
 
   // TODO remove tmp prop
   color: white;
+
+  .content {
+    width: 100%;
+  }
 }

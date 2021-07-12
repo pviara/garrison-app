@@ -1,3 +1,42 @@
-<div>
-  <garrison-in-play-global-resource-displayer></garrison-in-play-global-resource-displayer>
+<div class="container">
+  
+  <div class="element head">
+    <garrison-in-play-global-resource-displayer>
+    </garrison-in-play-global-resource-displayer>
+  </div>
+
+  <div class="element body">
+    <div class="menu">
+      <div class="content">
+        
+        <div class="item">
+          <button
+            (click)="playClick()"
+            faction-hover-background>
+            BUILDINGS
+          </button>
+        </div>
+
+        <div class="item">
+          <button
+            (click)="playClick()"
+            faction-hover-background>
+            RESEARCHES
+          </button>
+        </div>
+
+        <div class="item">
+          <button
+            (click)="playClick()"
+            faction-hover-background>
+            UNITS
+          </button>
+
+        </div>
+      </div>
+    </div>
+
+    <div class="content"></div>
+    
+  </div>
 </div>
