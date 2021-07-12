@@ -2,7 +2,10 @@ import {
   Component,
   OnInit
 } from "@angular/core";
-import { NavigationStart, Router } from '@angular/router';
+import {
+  ResolveEnd,
+  Router
+} from '@angular/router';
 
 @Component({
   selector: 'garrison-in',
@@ -24,7 +27,7 @@ export class InComponent implements OnInit {
     this._router
       .events
       .subscribe(event => {
-        if (event instanceof NavigationStart) {
+        if (event instanceof ResolveEnd) {
           if (event.url.includes('play')) {
             this.isPlayScreen = true;
           } else {

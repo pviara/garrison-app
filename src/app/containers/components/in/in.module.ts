@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { CreateModule } from './containers/create/create.module';
 import { FactionResolver } from './resolvers/static/faction.resolver';
 import { FactionService } from './services/static/faction.service';
-import { GarrisonIdResolver } from './resolvers/dynamic/garrison.resolver';
+import { GarrisonIdResolver } from './resolvers/dynamic/garrison-id.resolver';
 import { GarrisonService } from './services/dynamic/garrison.service';
 import { InComponent } from "./in.component";
 import { InGuard } from "./in.guard";
@@ -14,6 +14,7 @@ import { RouterModule } from "@angular/router";
 import { ZoneResolver } from './resolvers/static/zone.resolver';
 import { ZoneService } from './services/static/zone.service';
 import { PlayModule } from './containers/play/play.module';
+import { GarrisonResolver } from './resolvers/dynamic/garrison.resolver';
 
 @NgModule({
   declarations: [
@@ -32,6 +33,7 @@ import { PlayModule } from './containers/play/play.module';
     FactionResolver,
     FactionService,
     GarrisonIdResolver,
+    GarrisonResolver,
     GarrisonService,
     InGuard,
     ZoneResolver,

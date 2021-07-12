@@ -1,4 +1,5 @@
 import {
+  AfterContentInit,
   Component,
   ContentChild,
   ElementRef,
@@ -13,7 +14,7 @@ import {
   styleUrls: ['./resource-displayer.component.scss'],
   encapsulation: ViewEncapsulation.None
 })
-export class ResourceDisplayer {
+export class ResourceDisplayer implements AfterContentInit {
   @Input()
   color!: string;
   

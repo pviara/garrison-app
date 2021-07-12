@@ -14,7 +14,8 @@ import {
 import {
   GarrisonGuard as CreateGarrisonGuard
 } from './containers/components/in/containers/create/components/garrison/garrison.guard';
-import { GarrisonIdResolver } from './containers/components/in/resolvers/dynamic/garrison.resolver';
+import { GarrisonIdResolver } from './containers/components/in/resolvers/dynamic/garrison-id.resolver';
+import { GarrisonResolver } from './containers/components/in/resolvers/dynamic/garrison.resolver';
 import { InComponent } from './containers/components/in/in.component';
 import { InGuard } from './containers/components/in/in.guard';
 import { LandingComponent as PublicLandingComponent } from './containers/components/public/components/landing.component';
@@ -91,7 +92,10 @@ const routes: Routes = [{
       },
       {
         path: 'play',
-        component: PlayComponent
+        component: PlayComponent,
+        resolve: {
+          garrison: GarrisonResolver
+        }
       }]
     }]
   },
