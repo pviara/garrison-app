@@ -1,4 +1,7 @@
 import { AuthComponent } from './containers/components/public/components/containers/auth.component';
+import { BannerResolver } from './containers/components/in/resolvers/static/banner.resolver';
+import { BuildingResolver } from './containers/components/in/resolvers/static/building.resolver';
+import { BuildingInstanceComponent } from './containers/components/in/containers/play/containers/building-instance.component';
 import {
   CharacterComponent as CreateCharacterComponent
 } from './containers/components/in/containers/create/components/character/character.component';
@@ -92,10 +95,23 @@ const routes: Routes = [{
       },
       {
         path: 'play',
-        component: PlayComponent,
-        resolve: {
-          garrison: GarrisonResolver
-        }
+        children: [{
+          path: '',
+          component: PlayComponent,
+          resolve: {
+            garrison: GarrisonResolver,
+            banners: BannerResolver,
+            buildings: BuildingResolver,
+            factions: FactionResolver,
+            // researches: ResearchResolver,
+            // units: UnitResolver,
+            zones: ZoneResolver
+          },
+          children: [{
+            path: 'buildings',
+            component: BuildingInstanceComponent
+          }]
+        }]
       }]
     }]
   },

@@ -42,6 +42,12 @@
 
               font-size: 70%;
               padding: 0.6em;
+
+              &.selected {
+                background: url('../../../../../../assets/img/textures/game-menu-item-border.jpg');
+
+                color: #f8d532;
+              }
             }
           }
         }
@@ -49,6 +55,7 @@
 
       .content {
         flex: 6;
+        display: flex;
       }
     }
   }

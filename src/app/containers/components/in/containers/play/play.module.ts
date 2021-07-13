@@ -1,3 +1,4 @@
+import { BuildingInstanceModule } from './containers/building-instance.module';
 import { CommonModule } from '@angular/common';
 import { ComputeResourceValue } from './pipes/resource/compute-resource-value.pipe';
 import { FactionHoverBackgroundDirective } from './directives/faction-hover-background.directive';
@@ -18,6 +19,7 @@ import { SmoothTextChangerDirective } from './directives/smooth-text-changer.dir
     SmoothTextChangerDirective
   ],
   imports: [
+    BuildingInstanceModule,
     CommonModule,
     RouterModule
   ]

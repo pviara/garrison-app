@@ -11,7 +11,8 @@
         
         <div class="item">
           <button
-            (click)="playClick()"
+            routerLink="buildings"
+            routerLinkActive="selected"
             faction-hover-background>
             BUILDINGS
           </button>
@@ -19,7 +20,7 @@
 
         <div class="item">
           <button
-            (click)="playClick()"
+            routerLinkActive="selected"
             faction-hover-background>
             RESEARCHES
           </button>
@@ -27,7 +28,7 @@
 
         <div class="item">
           <button
-            (click)="playClick()"
+            routerLinkActive="selected"
             faction-hover-background>
             UNITS
           </button>
@@ -36,7 +37,9 @@
       </div>
     </div>
 
-    <div class="content"></div>
+    <div class="content">
+      <router-outlet (activate)="onOutletLoaded($event)"></router-outlet>
+    </div>
     
   </div>
 </div>
