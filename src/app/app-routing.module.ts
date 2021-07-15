@@ -1,7 +1,7 @@
 import { AuthComponent } from './containers/components/public/components/containers/auth.component';
 import { BannerResolver } from './containers/components/in/resolvers/static/banner.resolver';
+import { BuildingInstanceComponent } from './containers/components/in/containers/play/containers/building-instance/building-instance.component';
 import { BuildingResolver } from './containers/components/in/resolvers/static/building.resolver';
-import { BuildingInstanceComponent } from './containers/components/in/containers/play/containers/building-instance.component';
 import {
   CharacterComponent as CreateCharacterComponent
 } from './containers/components/in/containers/create/components/character/character.component';
@@ -29,8 +29,12 @@ import { PublicComponent } from './containers/components/public/public.component
 import { PublicGuard } from './containers/components/public/public.guard';
 import { RouterModule } from '@angular/router';
 import { Routes } from '@angular/router';
+import { ResearchInstanceComponent } from './containers/components/in/containers/play/containers/research-instance/research-instance.component';
+import { ResearchResolver } from './containers/components/in/resolvers/static/research.resolver';
 import { SignInComponent } from './containers/components/public/components/containers/components/sign-in/sign-in.component';
 import { SignUpComponent } from './containers/components/public/components/containers/components/sign-up/sign-up.component';
+import { UnitInstanceComponent } from './containers/components/in/containers/play/containers/unit-instance/unit-instance.component';
+import { UnitResolver } from './containers/components/in/resolvers/static/unit.resolver';
 import { ZoneResolver } from './containers/components/in/resolvers/static/zone.resolver';
 
 const routes: Routes = [{
@@ -101,15 +105,33 @@ const routes: Routes = [{
           resolve: {
             garrison: GarrisonResolver,
             banners: BannerResolver,
-            buildings: BuildingResolver,
             factions: FactionResolver,
-            // researches: ResearchResolver,
             // units: UnitResolver,
             zones: ZoneResolver
           },
           children: [{
             path: 'buildings',
-            component: BuildingInstanceComponent
+            component: BuildingInstanceComponent,
+            resolve: {
+              buildings: BuildingResolver,
+              character: CharacterResolver
+            }
+          },
+          {
+            path: 'researches',
+            component: ResearchInstanceComponent,
+            resolve: {
+              character: CharacterResolver,
+              researches: ResearchResolver
+            }
+          },
+          {
+            path: 'units',
+            component: UnitInstanceComponent,
+            resolve: {
+              character: CharacterResolver,
+              units: UnitResolver
+            }
           }]
         }]
       }]

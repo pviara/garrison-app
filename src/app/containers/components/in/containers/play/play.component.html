@@ -20,6 +20,7 @@
 
         <div class="item">
           <button
+            routerLink="researches"
             routerLinkActive="selected"
             faction-hover-background>
             RESEARCHES
@@ -28,6 +29,7 @@
 
         <div class="item">
           <button
+            routerLink="units"
             routerLinkActive="selected"
             faction-hover-background>
             UNITS
@@ -40,6 +42,8 @@
     <div class="content">
       <router-outlet (activate)="onOutletLoaded($event)"></router-outlet>
     </div>
+
+    <div class="element blank"></div>
     
   </div>
 </div>

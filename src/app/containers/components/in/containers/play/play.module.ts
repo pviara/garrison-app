@@ -1,27 +1,23 @@
-import { BuildingInstanceModule } from './containers/building-instance.module';
+import { BuildingInstanceModule } from './containers/building-instance/building-instance.module';
 import { CommonModule } from '@angular/common';
-import { ComputeResourceValue } from './pipes/resource/compute-resource-value.pipe';
-import { FactionHoverBackgroundDirective } from './directives/faction-hover-background.directive';
-import { GlobalResourceDisplayerComponent } from './components/global-resource-displayer/global-resource-displayer.component';
 import { NgModule } from '@angular/core';
 import { PlayComponent } from './play.component';
-import { ResourceDisplayer } from './components/resource-displayer/resource-displayer.component';
+import { ResearchInstanceModule } from './containers/research-instance/research-instance.module';
 import { RouterModule } from '@angular/router';
-import { SmoothTextChangerDirective } from './directives/smooth-text-changer.directive';
+import { SharedModule } from './components/shared.module';
+import { UnitInstanceModule } from './containers/unit-instance/unit-instance.module';
 
 @NgModule({
   declarations: [
-    ComputeResourceValue,
-    FactionHoverBackgroundDirective,
-    GlobalResourceDisplayerComponent,
     PlayComponent,
-    ResourceDisplayer,
-    SmoothTextChangerDirective
   ],
   imports: [
     BuildingInstanceModule,
     CommonModule,
-    RouterModule
+    RouterModule,
+    ResearchInstanceModule,
+    SharedModule,
+    UnitInstanceModule
   ]
 })
 export class PlayModule {}

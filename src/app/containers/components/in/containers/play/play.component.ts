@@ -4,7 +4,7 @@ import {
 } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { IGarrison } from 'src/models/dynamic/IGarrison';
-import { BuildingInstanceComponent } from './containers/building-instance.component';
+import { BuildingInstanceComponent } from './containers/building-instance/building-instance.component';
 
 @Component({
   selector: 'garrison-in-play',

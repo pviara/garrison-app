@@ -5,6 +5,8 @@ import { IBuilding } from 'src/models/static/IBuilding';
 import { ICharacter } from 'src/models/dynamic/ICharacter';
 import { IFaction } from 'src/models/static/IFaction';
 import { Injectable } from '@angular/core';
+import { IResearch } from 'src/models/static/IResearch';
+import { IUnit } from 'src/models/static/IUnit';
 import { IZone } from 'src/models/static/IZone';
 
 @Injectable()
@@ -14,6 +16,8 @@ export class LocalStorageService {
   characterSubject = new BehaviorSubject(this.character);
   factionsSubject = new BehaviorSubject(this.factions);
   garrisonIdSubject = new BehaviorSubject(this.garrisonId);
+  researchSubject = new BehaviorSubject(this.researches);
+  unitsSubject = new BehaviorSubject(this.units);
   userSubject = new BehaviorSubject(this.user);
   zonesSubject = new BehaviorSubject(this.zones);
   
@@ -78,6 +82,30 @@ export class LocalStorageService {
     localStorage.setItem(key, JSON.stringify(value));
   }
   
+  set researches(value: IResearch[] | undefined) {
+    if (!value) return;
+    const key = 'researches';
+
+    this.researchSubject.next(value);
+
+    if (this._getFromStorage(key)) {
+      localStorage.removeItem(key);
+    }
+    localStorage.setItem(key, JSON.stringify(value));
+  }
+  
+  set units(value: IUnit[] | undefined) {
+    if (!value) return;
+    const key = 'units';
+
+    this.unitsSubject.next(value);
+
+    if (this._getFromStorage(key)) {
+      localStorage.removeItem(key);
+    }
+    localStorage.setItem(key, JSON.stringify(value));
+  }
+  
   set user(value: IAuthenticatedUser | undefined) {
     if (!value) return;
     const key = 'user';
@@ -135,6 +163,20 @@ export class LocalStorageService {
     if (!garrisonIdFromStorage) return;
 
     return JSON.parse(garrisonIdFromStorage) as string;
+  }
+
+  get researches() {
+    const researchesFromStorage = this._getFromStorage('researches');
+    if (!researchesFromStorage) return;
+
+    return JSON.parse(researchesFromStorage) as IResearch[];
+  }
+
+  get units() {
+    const unitsFromStorage = this._getFromStorage('units');
+    if (!unitsFromStorage) return;
+
+    return JSON.parse(unitsFromStorage) as IUnit[];
   }
 
   get user() {

@@ -17,8 +17,12 @@ import { NgModule } from "@angular/core";
 import { PlayModule } from './containers/play/play.module';
 import { SharedModule } from "src/app/shared/shared.module";
 import { RouterModule } from "@angular/router";
+import { ResearchResolver } from './resolvers/static/research.resolver';
+import { ResearchService } from './services/static/research.service';
 import { ZoneResolver } from './resolvers/static/zone.resolver';
 import { ZoneService } from './services/static/zone.service';
+import { UnitService } from './services/static/unit.service';
+import { UnitResolver } from './resolvers/static/unit.resolver';
 
 @NgModule({
   declarations: [
@@ -44,6 +48,10 @@ import { ZoneService } from './services/static/zone.service';
     GarrisonResolver,
     GarrisonService,
     InGuard,
+    ResearchResolver,
+    ResearchService,
+    UnitResolver,
+    UnitService,
     ZoneResolver,
     ZoneService
   ]

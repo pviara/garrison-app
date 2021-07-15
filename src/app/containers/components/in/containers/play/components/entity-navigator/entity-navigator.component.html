@@ -1,0 +1,18 @@
+<div class="container">
+  <nav>
+    <div
+      class="item"
+      *ngFor="let static of staticEntities">
+      <button>
+        <img
+          [src]="
+            static
+            | compute_image_path
+            :imageType
+            :instanceType
+            :character
+          ">
+      </button>
+    </div>
+  </nav>
+</div>

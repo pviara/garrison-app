@@ -1,4 +1,6 @@
 .container {
+  animation: fadeIn ease 0.5s;
+  
   height: 100vh;
 
   display: flex;
@@ -16,7 +18,7 @@
       width: 100vw;
 
       .menu {
-        flex: 2;
+        flex: 1;
         flex-flow: row-reverse;
         align-items: baseline;
 
@@ -40,8 +42,8 @@
               padding: 0.3em;
               min-width: 9em;
 
-              font-size: 70%;
-              padding: 0.6em;
+              font-size: 60%;
+              padding: 0.5em;
 
               &.selected {
                 background: url('../../../../../../assets/img/textures/game-menu-item-border.jpg');
@@ -54,8 +56,16 @@
       }
 
       .content {
-        flex: 6;
+        flex: 1;
         display: flex;
+        justify-content: center;
+        
+        min-width: 948;
+        max-width: 948px;
+      }
+
+      .blank {
+        flex: 1;
       }
     }
   }
