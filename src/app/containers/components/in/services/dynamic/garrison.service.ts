@@ -5,10 +5,25 @@ import { IGarrison } from 'src/models/dynamic/IGarrison';
 import { IGarrisonCreate } from 'src/models/dynamic/payloads/IGarrisonCreate';
 import { Injectable } from '@angular/core';
 import { LocalStorageService } from 'src/app/shared/services/local-storage.service';
+import { tap } from 'rxjs/operators';
+import { BehaviorSubject } from 'rxjs';
 
 @Injectable()
 export class GarrisonService {
   private _endpoint = 'garrison';
+
+  private _garrison!: IGarrison;
+  garrisonSubject = new BehaviorSubject(this.garrison);
+  
+  set garrison(value: IGarrison | undefined) {
+    if (!value) return;
+
+    this.garrisonSubject.next(value);
+  }
+
+  get garrison() {
+    return this._garrison;
+  }
   
   constructor(
     private _authService: AuthService,
@@ -38,6 +53,8 @@ export class GarrisonService {
 
     return this._client.get<IGarrison>(
       `${environment.apiUrl}/${environment.dbNameDynamic}/${this._endpoint}/${userFromStorage._id}`
+    ).pipe(
+      tap((garrison: IGarrison) => this.garrison = garrison)
     );
   }
 

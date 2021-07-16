@@ -4,17 +4,17 @@ import {
   Input,
   OnInit
 } from "@angular/core";
-import { IBuilding } from 'src/models/static/IBuilding';
 import { ICharacter } from 'src/models/dynamic/ICharacter';
 import { IGarrison } from "src/models/dynamic/IGarrison";
+import { IUnit } from 'src/models/static/IUnit';
 
 @Component({
-  selector: 'garrison-in-play-building-instance',
-  templateUrl: './building-instance.component.html',
-  styleUrls: ['./building-instance.component.scss']
+  selector: 'garrison-in-play-unit-overview',
+  templateUrl: './unit-overview.component.html',
+  styleUrls: ['./unit-overview.component.scss']
 })
-export class BuildingInstanceComponent implements OnInit {
-  buildings!: IBuilding[];
+export class UnitOverviewComponent implements OnInit {
+  units!: IUnit[];
   
   character!: ICharacter;
   
@@ -24,7 +24,7 @@ export class BuildingInstanceComponent implements OnInit {
   constructor(private _route: ActivatedRoute) {}
   
   ngOnInit() {
-    this.buildings = this._route.snapshot.data.buildings;
+    this.units = this._route.snapshot.data.units;
     this.character = this._route.snapshot.data.character;
   }
 }

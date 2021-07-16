@@ -1,16 +1,19 @@
-import { BuildingInstanceComponent } from './building-instance.component';
+import { BuildingOverviewComponent } from './building-overview.component';
 import { CommonModule } from '@angular/common';
 import { NgModule } from "@angular/core";
 import { SharedModule } from '../../components/shared.module';
+import { GarrisonService } from '../../../../services/dynamic/garrison.service';
 
 @NgModule({
   declarations: [
-    BuildingInstanceComponent
+    BuildingOverviewComponent
   ],
   imports: [
     CommonModule,
     SharedModule
   ],
-  providers: []
+  providers: [
+    GarrisonService
+  ]
 })
 export class BuildingInstanceModule {}

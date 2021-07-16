@@ -47,6 +47,8 @@
 
               &.selected {
                 background: url('../../../../../../assets/img/textures/game-menu-item-border.jpg');
+    
+                box-shadow: 0px 0px 15px rgb(0, 0, 0, 0.8);
 
                 color: #f8d532;
               }

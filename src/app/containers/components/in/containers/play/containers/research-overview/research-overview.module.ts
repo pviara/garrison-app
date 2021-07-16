@@ -1,11 +1,11 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from "@angular/core";
 import { SharedModule } from '../../components/shared.module';
-import { UnitInstanceComponent } from './unit-instance.component';
+import { ResearchOverviewComponent } from './research-overview.component';
 
 @NgModule({
   declarations: [
-    UnitInstanceComponent
+    ResearchOverviewComponent
   ],
   imports: [
     CommonModule,
@@ -13,4 +13,4 @@ import { UnitInstanceComponent } from './unit-instance.component';
   ],
   providers: []
 })
-export class UnitInstanceModule {}
+export class ResearchInstanceModule {}

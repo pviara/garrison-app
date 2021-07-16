@@ -9,11 +9,11 @@ import { IGarrison } from "src/models/dynamic/IGarrison";
 import { IResearch } from 'src/models/static/IResearch';
 
 @Component({
-  selector: 'garrison-in-play-research-instance',
-  templateUrl: './research-instance.component.html',
-  styleUrls: ['./research-instance.component.scss']
+  selector: 'garrison-in-play-research-overview',
+  templateUrl: './research-overview.component.html',
+  styleUrls: ['./research-overview.component.scss']
 })
-export class ResearchInstanceComponent implements OnInit {
+export class ResearchOverviewComponent implements OnInit {
   researches!: IResearch[];
   
   character!: ICharacter;

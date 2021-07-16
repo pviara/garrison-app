@@ -4,7 +4,7 @@ import {
 } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { IGarrison } from 'src/models/dynamic/IGarrison';
-import { BuildingInstanceComponent } from './containers/building-instance/building-instance.component';
+import { BuildingOverviewComponent } from './containers/building-overview/building-overview.component';
 
 @Component({
   selector: 'garrison-in-play',
@@ -17,7 +17,7 @@ export class PlayComponent {
   constructor(private _route: ActivatedRoute) {}
 
   onOutletLoaded(component: Component) {
-    if (!(component instanceof BuildingInstanceComponent)) {
+    if (!(component instanceof BuildingOverviewComponent)) {
       return;
     }
     
