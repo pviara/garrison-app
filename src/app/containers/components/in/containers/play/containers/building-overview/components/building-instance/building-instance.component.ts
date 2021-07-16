@@ -4,9 +4,10 @@ import {
   OnInit
 } from '@angular/core';
 import { BuildingService } from 'src/app/containers/components/in/services/static/building.service';
-import { FetchByCodePipe } from '../../../pipes/static/fetch-by-code.pipe';
+import { FetchByCodePipe } from '../../../../pipes/static/fetch-by-code.pipe';
 import { IBuilding } from 'src/models/static/IBuilding';
 import { IStaticEntity } from 'src/models/static/IStaticEntity';
+import { ICharacter } from 'src/models/dynamic/ICharacter';
 
 @Component({
   selector: 'garrison-in-play-building-instance',
@@ -18,8 +19,10 @@ import { IStaticEntity } from 'src/models/static/IStaticEntity';
 })
 export class BuildingInstanceComponent implements OnInit {
   private _buildings!: IBuilding[];
+
+  character!: ICharacter;
   
-  private _staticEntity!: IStaticEntity;
+  staticEntity!: IStaticEntity;
   
   constructor(
     private _buildingService: BuildingService,
@@ -31,6 +34,8 @@ export class BuildingInstanceComponent implements OnInit {
     this._buildings = this
       ._buildingService
       .getBuildingsFromStorage() as IBuilding[];
+
+    this.character = this._route.snapshot.data.character;
     
     this._route
       .paramMap
@@ -45,8 +50,8 @@ export class BuildingInstanceComponent implements OnInit {
           throw new Error(`A valid building code must be given to ${this.constructor.name}.`);
         }
 
-        this._staticEntity = building;
-        console.log(this._staticEntity);
+        this.staticEntity = building;
+        console.log(this.staticEntity);
       });
   }
 }

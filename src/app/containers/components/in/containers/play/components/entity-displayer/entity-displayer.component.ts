@@ -3,15 +3,14 @@ import {
   Input
 } from '@angular/core';
 import { ICharacter } from 'src/models/dynamic/ICharacter';
-import { ImageType } from 'src/models/static/ImageType';
 import { IStaticEntity } from 'src/models/static/IStaticEntity';
 
 @Component({
-  selector: 'garrison-in-play-entity-navigator',
-  templateUrl: './entity-navigator.component.html',
-  styleUrls: ['./entity-navigator.component.scss']
+  selector: 'garrison-in-play-instance-displayer',
+  templateUrl: './entity-displayer.component.html',
+  styleUrls: ['./entity-displayer.component.scss']
 })
-export class EntityNavigatorComponent {
+export class EntityDisplayerComponent {
   @Input()
   character!: ICharacter;
   
@@ -19,5 +18,5 @@ export class EntityNavigatorComponent {
   instanceType!: string;
 
   @Input()
-  staticEntities!: IStaticEntity[];
+  staticEntity!: IStaticEntity;
 }

@@ -1,5 +1,5 @@
-import { BuildingInstanceComponent } from './components/building-instance.component';
-import { BuildingInstanceGuard } from './components/building-instance.guard';
+import { BuildingInstanceComponent } from './components/building-instance/building-instance.component';
+import { BuildingInstanceGuard } from './components/building-instance/building-instance.guard';
 import { BuildingOverviewComponent } from './building-overview.component';
 import { CommonModule } from '@angular/common';
 import { GarrisonService } from '../../../../services/dynamic/garrison.service';

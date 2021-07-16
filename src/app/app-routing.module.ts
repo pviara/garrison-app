@@ -1,7 +1,11 @@
 import { AuthComponent } from './containers/components/public/components/containers/auth.component';
 import { BannerResolver } from './containers/components/in/resolvers/static/banner.resolver';
-import { BuildingInstanceComponent } from './containers/components/in/containers/play/containers/building-overview/components/building-instance.component';
-import { BuildingInstanceGuard } from './containers/components/in/containers/play/containers/building-overview/components/building-instance.guard';
+import {
+  BuildingInstanceComponent
+} from './containers/components/in/containers/play/containers/building-overview/components/building-instance/building-instance.component';
+import {
+  BuildingInstanceGuard
+} from './containers/components/in/containers/play/containers/building-overview/components/building-instance/building-instance.guard';
 import { BuildingOverviewComponent } from './containers/components/in/containers/play/containers/building-overview/building-overview.component';
 import { BuildingResolver } from './containers/components/in/resolvers/static/building.resolver';
 import {
@@ -122,7 +126,10 @@ const routes: Routes = [{
                 children: [{
                   path:':code',
                   canActivate: [BuildingInstanceGuard],
-                  component: BuildingInstanceComponent
+                  component: BuildingInstanceComponent,
+                  resolve: {
+                    character: CharacterResolver
+                  }
                 }]
               }]
           },

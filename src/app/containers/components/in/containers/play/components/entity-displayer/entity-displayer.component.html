@@ -1,0 +1,56 @@
+<div class="container">
+  <div class="element portrait">
+    <img
+      class="building"
+      draggable="false"
+      [src]="
+        staticEntity
+        | compute_image_path
+        :'portraits'
+        :instanceType
+        :character
+      ">
+  </div>
+  <div class="element showcase">
+    <div class="title">
+      <h5>
+        {{
+          staticEntity
+          | fetch_appropriate_word
+          :character.side.faction
+          | string_capitalize
+        }}
+      </h5>
+    </div>
+    <div class="content">
+      <div class="desc">
+        <p>{{ staticEntity.description }}</p>
+      </div>
+      <div class="requirements">
+        <p class="requirements">
+          Requirements:
+        </p>
+      </div>
+    </div>
+  </div>
+  <!-- <div class="element showcase">
+    <div class="title">
+      <h5>
+        {{
+          staticEntity
+          | fetch_appropriate_word
+          :character.side.faction
+          | string_capitalize
+        }}
+    </h5>
+    </div>
+    <div class="content">
+      <div class="desc">
+        <p>{{ staticEntity.description }}</p>
+      </div>
+      <div class="requirements">
+        These are the requirements.
+      </div>
+    </div>
+  </div> -->
+</div>

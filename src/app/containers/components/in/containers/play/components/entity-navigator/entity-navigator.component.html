@@ -2,17 +2,17 @@
   <nav>
     <div
       class="item"
-      *ngFor="let static of staticEntities | fill_with_unusable_slots">
+      *ngFor="let staticEntity of staticEntities | fill_with_unusable_slots">
       
-      <ng-container *ngIf="static.code; else unusable">
+      <ng-container *ngIf="staticEntity.code; else unusable">
         <button
-          [routerLink]="static.code"
+          [routerLink]="staticEntity.code"
           routerLinkActive="selected">
           <img
             [src]="
-              static
+              staticEntity
               | compute_image_path
-              :imageType
+              :'thumbnails'
               :instanceType
               :character
             ">

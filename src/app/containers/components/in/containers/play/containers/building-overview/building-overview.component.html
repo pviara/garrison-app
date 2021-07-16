@@ -1,14 +1,13 @@
 <div class="container">
   <div class="element">
     <garrison-in-play-entity-navigator
-      [staticEntities]="buildings"
       [character]="character"
       [instanceType]="'buildings'"
-      [imageType]="'thumbnails'">
+      [staticEntities]="buildings">
     </garrison-in-play-entity-navigator>
   </div>
 
-  <div class="element">
+  <div class="element body">
     <router-outlet></router-outlet>
   </div>
 </div>
