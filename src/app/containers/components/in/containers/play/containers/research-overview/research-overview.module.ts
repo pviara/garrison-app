@@ -13,4 +13,4 @@ import { ResearchOverviewComponent } from './research-overview.component';
   ],
   providers: []
 })
-export class ResearchInstanceModule {}
+export class ResearchOverviewModule {}

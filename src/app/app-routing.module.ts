@@ -1,5 +1,7 @@
 import { AuthComponent } from './containers/components/public/components/containers/auth.component';
 import { BannerResolver } from './containers/components/in/resolvers/static/banner.resolver';
+import { BuildingInstanceComponent } from './containers/components/in/containers/play/containers/building-overview/components/building-instance.component';
+import { BuildingInstanceGuard } from './containers/components/in/containers/play/containers/building-overview/components/building-instance.guard';
 import { BuildingOverviewComponent } from './containers/components/in/containers/play/containers/building-overview/building-overview.component';
 import { BuildingResolver } from './containers/components/in/resolvers/static/building.resolver';
 import {
@@ -106,16 +108,23 @@ const routes: Routes = [{
             garrison: GarrisonResolver,
             banners: BannerResolver,
             factions: FactionResolver,
-            // units: UnitResolver,
             zones: ZoneResolver
           },
           children: [{
             path: 'buildings',
-            component: BuildingOverviewComponent,
-            resolve: {
-              buildings: BuildingResolver,
-              character: CharacterResolver
-            }
+            children: [{
+                path: '',
+                component: BuildingOverviewComponent,
+                resolve: {
+                  buildings: BuildingResolver,
+                  character: CharacterResolver
+                },
+                children: [{
+                  path:':code',
+                  canActivate: [BuildingInstanceGuard],
+                  component: BuildingInstanceComponent
+                }]
+              }]
           },
           {
             path: 'researches',

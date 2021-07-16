@@ -13,4 +13,4 @@ import { UnitOverviewComponent } from './unit-overview.component';
   ],
   providers: []
 })
-export class UnitInstanceModule {}
+export class UnitOverviewModule {}
