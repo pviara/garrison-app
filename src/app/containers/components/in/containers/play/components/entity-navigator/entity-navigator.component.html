@@ -5,7 +5,9 @@
       *ngFor="let static of staticEntities | fill_with_unusable_slots">
       
       <ng-container *ngIf="static.code; else unusable">
-        <button [routerLink]="static.code">
+        <button
+          [routerLink]="static.code"
+          routerLinkActive="selected">
           <img
             [src]="
               static

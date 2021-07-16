@@ -3,9 +3,9 @@ import {
   CanActivate,
   Router
 } from '@angular/router';
+import { BuildingService } from 'src/app/containers/components/in/services/static/building.service';
 import { FetchByCodePipe } from '../../../pipes/static/fetch-by-code.pipe';
 import { Injectable } from '@angular/core';
-import { LocalStorageService } from 'src/app/shared/services/local-storage.service';
 
 @Injectable({
   providedIn: 'root'
@@ -14,7 +14,7 @@ export class BuildingInstanceGuard implements CanActivate {
   private _fetchByCodePipe = new FetchByCodePipe();
   
   constructor(
-    private _localStorageService: LocalStorageService,
+    private _buildingService: BuildingService,
     private _router: Router
   ) {}
 
@@ -26,9 +26,13 @@ export class BuildingInstanceGuard implements CanActivate {
       return false;
     }
 
+    const buildingsFromStorage = this
+      ._buildingService
+      .getBuildingsFromStorage();
+
     const staticEntity = this
       ._fetchByCodePipe
-      .transform(this._localStorageService.buildings || [], code);
+      .transform(buildingsFromStorage || [], code);
     if (!staticEntity) {
       this._router.navigate(['/in/play/buildings']);
       return false;
