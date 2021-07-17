@@ -23,7 +23,7 @@ export class BuildingOverviewComponent implements OnInit {
   garrison!: IGarrison;
 
   constructor(
-    private _garrisonService: GarrisonService,
+    // // private _garrisonService: GarrisonService,
     private _route: ActivatedRoute
   ) {}
   
@@ -31,8 +31,9 @@ export class BuildingOverviewComponent implements OnInit {
     this.buildings = this._route.snapshot.data.buildings;
     this.character = this._route.snapshot.data.character;
 
-    this._garrisonService
-        .garrisonSubject
-        .subscribe(garrison => console.log('in BuildingOverviewComponent', garrison));
+    // ? do we need that ?
+    // // this._garrisonService
+    // //     .garrisonSubject
+    // //     .subscribe(garrison => console.log('in BuildingOverviewComponent', garrison));
   }
 }

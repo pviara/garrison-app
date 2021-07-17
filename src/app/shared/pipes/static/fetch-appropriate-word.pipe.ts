@@ -1,3 +1,4 @@
+import { environment } from 'src/environments/environment';
 import { IStaticEntity } from 'src/models/static/IStaticEntity';
 import {
   Pipe,
@@ -17,7 +18,7 @@ export class FetchAppropriateWordPipe implements PipeTransform {
       return words.find(word => word.side === faction)?.jargon || 'unknown';
     }
 
-    if (faction) {
+    if (faction && !environment.production) {
       console.warn('Warning: irrelevant to give the faction as an argument in that case.')
     }
     return staticEntity.word;

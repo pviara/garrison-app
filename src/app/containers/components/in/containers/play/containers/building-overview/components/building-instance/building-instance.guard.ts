@@ -20,7 +20,6 @@ export class BuildingInstanceGuard implements CanActivate {
 
   canActivate(next: ActivatedRouteSnapshot) {
     const code = next.paramMap.get('code');
-    console.log(code);
     if (!code) {
       this._router.navigate(['/in/play/buildings']);
       return false;

@@ -12,6 +12,11 @@ export class FetchByCodePipe implements PipeTransform {
     staticEntities: IStaticEntity[],
     code: string
   ) {
-    return staticEntities.find(entity => entity.code === code);
+    const staticEntity = staticEntities.find(entity => entity.code === code);
+    if (!staticEntity) {
+      console.error(`No static entity was found with code '${code}'.`);
+      return <IStaticEntity>{};
+    }
+    return staticEntity;
   }
 }

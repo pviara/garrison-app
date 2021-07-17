@@ -5,9 +5,11 @@ import {
 } from '@angular/core';
 import { BuildingService } from 'src/app/containers/components/in/services/static/building.service';
 import { FetchByCodePipe } from '../../../../pipes/static/fetch-by-code.pipe';
+import { GarrisonService } from 'src/app/containers/components/in/services/dynamic/garrison.service';
 import { IBuilding } from 'src/models/static/IBuilding';
 import { IStaticEntity } from 'src/models/static/IStaticEntity';
 import { ICharacter } from 'src/models/dynamic/ICharacter';
+import { IGarrison } from 'src/models/dynamic/IGarrison';
 
 @Component({
   selector: 'garrison-in-play-building-instance',
@@ -18,24 +20,37 @@ import { ICharacter } from 'src/models/dynamic/ICharacter';
   ]
 })
 export class BuildingInstanceComponent implements OnInit {
-  private _buildings!: IBuilding[];
+  buildings!: IBuilding[];
 
   character!: ICharacter;
+
+  garrison!: IGarrison;
   
   staticEntity!: IStaticEntity;
   
   constructor(
     private _buildingService: BuildingService,
     private _fetchByCodePipe: FetchByCodePipe,
+    private _garrisonService: GarrisonService,
     private _route: ActivatedRoute
   ) {}
 
   ngOnInit() {
-    this._buildings = this
+    this.buildings = this
       ._buildingService
       .getBuildingsFromStorage() as IBuilding[];
 
     this.character = this._route.snapshot.data.character;
+
+    this._garrisonService
+      .garrisonSubject
+      .subscribe(garrison => {
+        if (!garrison) {
+          throw new Error(`A valid garrison must be given to ${this.constructor.name}.`);
+        }
+
+        this.garrison = garrison;
+      });
     
     this._route
       .paramMap
@@ -45,13 +60,12 @@ export class BuildingInstanceComponent implements OnInit {
         
         const building = this
           ._fetchByCodePipe
-          .transform(this._buildings, code);
+          .transform(this.buildings, code);
         if (!building) {
           throw new Error(`A valid building code must be given to ${this.constructor.name}.`);
         }
 
         this.staticEntity = building;
-        console.log(this.staticEntity);
       });
   }
 }

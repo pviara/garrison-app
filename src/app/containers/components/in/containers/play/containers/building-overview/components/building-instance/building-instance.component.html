@@ -1,10 +1,12 @@
 <div class="container">
   <div class="element">
-    <garrison-in-play-instance-displayer
+    <garrison-in-play-entity-displayer
       [character]="character"
+      [garrison]="garrison"
       [instanceType]="'buildings'"
+      [staticEntities]="buildings"
       [staticEntity]="staticEntity">
-    </garrison-in-play-instance-displayer>
+    </garrison-in-play-entity-displayer>
   </div>
   <div class="element">
     test

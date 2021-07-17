@@ -1,8 +1,11 @@
+import { CastToBuildingPipe } from '../pipes/static/cast-to-building.pipe';
 import { CommonModule } from '@angular/common';
+import { ComputeConstructionRequirementsPipe } from '../pipes/dynamic/compute_construction_requirements.pipe';
 import { ComputeImagePathPipe } from '../pipes/static/compute-image-path.pipe';
 import { ComputeResourceValuePipe } from '../pipes/resource/compute-resource-value.pipe';
 import { EntityDisplayerComponent } from './entity-displayer/entity-displayer.component';
 import { EntityNavigatorComponent } from './entity-navigator/entity-navigator.component';
+import { EntityRequirementsComponent } from './entity-requirements/entity-requirements.component';
 import { FactionHoverBackgroundDirective } from '../directives/faction-hover-background.directive';
 import { FetchByCodePipe } from '../pipes/static/fetch-by-code.pipe';
 import { FillWithUnusableSlotsPipe } from '../pipes/static/fill-with-unusable-slots.pipe';
@@ -15,10 +18,13 @@ import { SmoothTextChangerDirective } from '../directives/smooth-text-changer.di
 
 @NgModule({
   declarations: [
+    CastToBuildingPipe,
+    ComputeConstructionRequirementsPipe,
     ComputeImagePathPipe,
     ComputeResourceValuePipe,
     EntityDisplayerComponent,
     EntityNavigatorComponent,
+    EntityRequirementsComponent,
     FactionHoverBackgroundDirective,
     FetchByCodePipe,
     FillWithUnusableSlotsPipe,
@@ -32,10 +38,13 @@ import { SmoothTextChangerDirective } from '../directives/smooth-text-changer.di
     RouterModule
   ],
   exports: [
+    CastToBuildingPipe,
+    ComputeConstructionRequirementsPipe,
     ComputeImagePathPipe,
     ComputeResourceValuePipe,
     EntityDisplayerComponent,
     EntityNavigatorComponent,
+    EntityRequirementsComponent,
     FactionHoverBackgroundDirective,
     FetchByCodePipe,
     FillWithUnusableSlotsPipe,

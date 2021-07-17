@@ -82,6 +82,8 @@
   };
 }
 
+export type GarrisonBuilding = IGarrison['instances']['buildings'][any];
+
 /**
  * The representation of a building operated-construction history.
  */
