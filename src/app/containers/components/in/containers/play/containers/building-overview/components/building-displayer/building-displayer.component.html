@@ -1,0 +1,27 @@
+<div class="container">
+  <!-- <div class="floating-image">
+    <img
+      draggable="false"
+      [src]="
+        staticEntity
+        | compute_image_path
+        : 'portraits'
+        : 'buildings'
+        : character
+      ">
+  </div> -->
+  <div class="first-line">
+    <div class="state">
+      <div class="title">
+        <h5>State</h5>
+      </div>
+      <div class="separation"></div>
+      <div class="content">
+        <garrison-in-play-building-state
+          [dynamicBuildings]="dynamicBuildings"
+          [staticEntity]="staticEntity">
+        </garrison-in-play-building-state>
+      </div>
+    </div>
+  </div>
+</div>

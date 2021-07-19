@@ -1,8 +1,9 @@
 import { CastToInstantiablePipe } from '../pipes/static/cast-to-building.pipe';
 import { CommonModule } from '@angular/common';
-import { ComputeInstantiationRequirementsPipe } from '../pipes/dynamic/compute_construction_requirements.pipe';
+import { ComputeInstantiationRequirementsPipe } from '../pipes/dynamic/compute-instantiation-requirements.pipe';
 import { ComputeImagePathPipe } from '../pipes/static/compute-image-path.pipe';
 import { ComputeResourceValuePipe } from '../pipes/resource/compute-resource-value.pipe';
+import { ComputeTotalAvailableBuildingsPipe } from '../pipes/dynamic/compute-total-available-buildings.pipe';
 import { EntityDisplayerComponent } from './entity-displayer/entity-displayer.component';
 import { EntityNavigatorComponent } from './entity-navigator/entity-navigator.component';
 import { EntityRequirementsComponent } from './entity-requirements/entity-requirements.component';
@@ -15,6 +16,7 @@ import { ResourceDisplayerComponent } from './resource-displayer/resource-displa
 import { RouterModule } from '@angular/router';
 import { SharedModule as GlobalSharedModule } from 'src/app/shared/shared.module';
 import { SmoothTextChangerDirective } from '../directives/smooth-text-changer.directive';
+import { ComputeTotalUnavailableBuildingsPipe } from '../pipes/dynamic/compute-total-unavailable-buildings.pipe';
 
 @NgModule({
   declarations: [
@@ -22,6 +24,8 @@ import { SmoothTextChangerDirective } from '../directives/smooth-text-changer.di
     ComputeInstantiationRequirementsPipe,
     ComputeImagePathPipe,
     ComputeResourceValuePipe,
+    ComputeTotalAvailableBuildingsPipe,
+    ComputeTotalUnavailableBuildingsPipe,
     EntityDisplayerComponent,
     EntityNavigatorComponent,
     EntityRequirementsComponent,
@@ -42,6 +46,8 @@ import { SmoothTextChangerDirective } from '../directives/smooth-text-changer.di
     ComputeInstantiationRequirementsPipe,
     ComputeImagePathPipe,
     ComputeResourceValuePipe,
+    ComputeTotalAvailableBuildingsPipe,
+    ComputeTotalUnavailableBuildingsPipe,
     EntityDisplayerComponent,
     EntityNavigatorComponent,
     EntityRequirementsComponent,

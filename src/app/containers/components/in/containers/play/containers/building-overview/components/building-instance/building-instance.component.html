@@ -9,6 +9,10 @@
     </garrison-in-play-entity-displayer>
   </div>
   <div class="element">
-    test
+    <garrison-in-play-building-displayer
+      [character]="character"
+      [dynamicBuildings]="garrison.instances.buildings"
+      [staticEntity]="staticEntity">
+    </garrison-in-play-building-displayer>
   </div>
 </div>

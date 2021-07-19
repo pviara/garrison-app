@@ -1,0 +1,30 @@
+<div class="container">
+  <div
+    class="built"
+    *ngIf="
+      staticEntity
+      | compute_total_available_buildings
+      : dynamicBuildings
+      : now
+      as available
+    ">
+    <p>Built</p>
+    <p class="total">
+      {{ available }}
+    </p>
+  </div>
+  <div
+    class="built"
+    *ngIf="
+      staticEntity
+      | compute_total_unavailable_buildings
+      : dynamicBuildings
+      : now
+      as unavailable
+    ">
+    <p>Processing</p>
+    <p class="total">
+      {{ unavailable }}
+    </p>
+  </div>
+</div>

@@ -1,5 +1,6 @@
 import { ICharacter } from 'src/models/dynamic/ICharacter';
 import { ImageType } from 'src/models/static/ImageType';
+import { InstanceType } from 'src/models/dynamic/IGarrison';
 import { IStaticEntity } from 'src/models/static/IStaticEntity';
 import {
   Pipe,
@@ -13,7 +14,7 @@ export class ComputeImagePathPipe implements PipeTransform {
   transform(
     staticEntity: IStaticEntity,
     imageType: ImageType,
-    instanceType: string,
+    instanceType: InstanceType,
     character: ICharacter
   ) {
     const { faction } = character.side;
