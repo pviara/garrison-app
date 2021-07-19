@@ -4,8 +4,12 @@ import {
   OnDestroy,
   OnInit
 } from '@angular/core';
+import { IBuilding } from 'src/models/static/IBuilding';
 import { ICharacter } from 'src/models/dynamic/ICharacter';
-import { IGarrison } from 'src/models/dynamic/IGarrison';
+import {
+  IGarrison,
+  InstanceType
+} from 'src/models/dynamic/IGarrison';
 import { IStaticEntity } from 'src/models/static/IStaticEntity';
 
 @Component({
@@ -15,13 +19,16 @@ import { IStaticEntity } from 'src/models/static/IStaticEntity';
 })
 export class EntityRequirementsComponent implements OnDestroy, OnInit {
   @Input()
+  buildings!: IBuilding[];
+  
+  @Input()
   character!: ICharacter;
   
   @Input()
   garrison!: IGarrison;
 
   @Input()
-  instanceType!: string;
+  instanceType!: InstanceType;
 
   @Input()
   staticEntities!: IStaticEntity[];

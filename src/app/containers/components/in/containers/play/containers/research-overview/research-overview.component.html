@@ -1,7 +1,13 @@
 <div class="container">
-  <garrison-in-play-entity-navigator
-    [character]="character"
-    [instanceType]="'researches'"
-    [staticEntities]="researches">
-  </garrison-in-play-entity-navigator>
+  <div class="element">
+    <garrison-in-play-entity-navigator
+      [character]="character"
+      [instanceType]="'researches'"
+      [staticEntities]="researches">
+    </garrison-in-play-entity-navigator>
+  </div>
+
+  <div class="element body">
+    <router-outlet></router-outlet>
+  </div>
 </div>

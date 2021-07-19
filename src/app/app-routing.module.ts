@@ -35,10 +35,14 @@ import { PublicComponent } from './containers/components/public/public.component
 import { PublicGuard } from './containers/components/public/public.guard';
 import { RouterModule } from '@angular/router';
 import { Routes } from '@angular/router';
+import { ResearchInstanceComponent } from './containers/components/in/containers/play/containers/research-overview/components/research-instance/research-instance.component';
+import { ResearchInstanceGuard } from './containers/components/in/containers/play/containers/research-overview/components/research-instance/research-instance.guard';
 import { ResearchOverviewComponent } from './containers/components/in/containers/play/containers/research-overview/research-overview.component';
 import { ResearchResolver } from './containers/components/in/resolvers/static/research.resolver';
 import { SignInComponent } from './containers/components/public/components/containers/components/sign-in/sign-in.component';
 import { SignUpComponent } from './containers/components/public/components/containers/components/sign-up/sign-up.component';
+import { UnitInstanceComponent } from './containers/components/in/containers/play/containers/unit-overview/components/unit-instance/unit-instance.component';
+import { UnitInstanceGuard } from './containers/components/in/containers/play/containers/unit-overview/components/unit-instance/unit-instance.guard';
 import { UnitOverviewComponent } from './containers/components/in/containers/play/containers/unit-overview/unit-overview.component';
 import { UnitResolver } from './containers/components/in/resolvers/static/unit.resolver';
 import { ZoneResolver } from './containers/components/in/resolvers/static/zone.resolver';
@@ -139,7 +143,15 @@ const routes: Routes = [{
             resolve: {
               character: CharacterResolver,
               researches: ResearchResolver
-            }
+            },
+            children: [{
+              path:':code',
+              canActivate: [ResearchInstanceGuard],
+              component: ResearchInstanceComponent,
+              resolve: {
+                character: CharacterResolver
+              }
+            }]
           },
           {
             path: 'units',
@@ -147,7 +159,15 @@ const routes: Routes = [{
             resolve: {
               character: CharacterResolver,
               units: UnitResolver
-            }
+            },
+            children: [{
+              path:':code',
+              canActivate: [UnitInstanceGuard],
+              component: UnitInstanceComponent,
+              resolve: {
+                character: CharacterResolver
+              }
+            }]
           }]
         }]
       }]

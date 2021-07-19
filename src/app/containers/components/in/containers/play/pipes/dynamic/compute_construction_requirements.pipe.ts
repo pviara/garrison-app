@@ -2,15 +2,15 @@ import {
   Pipe,
   PipeTransform
 } from '@angular/core';
-import { IBuilding, IRequiredBuilding } from 'src/models/static/IBuilding';
 import { GarrisonBuilding } from 'src/models/dynamic/IGarrison';
+import { IInstantiable } from 'src/models/static/IStaticEntity';
 
 @Pipe({
-  name: 'compute_construction_requirements'
+  name: 'compute_instantiation_requirements'
 })
-export class ComputeConstructionRequirementsPipe implements PipeTransform {
+export class ComputeInstantiationRequirementsPipe implements PipeTransform {
   transform(
-    staticBuilding: IBuilding,
+    staticEntity: IInstantiable,
     dynamicBuildings: GarrisonBuilding[],
     now: Date
   ) {
@@ -20,7 +20,7 @@ export class ComputeConstructionRequirementsPipe implements PipeTransform {
       upgradeLevel?: number;
     }[]>[];
     
-    const { requiredEntities } = staticBuilding.instantiation;
+    const { requiredEntities } = staticEntity.instantiation;
     if (!requiredEntities) return null;
 
     for (const required of requiredEntities.buildings) {

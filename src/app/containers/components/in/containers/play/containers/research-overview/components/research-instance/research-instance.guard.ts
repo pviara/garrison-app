@@ -3,35 +3,35 @@ import {
   CanActivate,
   Router
 } from '@angular/router';
-import { BuildingService } from 'src/app/containers/components/in/services/static/building.service';
 import { FetchByCodePipe } from '../../../../pipes/static/fetch-by-code.pipe';
 import { Injectable } from '@angular/core';
+import { ResearchService } from 'src/app/containers/components/in/services/static/research.service';
 
 @Injectable()
-export class BuildingInstanceGuard implements CanActivate {
+export class ResearchInstanceGuard implements CanActivate {
   private _fetchByCodePipe = new FetchByCodePipe();
   
   constructor(
-    private _buildingService: BuildingService,
+    private _researchService: ResearchService,
     private _router: Router
   ) {}
 
   canActivate(next: ActivatedRouteSnapshot) {
     const code = next.paramMap.get('code');
     if (!code) {
-      this._router.navigate(['/in/play/buildings']);
+      this._router.navigate(['/in/play/researches']);
       return false;
     }
 
-    const buildingsFromStorage = this
-      ._buildingService
-      .getBuildingsFromStorage();
+    const researchesFromStorage = this
+      ._researchService
+      .getResearchesFromStorage();
 
     const staticEntity = this
       ._fetchByCodePipe
-      .transform(buildingsFromStorage || [], code);
+      .transform(researchesFromStorage || [], code);
     if (!staticEntity) {
-      this._router.navigate(['/in/play/buildings']);
+      this._router.navigate(['/in/play/researches']);
       return false;
     }
 

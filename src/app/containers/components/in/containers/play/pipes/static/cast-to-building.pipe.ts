@@ -2,14 +2,16 @@ import {
   Pipe,
   PipeTransform
 } from '@angular/core';
-import { IBuilding } from 'src/models/static/IBuilding';
-import { IStaticEntity } from 'src/models/static/IStaticEntity';
+import {
+  IInstantiable,
+  IStaticEntity
+} from 'src/models/static/IStaticEntity';
 
 @Pipe({
-  name: 'cast_to_building'
+  name: 'cast_to_instantiable'
 })
-export class CastToBuildingPipe implements PipeTransform {
+export class CastToInstantiablePipe implements PipeTransform {
   transform(staticEntity: IStaticEntity) {
-    return staticEntity as IBuilding;
+    return staticEntity as IInstantiable;
   }
 }

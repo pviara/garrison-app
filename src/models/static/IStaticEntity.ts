@@ -1,3 +1,5 @@
+import { IRequiredBuilding } from './IBuilding';
+
 /**
  * A single static entity stored inside a collection of
  * entities sharing the same type.
@@ -30,4 +32,16 @@ export interface IStaticEntityCost {
 
   /** Cost in wood. */
   wood: number;
+}
+
+/**
+ * An instantiable static entity.
+ */
+export interface IInstantiable extends IStaticEntity {
+  /** Instantiation requirements and characteristics. */
+  instantiation: {
+    requiredEntities: {
+      buildings: IRequiredBuilding[];
+    };
+  }
 }

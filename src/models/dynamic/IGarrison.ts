@@ -129,3 +129,5 @@ export interface IOperatedProject {
   /** What was the research level to be launched ? */
   level?: number;
 }
+
+export type InstanceType = keyof IGarrison['instances'];

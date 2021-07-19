@@ -3,7 +3,7 @@ import {
   Input
 } from '@angular/core';
 import { ICharacter } from 'src/models/dynamic/ICharacter';
-import { ImageType } from 'src/models/static/ImageType';
+import { InstanceType } from 'src/models/dynamic/IGarrison';
 import { IStaticEntity } from 'src/models/static/IStaticEntity';
 
 @Component({
@@ -16,7 +16,7 @@ export class EntityNavigatorComponent {
   character!: ICharacter;
   
   @Input()
-  instanceType!: string;
+  instanceType!: InstanceType;
 
   @Input()
   staticEntities!: IStaticEntity[];

@@ -1,44 +1,40 @@
 <div class="container">
-  <ng-container [ngSwitch]="instanceType">
-    
-    Requirements :&nbsp;
-    <div class="requirement">
-      <ng-container *ngSwitchCase="'buildings'">
-  
-        <ng-container *ngIf="
-          staticEntity
-          | cast_to_building
-          | compute_construction_requirements
-          : garrison.instances.buildings
-          : now
-          as requiredBuildings; else noRequirements
-        ">
-  
-          <ng-container *ngFor="let required of requiredBuildings let i = index;">
-            <span [ngClass]="required.completed ? 'completed' : 'uncompleted'">
-              {{
-                staticEntities
-                | fetch_by_code
-                : required.code
-                | fetch_appropriate_word
-                : character.side.faction
-                | string_capitalize
-              }}
-              <span *ngIf="required.upgradeLevel">
-                (upgr. {{ required.upgradeLevel }})
-              </span>
-            </span>
-            <ng-container *ngIf="i < requiredBuildings.length - 1">
-              &nbsp;-&nbsp;
-            </ng-container>
-          </ng-container>
-  
+
+  Requirements:&nbsp;
+
+  <div class="requirement">
+    <ng-container *ngIf="
+      staticEntity
+      | cast_to_instantiable
+      | compute_instantiation_requirements
+      : garrison.instances.buildings
+      : now
+      as requiredBuildings; else noRequirements">
+      
+      <ng-container *ngFor="let required of requiredBuildings; let i = index;">
+        <span [ngClass]="required.completed ? 'completed' : 'uncompleted'">
+          {{
+            buildings
+            | fetch_by_code
+            : required.code
+            | fetch_appropriate_word
+            : character.side.faction
+            | string_capitalize
+          }}
+          <span *ngIf="required.upgradeLevel">
+            (upgr. {{ required.upgradeLevel }})
+          </span>
+        </span>
+        <ng-container *ngIf="i < requiredBuildings.length - 1">
+          &nbsp;-&nbsp;
         </ng-container>
-        <ng-template #noRequirements>
-          No requirements.
-        </ng-template>
       </ng-container>
-    </div>
-    
-  </ng-container>
+      
+    </ng-container>
+    <ng-template #noRequirements>
+      <span class="completed">
+        No requirement.
+      </span>
+    </ng-template>
+  </div>
 </div>

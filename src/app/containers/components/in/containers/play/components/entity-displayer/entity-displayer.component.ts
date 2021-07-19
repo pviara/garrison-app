@@ -1,9 +1,15 @@
+import { BuildingService } from '../../../../services/static/building.service';
 import {
   Component,
-  Input
+  Input,
+  OnInit
 } from '@angular/core';
 import { ICharacter } from 'src/models/dynamic/ICharacter';
-import { IGarrison } from 'src/models/dynamic/IGarrison';
+import {
+  IGarrison,
+  InstanceType
+} from 'src/models/dynamic/IGarrison';
+import { IBuilding } from 'src/models/static/IBuilding';
 import { IStaticEntity } from 'src/models/static/IStaticEntity';
 
 @Component({
@@ -11,7 +17,9 @@ import { IStaticEntity } from 'src/models/static/IStaticEntity';
   templateUrl: './entity-displayer.component.html',
   styleUrls: ['./entity-displayer.component.scss']
 })
-export class EntityDisplayerComponent {
+export class EntityDisplayerComponent implements OnInit {
+  buildings!: IBuilding[];
+  
   @Input()
   character!: ICharacter;
   
@@ -19,7 +27,7 @@ export class EntityDisplayerComponent {
   garrison!: IGarrison;
   
   @Input()
-  instanceType!: string;
+  instanceType!: InstanceType;
 
   @Input()
   staticEntities!: IStaticEntity[];
@@ -27,7 +35,14 @@ export class EntityDisplayerComponent {
   @Input()
   staticEntity!: IStaticEntity;
 
-  ngOnInit(){
-    console.log(`garrison in ${this.constructor.name}`, this.garrison);
+  constructor(private _buildingService: BuildingService) {}
+  
+  ngOnInit() {
+    const buildings = this._buildingService.getBuildingsFromStorage();
+    if (!buildings) {
+      throw new Error('Static buildings should be existing in storage.');
+    }
+
+    this.buildings = buildings;
   }
 }

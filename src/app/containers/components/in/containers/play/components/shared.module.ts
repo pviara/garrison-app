@@ -1,6 +1,6 @@
-import { CastToBuildingPipe } from '../pipes/static/cast-to-building.pipe';
+import { CastToInstantiablePipe } from '../pipes/static/cast-to-building.pipe';
 import { CommonModule } from '@angular/common';
-import { ComputeConstructionRequirementsPipe } from '../pipes/dynamic/compute_construction_requirements.pipe';
+import { ComputeInstantiationRequirementsPipe } from '../pipes/dynamic/compute_construction_requirements.pipe';
 import { ComputeImagePathPipe } from '../pipes/static/compute-image-path.pipe';
 import { ComputeResourceValuePipe } from '../pipes/resource/compute-resource-value.pipe';
 import { EntityDisplayerComponent } from './entity-displayer/entity-displayer.component';
@@ -18,8 +18,8 @@ import { SmoothTextChangerDirective } from '../directives/smooth-text-changer.di
 
 @NgModule({
   declarations: [
-    CastToBuildingPipe,
-    ComputeConstructionRequirementsPipe,
+    CastToInstantiablePipe,
+    ComputeInstantiationRequirementsPipe,
     ComputeImagePathPipe,
     ComputeResourceValuePipe,
     EntityDisplayerComponent,
@@ -38,8 +38,8 @@ import { SmoothTextChangerDirective } from '../directives/smooth-text-changer.di
     RouterModule
   ],
   exports: [
-    CastToBuildingPipe,
-    ComputeConstructionRequirementsPipe,
+    CastToInstantiablePipe,
+    ComputeInstantiationRequirementsPipe,
     ComputeImagePathPipe,
     ComputeResourceValuePipe,
     EntityDisplayerComponent,

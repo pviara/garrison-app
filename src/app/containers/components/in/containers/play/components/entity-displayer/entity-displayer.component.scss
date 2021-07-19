@@ -1,4 +1,6 @@
 .container {
+  animation: fadeIn ease 0.5s;
+  
   margin-top: 0.5em;
   width: 100%;
 
@@ -29,8 +31,16 @@
     }
 
     &.showcase {
-      min-height: 235px;
-      max-height: 235px;
+      &.building, &.researches {
+        min-height: 254px;
+        max-height: 254px;
+      }
+      
+      &.units {
+        min-height: 217px;
+        max-height: 217px;
+      }
+      
       overflow: hidden;
       
       flex: 3;
