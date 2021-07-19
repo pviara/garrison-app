@@ -54,22 +54,23 @@ const routes: Routes = [{
     children: [{
       path: '',
       children: [{
-        path: '',
-        component: PublicLandingComponent
-      },
-      {
-        path: 'auth',
-        component: AuthComponent,
-        children: [
-        {
           path: '',
-          component: SignInComponent
+          component: PublicLandingComponent
         },
         {
-          path: 'sign-up',
-          component: SignUpComponent
-        }]
-      }]
+          path: 'auth',
+          component: AuthComponent,
+          children: [{
+              path: '',
+              component: SignInComponent
+            },
+            {
+              path: 'sign-up',
+              component: SignUpComponent
+            }
+          ]
+        }
+      ]
     }]
   },
   {
@@ -79,110 +80,114 @@ const routes: Routes = [{
     children: [{
       path: '',
       children: [{
-        path: '',
-        component: InLandingComponent,
-        resolve: {
-          character: CharacterResolver,
-          garrisonId: GarrisonIdResolver
-        }
-      },
-      {
-        path: 'create',
-        component: CreateComponent,
-        children: [{
-          path: 'character',
-          canActivate: [CreateCharacterGuard],
-          component: CreateCharacterComponent,
+          path: '',
+          component: InLandingComponent,
           resolve: {
-            factions: FactionResolver
+            character: CharacterResolver,
+            garrisonId: GarrisonIdResolver
           }
         },
         {
-          path: 'garrison',
-          canActivate: [CreateGarrisonGuard],
-          component: CreateGarrisonComponent,
-          resolve: {
-            character: CharacterResolver,
-            zones: ZoneResolver
-          }
-        }]
-      },
-      {
-        path: 'play',
-        children: [{
-          path: '',
-          component: PlayComponent,
-          resolve: {
-            garrison: GarrisonResolver,
-            banners: BannerResolver,
-            factions: FactionResolver,
-            zones: ZoneResolver
-          },
+          path: 'create',
+          component: CreateComponent,
           children: [{
-            path: 'buildings',
+              path: 'character',
+              canActivate: [CreateCharacterGuard],
+              component: CreateCharacterComponent,
+              resolve: {
+                factions: FactionResolver
+              }
+            },
+            {
+              path: 'garrison',
+              canActivate: [CreateGarrisonGuard],
+              component: CreateGarrisonComponent,
+              resolve: {
+                character: CharacterResolver,
+                zones: ZoneResolver
+              }
+            }
+          ]
+        },
+        {
+          path: 'play',
+          children: [{
+            path: '',
+            component: PlayComponent,
+            resolve: {
+              garrison: GarrisonResolver,
+              banners: BannerResolver,
+              factions: FactionResolver,
+              zones: ZoneResolver
+            },
             children: [{
-                path: '',
-                component: BuildingOverviewComponent,
-                resolve: {
-                  buildings: BuildingResolver,
-                  character: CharacterResolver
-                },
+                path: 'buildings',
                 children: [{
-                  path:':code',
-                  canActivate: [BuildingInstanceGuard],
-                  component: BuildingInstanceComponent,
+                  path: '',
+                  component: BuildingOverviewComponent,
                   resolve: {
+                    buildings: BuildingResolver,
                     character: CharacterResolver
-                  }
+                  },
+                  children: [{
+                    path: ':code',
+                    canActivate: [BuildingInstanceGuard],
+                    component: BuildingInstanceComponent,
+                    resolve: {
+                      character: CharacterResolver
+                    }
+                  }]
                 }]
-              }]
-          },
-          {
-            path: 'researches',
-            children: [{
-              path: '',
-              component: ResearchOverviewComponent,
-              resolve: {
-                character: CharacterResolver,
-                researches: ResearchResolver
               },
-              children: [{
-                path:':code',
-                canActivate: [ResearchInstanceGuard],
-                component: ResearchInstanceComponent,
-                resolve: {
-                  character: CharacterResolver
-                }
-              }]
-            }]
-          },
-          {
-            path: 'units',
-            children: [{
-              path: '',
-              component: UnitOverviewComponent,
-              resolve: {
-                character: CharacterResolver,
-                units: UnitResolver
+              {
+                path: 'researches',
+                children: [{
+                  path: '',
+                  component: ResearchOverviewComponent,
+                  resolve: {
+                    character: CharacterResolver,
+                    researches: ResearchResolver
+                  },
+                  children: [{
+                    path: ':code',
+                    canActivate: [ResearchInstanceGuard],
+                    component: ResearchInstanceComponent,
+                    resolve: {
+                      character: CharacterResolver
+                    }
+                  }]
+                }]
               },
-              children: [{
-                path:':code',
-                canActivate: [UnitInstanceGuard],
-                component: UnitInstanceComponent,
-                resolve: {
-                  character: CharacterResolver
-                }
-              }]
-            }]
+              {
+                path: 'units',
+                children: [{
+                  path: '',
+                  component: UnitOverviewComponent,
+                  resolve: {
+                    character: CharacterResolver,
+                    units: UnitResolver
+                  },
+                  children: [{
+                    path: ':code',
+                    canActivate: [UnitInstanceGuard],
+                    component: UnitInstanceComponent,
+                    resolve: {
+                      character: CharacterResolver
+                    }
+                  }]
+                }]
+              }
+            ]
           }]
-        }]
-      }]
+        }
+      ]
     }]
   },
   {
     path: '**',
     redirectTo: '/public'
-}];
+  }
+];
 
 @NgModule({
   imports: [
