@@ -139,34 +139,40 @@ const routes: Routes = [{
           },
           {
             path: 'researches',
-            component: ResearchOverviewComponent,
-            resolve: {
-              character: CharacterResolver,
-              researches: ResearchResolver
-            },
             children: [{
-              path:':code',
-              canActivate: [ResearchInstanceGuard],
-              component: ResearchInstanceComponent,
+              path: '',
+              component: ResearchOverviewComponent,
               resolve: {
-                character: CharacterResolver
-              }
+                character: CharacterResolver,
+                researches: ResearchResolver
+              },
+              children: [{
+                path:':code',
+                canActivate: [ResearchInstanceGuard],
+                component: ResearchInstanceComponent,
+                resolve: {
+                  character: CharacterResolver
+                }
+              }]
             }]
           },
           {
             path: 'units',
-            component: UnitOverviewComponent,
-            resolve: {
-              character: CharacterResolver,
-              units: UnitResolver
-            },
             children: [{
-              path:':code',
-              canActivate: [UnitInstanceGuard],
-              component: UnitInstanceComponent,
+              path: '',
+              component: UnitOverviewComponent,
               resolve: {
-                character: CharacterResolver
-              }
+                character: CharacterResolver,
+                units: UnitResolver
+              },
+              children: [{
+                path:':code',
+                canActivate: [UnitInstanceGuard],
+                component: UnitInstanceComponent,
+                resolve: {
+                  character: CharacterResolver
+                }
+              }]
             }]
           }]
         }]
