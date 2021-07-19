@@ -6,6 +6,7 @@ import {
 import { FetchByCodePipe } from '../../../../pipes/static/fetch-by-code.pipe';
 import { Injectable } from '@angular/core';
 import { UnitService } from 'src/app/containers/components/in/services/static/unit.service';
+import { StaticHelper as _h } from 'src/app/containers/components/in/utils/helper';
 
 @Injectable()
 export class UnitInstanceGuard implements CanActivate {
@@ -30,7 +31,7 @@ export class UnitInstanceGuard implements CanActivate {
     const staticEntity = this
       ._fetchByCodePipe
       .transform(unitsFromStorage || [], code);
-    if (!staticEntity) {
+    if (_h.isObjectEmpty(staticEntity)) {
       this._router.navigate(['/in/play/units']);
       return false;
     }

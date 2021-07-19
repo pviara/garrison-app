@@ -6,6 +6,7 @@ import {
 import { BuildingService } from 'src/app/containers/components/in/services/static/building.service';
 import { FetchByCodePipe } from '../../../../pipes/static/fetch-by-code.pipe';
 import { Injectable } from '@angular/core';
+import { StaticHelper as _h } from 'src/app/containers/components/in/utils/helper';
 
 @Injectable()
 export class BuildingInstanceGuard implements CanActivate {
@@ -30,7 +31,7 @@ export class BuildingInstanceGuard implements CanActivate {
     const staticEntity = this
       ._fetchByCodePipe
       .transform(buildingsFromStorage || [], code);
-    if (!staticEntity) {
+    if (_h.isObjectEmpty(staticEntity)) {
       this._router.navigate(['/in/play/buildings']);
       return false;
     }
