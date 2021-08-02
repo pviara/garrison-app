@@ -1,4 +1,4 @@
-import { IRequiredBuilding } from './IBuilding';
+import { IBuildingCost, IRequiredBuilding } from './IBuilding';
 
 /**
  * A single static entity stored inside a collection of
@@ -40,6 +40,8 @@ export interface IStaticEntityCost {
 export interface IInstantiable extends IStaticEntity {
   /** Instantiation requirements and characteristics. */
   instantiation: {
+    cost: IStaticEntityCost;
+    duration: number;
     requiredEntities: {
       buildings: IRequiredBuilding[];
     };

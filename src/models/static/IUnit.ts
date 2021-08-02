@@ -1,5 +1,5 @@
 import { IRequiredBuilding } from './IBuilding';
-import { IStaticEntity, IStaticEntityCost } from './IStaticEntity';
+import { IInstantiable, IStaticEntity, IStaticEntityCost } from './IStaticEntity';
 
 /**
  * The representation of a unit.
@@ -61,4 +61,18 @@ interface IUnitStatistic {
 
   /** Can the unit hit or defense itself against ennemy air units ? */
   isDistance: boolean;
+}
+
+/**
+ * An instantiable unit.
+ */
+ export interface IInstantiableUnit extends IInstantiable {
+  /** Instantiation requirements and characteristics. */
+  instantiation: {
+    cost: IUnitCost;
+    duration: number;
+    requiredEntities: {
+      buildings: IRequiredBuilding[];
+    };
+  }
 }

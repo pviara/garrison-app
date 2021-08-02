@@ -1,4 +1,5 @@
 import {
+  IInstantiable,
   IStaticEntity,
   IStaticEntityCost
 } from "./IStaticEntity";
@@ -92,4 +93,18 @@ export interface IRequiredBuildingForExtensionLevel extends IRequiredBuilding {
 export interface IBuildingCost extends IStaticEntityCost {
   /** Cost in plot. */
   plot: number;
+}
+
+/**
+ * An instantiable building.
+ */
+ export interface IInstantiableBuilding extends IInstantiable {
+  /** Instantiation requirements and characteristics. */
+  instantiation: {
+    cost: IBuildingCost;
+    duration: number;
+    requiredEntities: {
+      buildings: IRequiredBuilding[];
+    };
+  }
 }

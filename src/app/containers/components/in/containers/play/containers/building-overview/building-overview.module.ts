@@ -6,6 +6,7 @@ import { BuildingStateComponent } from './components/building-state/building-sta
 import { CommonModule } from '@angular/common';
 import { GarrisonService } from '../../../../services/dynamic/garrison.service';
 import { NgModule } from "@angular/core";
+import { ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { SharedModule } from '../../components/shared.module';
 
@@ -18,6 +19,7 @@ import { SharedModule } from '../../components/shared.module';
   ],
   imports: [
     CommonModule,
+    ReactiveFormsModule,
     RouterModule,
     SharedModule
   ],
