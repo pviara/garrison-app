@@ -14,6 +14,7 @@ import {
 import { GarrisonUnit } from 'src/models/dynamic/IGarrison';
 import { IInstantiableBuilding } from 'src/models/static/IBuilding';
 import { IStaticEntity } from 'src/models/static/IStaticEntity';
+import { SoundService } from 'src/app/shared/services/sound.service';
 import { StaticHelper as _h } from 'src/app/containers/components/in/utils/helper';
 
 @Component({
@@ -43,7 +44,8 @@ export class BuildingConstructionComponent implements OnChanges, OnDestroy, OnIn
 
   constructor(
     private _computeAvailableWorkforcePipe: ComputeAvailableWorkforcePipe,
-    private _formBuilder: FormBuilder
+    private _formBuilder: FormBuilder,
+    private _soundService: SoundService
   ) {}
 
   ngOnChanges() {
@@ -81,14 +83,31 @@ export class BuildingConstructionComponent implements OnChanges, OnDestroy, OnIn
   }
 
   onWorkforceChange({ target: { value } }: any) {
-    if (
-      value > this._availableWorkforce
-      ||
-      value < this.minWorkforce
-    ) {
+    let error = '';
+    if (value > this._availableWorkforce) {
+      error = `You don't have ${value} available peasants, but only ${this._availableWorkforce}.`;
+
+      if (value > this.minWorkforce * 2) {
+        error += `\nAlso, maximum workforce for this building is ${this.minWorkforce * 2} peasants.`;
+      }
+    }
+    
+    if (value < this.minWorkforce) {
+      error = `Minimum workforce for this building is ${this.minWorkforce} peasants.`
+    }
+    
+    if (error.length > 0) {
+      this._soundService.play('error');
+      alert(error);
+    
+      let newValue = this.minWorkforce;
+      if (this._availableWorkforce < this.minWorkforce) {
+        newValue = 0;
+      }
+
       this.buildingCreation
         .get('workforce')
-        ?.setValue(this.minWorkforce);
+        ?.setValue(newValue);
     }
   }
 
@@ -98,6 +117,11 @@ export class BuildingConstructionComponent implements OnChanges, OnDestroy, OnIn
 
   ngOnInit() {
     this._timer = setInterval(() => {
+      this._availableWorkforce = this
+        ._computeAvailableWorkforcePipe
+        .transform(this.dynamicUnits, this.now);
+      console.log(this._availableWorkforce);
+
       this.now = new Date();
     }, 1000);
   }

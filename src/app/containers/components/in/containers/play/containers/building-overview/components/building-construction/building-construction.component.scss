@@ -42,14 +42,21 @@
     display: flex;
 
     form {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      
       .input {
         flex: 1;
         display: flex;
         flex-direction: column;
+        align-items: center;
 
         label {
           font-size: 60%;
           color: #aeaeae;
+
+          text-align: center;
         }
 
         input {
@@ -63,10 +70,16 @@
           padding: 0.2em;
 
           color: #f8d532;
+
+          &[type=number] {
+            appearance: textfield;
+          }
         }
       }
 
       .time-cost {
+        margin-top: 0.1em;
+        
         flex: 1;
         display: flex;
         flex-direction: column;
