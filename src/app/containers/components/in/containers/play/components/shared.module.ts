@@ -6,7 +6,8 @@ import { ComputeImagePathPipe } from '../pipes/static/compute-image-path.pipe';
 import { ComputeResourceValuePipe } from '../pipes/resource/compute-resource-value.pipe';
 import { ComputeTotalAvailableBuildingsPipe } from '../pipes/dynamic/compute-total-available-buildings.pipe';
 import { ComputeTotalUnavailableBuildingsPipe } from '../pipes/dynamic/compute-total-unavailable-buildings.pipe';
-import { ConvertToReadableDurationPipe } from '../pipes/static/convert-to-readable-time.pipe';
+import { ConvertToReadableDurationPipe } from '../pipes/utils/convert-to-readable-time.pipe';
+import { DisableControlDirective } from '../directives/disable-control.directive';
 import { EntityDisplayerComponent } from './entity-displayer/entity-displayer.component';
 import { EntityNavigatorComponent } from './entity-navigator/entity-navigator.component';
 import { EntityRequirementsComponent } from './entity-requirements/entity-requirements.component';
@@ -30,6 +31,7 @@ import { SmoothTextChangerDirective } from '../directives/smooth-text-changer.di
     ComputeTotalAvailableBuildingsPipe,
     ComputeTotalUnavailableBuildingsPipe,
     ConvertToReadableDurationPipe,
+    DisableControlDirective,
     EntityDisplayerComponent,
     EntityNavigatorComponent,
     EntityRequirementsComponent,
@@ -54,6 +56,7 @@ import { SmoothTextChangerDirective } from '../directives/smooth-text-changer.di
     ComputeTotalAvailableBuildingsPipe,
     ComputeTotalUnavailableBuildingsPipe,
     ConvertToReadableDurationPipe,
+    DisableControlDirective,
     EntityDisplayerComponent,
     EntityNavigatorComponent,
     EntityRequirementsComponent,

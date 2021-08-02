@@ -8,7 +8,10 @@ import {
   FormGroup,
   Validators
 } from '@angular/forms';
-import { GarrisonBuilding } from 'src/models/dynamic/IGarrison';
+import {
+  GarrisonBuilding,
+  GarrisonUnit
+} from 'src/models/dynamic/IGarrison';
 import { ICharacter } from 'src/models/dynamic/ICharacter';
 import { IStaticEntity } from 'src/models/static/IStaticEntity';
 
@@ -25,6 +28,9 @@ export class BuildingDisplayerComponent implements OnInit {
 
   @Input()
   dynamicBuildings!: GarrisonBuilding[];
+
+  @Input()
+  dynamicUnits!: GarrisonUnit[];
   
   @Input()
   staticEntity!: IStaticEntity;

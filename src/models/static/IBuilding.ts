@@ -103,6 +103,7 @@ export interface IBuildingCost extends IStaticEntityCost {
   instantiation: {
     cost: IBuildingCost;
     duration: number;
+    minWorkforce: number;
     requiredEntities: {
       buildings: IRequiredBuilding[];
     };
