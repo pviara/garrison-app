@@ -1,3 +1,10 @@
+
+import {
+  AbstractControl,
+  FormBuilder,
+  FormGroup,
+  Validators
+} from '@angular/forms';
 import {
   Component,
   Input,
@@ -7,11 +14,9 @@ import {
 } from '@angular/core';
 import { ComputeAvailableWorkforcePipe } from '../../../../pipes/dynamic/compute-available-workforce.pipe';
 import {
-  FormBuilder,
-  FormGroup,
-  Validators
-} from '@angular/forms';
-import { GarrisonUnit } from 'src/models/dynamic/IGarrison';
+  GarrisonResearch,
+  GarrisonUnit
+} from 'src/models/dynamic/IGarrison';
 import { IInstantiableBuilding } from 'src/models/static/IBuilding';
 import { IStaticEntity } from 'src/models/static/IStaticEntity';
 import { SoundService } from 'src/app/shared/services/sound.service';
@@ -29,12 +34,17 @@ export class BuildingConstructionComponent implements OnChanges, OnDestroy, OnIn
   buildingCreation!: FormGroup;
 
   @Input()
+  dynamicResearches!: GarrisonResearch[];
+  
+  @Input()
   dynamicUnits!: GarrisonUnit[];
 
   minWorkforce!: number;
   
   now = new Date();
 
+  selectedWorkforce!: number;
+  
   @Input()
   staticEntity!: IStaticEntity;
 
@@ -54,6 +64,8 @@ export class BuildingConstructionComponent implements OnChanges, OnDestroy, OnIn
     this.minWorkforce = (this.staticEntity as IInstantiableBuilding)
       .instantiation
       .minWorkforce;
+    
+    this.selectedWorkforce = this.minWorkforce;
 
     let workforceDefaultValue = this.minWorkforce;
     
@@ -63,6 +75,7 @@ export class BuildingConstructionComponent implements OnChanges, OnDestroy, OnIn
 
     if (this._availableWorkforce < this.minWorkforce) {
       workforceDefaultValue = 0;
+      this.selectedWorkforce = 0;
     }
 
     this.buildingCreation = this
@@ -74,26 +87,41 @@ export class BuildingConstructionComponent implements OnChanges, OnDestroy, OnIn
         workforce: this
           ._formBuilder
           .control(workforceDefaultValue,
-            [
-              Validators.min(this.minWorkforce),
-              Validators.max(this.minWorkforce * 2)
-            ]
+            this._workforceValidator()
           )
       });
+  }
+
+  ngOnDestroy() {
+    clearInterval(this._timer);
+  }
+
+  ngOnInit() {
+    this._timer = setInterval(() => {
+      this._availableWorkforce = this
+        ._computeAvailableWorkforcePipe
+        .transform(this.dynamicUnits, this.now);
+
+      this.now = new Date();
+    }, 1000);
+  }
+
+  onBuildingCreation(buildingCreation: FormGroup) {
+    console.log(buildingCreation, this.now.getTime());
   }
 
   onWorkforceChange({ target: { value } }: any) {
     let error = '';
     if (value > this._availableWorkforce) {
       error = `You don't have ${value} available peasants, but only ${this._availableWorkforce}.`;
+    }
 
-      if (value > this.minWorkforce * 2) {
-        error += `\nAlso, maximum workforce for this building is ${this.minWorkforce * 2} peasants.`;
-      }
+    if (value > this.minWorkforce * 2) {
+      error += ` Maximum workforce for this building is ${this.minWorkforce * 2} peasants.`;
     }
     
     if (value < this.minWorkforce) {
-      error = `Minimum workforce for this building is ${this.minWorkforce} peasants.`
+      error = ` Minimum workforce for this building is ${this.minWorkforce} peasants.`
     }
     
     if (error.length > 0) {
@@ -108,25 +136,35 @@ export class BuildingConstructionComponent implements OnChanges, OnDestroy, OnIn
       this.buildingCreation
         .get('workforce')
         ?.setValue(newValue);
+      
+      this.selectedWorkforce = newValue;
+      return;
     }
+    
+    this.selectedWorkforce = value;
   }
 
-  ngOnDestroy() {
-    clearInterval(this._timer);
-  }
+  private _workforceValidator() {
+    return (control: AbstractControl) => {
 
-  ngOnInit() {
-    this._timer = setInterval(() => {
-      this._availableWorkforce = this
-        ._computeAvailableWorkforcePipe
-        .transform(this.dynamicUnits, this.now);
-      console.log(this._availableWorkforce);
+      let invalid = false;
+      if (control.value < this.minWorkforce) {
+        invalid = true;
+      }
 
-      this.now = new Date();
-    }, 1000);
-  }
+      if (control.value > this.minWorkforce * 2) {
+        invalid = true;
+      }
 
-  onBuildingCreation(buildingCreation: FormGroup) {
-    console.log(buildingCreation, this.now.getTime());
+      if (control.value > this._availableWorkforce) {
+        invalid = true;
+      }
+
+      // TODO 🛠 check on resources
+      
+      return !invalid ? null : {
+        invalid: { value: control.value }
+      };
+    };
   }
 }

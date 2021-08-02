@@ -86,6 +86,8 @@ export type GarrisonBuilding = IGarrison['instances']['buildings'][any];
 
 export type GarrisonUnit = IGarrison['instances']['units'][any];
 
+export type GarrisonResearch = IGarrison['instances']['researches'][any];
+
 /**
  * The representation of a building operated-construction history.
  */

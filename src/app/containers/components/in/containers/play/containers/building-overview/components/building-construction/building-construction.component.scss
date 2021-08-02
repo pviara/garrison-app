@@ -1,4 +1,5 @@
 .container {
+  width: 100%;
   display: flex;
   flex-direction: row;
 
@@ -32,8 +33,6 @@
   }
 
   .form {
-    margin-left: 1em;
-
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -43,68 +42,83 @@
 
     form {
       display: flex;
-      flex-direction: column;
-      align-items: center;
-      
-      .input {
+
+      .control {
         flex: 1;
-        display: flex;
         flex-direction: column;
         align-items: center;
 
-        label {
-          font-size: 60%;
-          color: #aeaeae;
+        .input {
+          flex: 1;
+          display: flex;
+          flex-direction: column;
+          align-items: center;
 
-          text-align: center;
+          label {
+            font-size: 60%;
+            color: #aeaeae;
+
+            text-align: center;
+          }
+
+          input {
+            margin-top: 0.3em;
+
+            outline: none;
+
+            max-width: 60px;
+
+            font-size: 70%;
+            padding: 0.2em;
+
+            color: #f8d532;
+
+            &[type=number] {
+              appearance: textfield;
+            }
+          }
         }
 
-        input {
-          margin-top: 0.3em;
+        .time-cost {
+          margin-top: 0.1em;
 
-          outline: none;
+          flex: 1;
+          display: flex;
+          flex-direction: column;
 
-          max-width: 60px;
+          .resource {
+            display: flex;
+            align-items: center;
 
-          font-size: 70%;
-          padding: 0.2em;
+            .total {
+              p {
+                margin: 0;
+                margin-left: 0.4em;
+                font-size: 70%;
+                text-align: right;
+              }
+            }
 
-          color: #f8d532;
-
-          &[type=number] {
-            appearance: textfield;
+            .time {
+              p {
+                margin: 0;
+                margin-left: 0.4em;
+                font-size: 60%;
+                color: #aeaeae;
+              }
+            }
           }
         }
       }
 
-      .time-cost {
-        margin-top: 0.1em;
-        
+      .submit {
         flex: 1;
-        display: flex;
-        flex-direction: column;
 
-        .resource {
-          display: flex;
-          align-items: center;
-
-          .total {
-            p {
-              margin: 0;
-              margin-left: 0.4em;
-              font-size: 70%;
-              text-align: right;
-            }
-          }
-
-          .time {
-            p {
-              margin: 0;
-              margin-left: 0.4em;
-              font-size: 60%;
-              color: #aeaeae;
-            }
-          }
+        button {
+          margin-left: 0.4em;
+          padding: 0.3em;
+          
+          font-size: 2em;
         }
       }
     }

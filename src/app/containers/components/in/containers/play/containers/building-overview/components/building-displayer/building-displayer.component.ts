@@ -10,6 +10,7 @@ import {
 } from '@angular/forms';
 import {
   GarrisonBuilding,
+  GarrisonResearch,
   GarrisonUnit
 } from 'src/models/dynamic/IGarrison';
 import { ICharacter } from 'src/models/dynamic/ICharacter';
@@ -29,6 +30,9 @@ export class BuildingDisplayerComponent implements OnInit {
   @Input()
   dynamicBuildings!: GarrisonBuilding[];
 
+  @Input()
+  dynamicResearches!: GarrisonResearch[];
+  
   @Input()
   dynamicUnits!: GarrisonUnit[];
   
