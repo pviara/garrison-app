@@ -44,7 +44,7 @@ export interface IBuilding extends IStaticEntity {
   /** A harvest building is either a place where peasants
    * can be assigned to harvest some gold or wood, or a place
    * that directly gives access to gifted resources such as food. */
-  harvest ? : {
+  harvest?: {
     /** Which resource is this building harvesting (gold, wood, food) ? */
     resource: 'gold' | 'wood' | 'plot' | 'food';
 
@@ -56,7 +56,7 @@ export interface IBuilding extends IStaticEntity {
     amount: number;
 
     /** Maximum workforce on harvesting in this building. */
-    maxWorkforce ? : number;
+    maxWorkforce?: number;
   }
   // ... implement other types: production, research, military
 
@@ -69,6 +69,8 @@ export interface IBuilding extends IStaticEntity {
     quantity: number;
   } [];
 }
+
+export type BuildingImprovementType = 'upgrade' | 'extension';
 
 /** A building that can be required to build, extend or upgrade another building, or train a unit. */
 export interface IRequiredBuilding {

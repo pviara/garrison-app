@@ -115,9 +115,10 @@ const routes: Routes = [{
             path: '',
             component: PlayComponent,
             resolve: {
-              garrison: GarrisonResolver,
               banners: BannerResolver,
+              buildings: BuildingResolver,
               factions: FactionResolver,
+              garrison: GarrisonResolver,
               zones: ZoneResolver
             },
             children: [{

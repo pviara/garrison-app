@@ -1,6 +1,6 @@
 <div class="container">
   <div class="element resource">
-    <garrison-in-play-resource-displayer [color]="color" [type]="'gold'">
+    <garrison-in-play-resource-displayer [color]="color">
       <svg height="32pt" viewBox="0 0 128 128" width="32pt" xmlns="http://www.w3.org/2000/svg">
         <g>
           <path d="m20.875 57.235v12.8c0 3.535 13.152 6.4 29.375 6.4s29.375-2.867 29.375-6.4v-12.8z" fill="#fca40b" />
@@ -14,12 +14,22 @@
       <p
         #factionColoredText
         smooth-text-changer>
-        {{ value }}
+        {{
+          'gold'
+          | compute_resource_value
+          : resources
+          : staticBuildings
+          : []
+          : dynamicBuildings
+          : dynamicResearches
+          : dynamicUnits
+          : now
+        }}
       </p>
     </garrison-in-play-resource-displayer>
   </div>
   <div class="element resource">
-    <garrison-in-play-resource-displayer [color]="color" [type]="'wood'">
+    <garrison-in-play-resource-displayer [color]="color">
       <svg id="Capa_1" enable-background="new 0 0 497 497" height="32pt" viewBox="0 0 497 497" width="32pt"
         xmlns="http://www.w3.org/2000/svg">
         <g>
@@ -137,7 +147,17 @@
       <p
         #factionColoredText
         smooth-text-changer>
-        0
+        {{
+          'wood'
+          | compute_resource_value
+          : resources
+          : staticBuildings
+          : []
+          : dynamicBuildings
+          : dynamicResearches
+          : dynamicUnits
+          : now
+        }}
       </p>
     </garrison-in-play-resource-displayer>
   </div>
@@ -147,7 +167,7 @@
       src="../../../../../../assets/img/logos/play-logo.png">
   </div>
   <div class="element resource">
-    <garrison-in-play-resource-displayer [color]="color" [type]="'food'">
+    <garrison-in-play-resource-displayer [color]="color">
       <svg height="32pt" viewBox="0 -69 512.00056 512" width="32pt" xmlns="http://www.w3.org/2000/svg">
         <path
           d="m511.992188 141.082031h-511.992188v76.675781c0 61.105469 40.054688 117.410157 101.683594 135.316407 100.957031 29.332031 207.675781 29.332031 308.628906 0 58.898438-17.109375 98.074219-69.28125 101.441406-127.203125zm0 0"
@@ -178,7 +198,7 @@
     </garrison-in-play-resource-displayer>
   </div>
   <div class="element resource">
-    <garrison-in-play-resource-displayer [color]="color" [type]="'plot'">
+    <garrison-in-play-resource-displayer [color]="color">
       <svg id="Capa_1" enable-background="new 0 0 497.137 497.137" height="32pt" viewBox="0 0 497.137 497.137"
         width="32pt" xmlns="http://www.w3.org/2000/svg">
         <g>

@@ -1,13 +1,14 @@
 import {
   AfterViewChecked,
-  AfterViewInit,
   Component,
+  Input,
   OnDestroy,
   OnInit,
-  Renderer2
 } from "@angular/core";
 import { Subscription } from "rxjs";
 import { LocalStorageService } from "src/app/shared/services/local-storage.service";
+import { GarrisonBuilding, GarrisonResearch, GarrisonResources, GarrisonUnit } from 'src/models/dynamic/IGarrison';
+import { IBuilding } from 'src/models/static/IBuilding';
 
 @Component({
   selector: 'garrison-in-play-global-resource-displayer',
@@ -19,6 +20,23 @@ export class GlobalResourceDisplayerComponent implements AfterViewChecked, OnDes
 
   color!: string;
 
+  @Input()
+  dynamicBuildings!: GarrisonBuilding[];
+
+  @Input()
+  dynamicResearches!: GarrisonResearch[];
+
+  @Input()
+  dynamicUnits!: GarrisonUnit[];
+  
+  now = new Date();
+  
+  @Input()
+  resources!: GarrisonResources;
+
+  @Input()
+  staticBuildings!: IBuilding[];
+  
   private _timer: any;
   
   value = 0;
@@ -36,7 +54,7 @@ export class GlobalResourceDisplayerComponent implements AfterViewChecked, OnDes
   ngOnInit() {
     this._initTextColor();
     this._timer = setInterval((_: any) => {
-      this.value++;
+      this.now = new Date();
     }, 1000);
   }
 

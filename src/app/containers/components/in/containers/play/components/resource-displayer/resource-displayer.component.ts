@@ -20,9 +20,6 @@ export class ResourceDisplayerComponent implements AfterContentInit {
   
   @ContentChild('factionColoredText')
   factionColoredText!: ElementRef;
-  
-  @Input()
-  type!: 'gold' | 'wood' | 'food' | 'plot';
 
   constructor(private _renderer: Renderer2) {}
 
