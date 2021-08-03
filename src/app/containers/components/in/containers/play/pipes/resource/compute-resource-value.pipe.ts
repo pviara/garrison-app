@@ -2,6 +2,7 @@ import {
   Pipe,
   PipeTransform
 } from "@angular/core";
+import { environment } from 'src/environments/environment';
 import {
   GarrisonBuilding,
   GarrisonResearch,
@@ -120,14 +121,136 @@ export class ComputeResourceValuePipe implements PipeTransform {
       }
 
       default: {
-
         switch (type) {
           
           case 'food': {
-            break;
+
+            const farms = dynamicBuildings
+              .filter(
+                building => building.code === 'farm'
+              );
+            if (!farms) break;
+
+            const staticBuilding = staticBuildings
+              .find(
+                building => building.code === 'farm'
+              );
+            if (!staticBuilding || !staticBuilding.harvest) {
+              throw new Error(
+                'Missing harvest building in static list OR missing its characteristics.'
+              );
+            }
+            
+            let totalFood = 3;
+            for (const farm of farms) {
+              const currentLevel = _h
+                .computeBuildingCurrentLevel(
+                  now,
+                  'extension',
+                  farm.constructions
+                );
+              
+              let factor = 0;
+              if (currentLevel === 0) factor = 1;
+              else if (currentLevel > 0) {
+                factor = Math.pow(
+                  environment.decreasedFactor,
+                  currentLevel
+                );
+              }
+
+              totalFood += staticBuilding?.harvest.amount * factor;
+            }
+
+            let inComing = 0;
+            for (const farm of farms) {
+              const unfinishedBusiness = farm
+                .constructions
+                .find(
+                  construction => !_h.hasPast(
+                    construction.endDate,
+                    now
+                  )
+                );
+              if (!unfinishedBusiness) continue;
+              
+              let factor = 1;
+              const { improvement } = unfinishedBusiness;
+              if (improvement) {
+                factor = Math.pow(
+                  1.2,
+                  improvement.level
+                );
+              }
+
+              inComing += Math.floor(staticBuilding.harvest.amount * factor);
+            }
+
+            for (const unit of dynamicUnits) {
+              const staticUnit = staticUnits
+                .find(
+                  unit => unit.code === unit.code
+                );
+              if (!staticUnit) continue;
+
+              const { food: cost } = staticUnit
+                .instantiation
+                .cost;
+              
+              totalFood -= unit.quantity * cost;
+            }
+
+            return {
+              available: totalFood.toString(),
+              inComing: Math.floor(inComing).toString()
+            };
           }
 
           case 'plot': {
+
+            let totalPlots = 60;
+
+            for (const building of dynamicBuildings) {
+              const staticBuilding = staticBuildings
+                .find(
+                  sBuilding => sBuilding.code === building.code
+                );
+              if (!staticBuilding) {
+                throw new Error(
+                  'Missing harvest building in static list OR missing its characteristics.'
+                );
+              }
+
+              let improvementType: 'upgrade' | 'extension' | null = null;
+              if (staticBuilding.upgrades && staticBuilding.upgrades.length > 0) {
+                improvementType = 'upgrade';
+              }
+              else if (staticBuilding.extension) {
+                improvementType = 'extension';
+              }
+                
+              if (!improvementType) {
+                totalPlots -= staticBuilding.instantiation.cost.plot;
+                continue;
+              }
+
+              const currentLevel = _h
+                .computeBuildingCurrentLevel(
+                  now,
+                  improvementType,
+                  building.constructions
+                );
+              
+              for (let i = 0; i < currentLevel + 1; i++) {
+                const plotCost = Math.pow(
+                  1.2,
+                  currentLevel
+                ) * staticBuilding.instantiation.cost.plot;
+                totalPlots -= Math.floor(plotCost);
+              }
+            }
+            return Math.floor(totalPlots).toString();
+            
             break;
           }
         }

@@ -191,9 +191,25 @@
           d="m135.15625 157.445312c-11.6875-33.441406-8.46875-57.128906.195312-73.710937-11.445312-1.632813-21.3125-2.886719-26.746093-3.136719-66.308594-3.046875-66.308594 51.835938-66.308594 60.484375 0 43.582031 48.550781 115.023438 213.703125 115.023438 8.175781 0 16.046875-.167969 23.644531-.492188-54.109375-40.078125-121.78125-33.1875-144.488281-98.167969zm0 0"
           fill="#eaa2a2" /></svg>
       <p
-        #factionColoredText
-        smooth-text-changer>
-        0
+        #factionColoredText>
+        <ng-container *ngIf="
+          'food'
+          | compute_resource_value
+          : resources
+          : staticBuildings
+          : []
+          : dynamicBuildings
+          : dynamicResearches
+          : dynamicUnits
+          : now
+          as food
+        ">
+        {{
+          (food
+          | cast_to_not_dynamic_resource)
+          .available
+        }}
+      </ng-container>
       </p>
     </garrison-in-play-resource-displayer>
   </div>
@@ -238,9 +254,18 @@
         </g>
       </svg>
       <p
-        #factionColoredText
-        smooth-text-changer>
-        0
+        #factionColoredText>
+        {{
+          'plot'
+          | compute_resource_value
+          : resources
+          : staticBuildings
+          : []
+          : dynamicBuildings
+          : dynamicResearches
+          : dynamicUnits
+          : now
+        }}
       </p>
     </garrison-in-play-resource-displayer>
   </div>

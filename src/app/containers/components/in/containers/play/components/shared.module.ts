@@ -1,5 +1,6 @@
 import { CastToInstantiableBuildingPipe } from '../pipes/static/cast-to-instantiable-building.pipe';
 import { CastToInstantiablePipe } from '../pipes/static/cast-to-instantiable.pipe';
+import { CastToNotDynamicResource } from '../pipes/resource/cast-to-not-dynamic-resource.pipe';
 import { CommonModule } from '@angular/common';
 import { ComputeConstructionDurationPipe } from '../pipes/dynamic/compute-construction-duration.pipe';
 import { ComputeInstantiationRequirementsPipe } from '../pipes/dynamic/compute-instantiation-requirements.pipe';
@@ -25,6 +26,7 @@ import { SmoothTextChangerDirective } from '../directives/smooth-text-changer.di
   declarations: [
     CastToInstantiableBuildingPipe,
     CastToInstantiablePipe,
+    CastToNotDynamicResource,
     ComputeConstructionDurationPipe,
     ComputeInstantiationRequirementsPipe,
     ComputeImagePathPipe,
@@ -50,6 +52,7 @@ import { SmoothTextChangerDirective } from '../directives/smooth-text-changer.di
   exports: [
     CastToInstantiableBuildingPipe,
     CastToInstantiablePipe,
+    CastToNotDynamicResource,
     ComputeConstructionDurationPipe,
     ComputeInstantiationRequirementsPipe,
     ComputeImagePathPipe,

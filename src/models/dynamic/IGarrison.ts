@@ -90,6 +90,11 @@ export type GarrisonResearch = IGarrison['instances']['researches'][any];
 
 export type GarrisonResources = IGarrison['resources'];
 
+export type NotDynamicResource = {
+  available: string;
+  inComing: string;
+};
+
 /**
  * The representation of a building operated-construction history.
  */
