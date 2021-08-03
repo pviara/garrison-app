@@ -17,6 +17,11 @@ export class ComputeConstructionDurationPipe implements PipeTransform {
     now: Date,
     improvementLevel = 0
   ) {
+    const { minWorkforce } = building.instantiation;
+    if (workforce < minWorkforce) {
+      workforce = minWorkforce;
+    }
+    
     return Math.floor(
       _h.computeConstructionDurationAndWorkforce(
         now,
