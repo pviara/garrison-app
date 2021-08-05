@@ -18,8 +18,6 @@ import { IStaticEntity } from 'src/models/static/IStaticEntity';
   styleUrls: ['./entity-displayer.component.scss']
 })
 export class EntityDisplayerComponent implements OnInit {
-  buildings!: IBuilding[];
-  
   @Input()
   character!: ICharacter;
   
@@ -28,6 +26,8 @@ export class EntityDisplayerComponent implements OnInit {
   
   @Input()
   instanceType!: InstanceType;
+  
+  staticBuildings!: IBuilding[];
 
   @Input()
   staticEntities!: IStaticEntity[];
@@ -38,11 +38,11 @@ export class EntityDisplayerComponent implements OnInit {
   constructor(private _buildingService: BuildingService) {}
   
   ngOnInit() {
-    const buildings = this._buildingService.getBuildingsFromStorage();
-    if (!buildings) {
+    const staticBuildings = this._buildingService.getBuildingsFromStorage();
+    if (!staticBuildings) {
       throw new Error('Static buildings should be existing in storage.');
     }
 
-    this.buildings = buildings;
+    this.staticBuildings = staticBuildings;
   }
 }

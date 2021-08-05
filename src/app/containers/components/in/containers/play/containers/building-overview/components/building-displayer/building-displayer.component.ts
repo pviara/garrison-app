@@ -11,6 +11,7 @@ import {
 import {
   GarrisonBuilding,
   GarrisonResearch,
+  GarrisonResources,
   GarrisonUnit
 } from 'src/models/dynamic/IGarrison';
 import { ICharacter } from 'src/models/dynamic/ICharacter';
@@ -35,6 +36,9 @@ export class BuildingDisplayerComponent implements OnInit {
   
   @Input()
   dynamicUnits!: GarrisonUnit[];
+  
+  @Input()
+  resources!: GarrisonResources;
   
   @Input()
   staticEntity!: IStaticEntity;

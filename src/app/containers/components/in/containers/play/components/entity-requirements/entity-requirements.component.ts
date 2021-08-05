@@ -19,7 +19,7 @@ import { IStaticEntity } from 'src/models/static/IStaticEntity';
 })
 export class EntityRequirementsComponent implements OnDestroy, OnInit {
   @Input()
-  buildings!: IBuilding[];
+  staticBuildings!: IBuilding[];
   
   @Input()
   character!: ICharacter;

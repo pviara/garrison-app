@@ -14,7 +14,7 @@
       <ng-container *ngFor="let required of requiredBuildings; let i = index;">
         <span [ngClass]="required.completed ? 'completed' : 'uncompleted'">
           {{
-            buildings
+            staticBuildings
             | fetch_by_code
             : required.code
             | fetch_appropriate_word
