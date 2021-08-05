@@ -151,9 +151,6 @@ export class BuildingConstructionComponent implements OnChanges, OnDestroy, OnIn
   }
 
   isInvalidForm(buildingCreation: FormGroup) {
-    // // TODO check on requirements
-    // TODO check on resources
-    
     if (buildingCreation.invalid) {
       return true;
     }
