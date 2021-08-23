@@ -7,10 +7,12 @@ import {
 import { BuildingService } from 'src/app/containers/components/in/services/static/building.service';
 import {
   Component,
+  EventEmitter,
   Input,
   OnChanges,
   OnDestroy,
-  OnInit
+  OnInit,
+  Output
 } from '@angular/core';
 import { ComputeAvailableWorkforcePipe } from '../../../../pipes/dynamic/compute-available-workforce.pipe';
 import { ComputeInstantiationRequirementsPipe } from '../../../../pipes/dynamic/compute-instantiation-requirements.pipe';
@@ -25,6 +27,7 @@ import {
   IBuilding,
   IInstantiableBuilding
 } from 'src/models/static/IBuilding';
+import { IBuildingCreate } from 'src/models/dynamic/payloads/IBuildingCreate';
 import {
   IInstantiable,
   IStaticEntity
@@ -47,6 +50,9 @@ import { UnitService } from 'src/app/containers/components/in/services/static/un
 export class BuildingConstructionComponent implements OnChanges, OnDestroy, OnInit {  
   buildingCreation!: FormGroup;
 
+  @Output()
+  createBuilding = new EventEmitter<IBuildingCreate>();
+  
   @Input()
   dynamicBuildings!: GarrisonBuilding[];
   
@@ -214,7 +220,17 @@ export class BuildingConstructionComponent implements OnChanges, OnDestroy, OnIn
   }
   
   onBuildingCreation(buildingCreation: FormGroup) {
-    console.log(buildingCreation, this.now.getTime());
+    const { code } = this.staticEntity;
+    const workforce = buildingCreation.get('workforce');
+    if (!workforce) return;
+    
+    const payload: IBuildingCreate = {
+      garrisonId: '',
+      code,
+      workforce: workforce.value
+    };
+
+    this.createBuilding.emit(payload);
   }
 
   onWorkforceChange({ target: { value } }: any) {

@@ -17,6 +17,118 @@
       display: flex;
       width: 100vw;
 
+      .processes {
+        animation: fadeIn ease 0.5s;
+        position: absolute;
+
+        margin-left: 1em;
+        padding: 1em;
+
+        background-color: black;
+        border: 4px solid transparent;
+        border-image: url('../../../../../../assets/img/textures/game-menu-item-border.jpg') 4;
+
+        .title {
+          h5 {
+            margin: 0;
+
+            color: #f8d532;
+            font-weight: normal;
+            font-size: 120%;
+          }
+        }
+
+        .description {
+          p {
+            margin: 0;
+            margin-top: 0.3em;
+            margin-bottom: 0.5em;
+            
+            color: grey;
+            font-size: 70%;
+          }
+        }
+
+        .content {
+          display: flex;
+          justify-content: flex-start;
+
+          .category {
+            width: 100%;
+
+            h5 {
+              margin: 0;
+              margin-top: 1em;
+              
+              font-weight: normal;
+              color: #f8d532;
+            }
+
+            .quantity {
+              color: white;
+            }
+
+            .entity {
+              margin-top: 0.4em;
+              display: flex;
+              flex-direction: row;
+              
+              .info {
+                flex: 2;
+                display: flex;
+
+                img {
+                  border: 3px solid transparent;
+                  border-image: url('../../../../../../assets/img/textures/game-menu-item-border.jpg') 3;
+                }
+  
+                .text {
+                  .word {
+                    flex: 1;
+                    margin-left: 0.5em;
+                    
+                    h4 {
+                      margin: 0;
+    
+                      color: #f8d532;
+                      font-weight: normal;
+                      font-size: 70%;
+                    }
+    
+                    p.workforce {
+                      margin: 0;
+    
+                      color: grey;
+                      font-size: 50%;
+                    }
+    
+                    p.remaining {
+                      margin: 0;
+    
+                      font-size: 80%;
+                    }
+                  }
+                }
+              }
+
+              .action {
+                flex: 1;
+                display: flex;
+                flex-direction: column;
+                
+                button {
+                  cursor: pointer;
+                  padding: 0.4em;
+
+                  font-size: 80%;
+                  color: #bf2f2f;
+                }
+              }
+            }
+          }
+        }
+      }
+      
       .menu {
         flex: 1;
         flex-flow: row-reverse;

@@ -1,12 +1,14 @@
 import { AuthService } from 'src/app/shared/services/auth.service';
+import { BehaviorSubject } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { HttpClient } from '@angular/common/http';
+import { IBuildingCreate } from 'src/models/dynamic/payloads/IBuildingCreate';
+import { IBuildingConstructionCancel } from 'src/models/dynamic/payloads/IBuildingConstructionCancel';
 import { IGarrison } from 'src/models/dynamic/IGarrison';
 import { IGarrisonCreate } from 'src/models/dynamic/payloads/IGarrisonCreate';
 import { Injectable } from '@angular/core';
 import { LocalStorageService } from 'src/app/shared/services/local-storage.service';
 import { tap } from 'rxjs/operators';
-import { BehaviorSubject } from 'rxjs';
 
 @Injectable()
 export class GarrisonService {
@@ -35,11 +37,29 @@ export class GarrisonService {
     this._localStorageService.garrisonId = id;
     return this._localStorageService.garrisonId;
   }
+
+  cancelConstruction(payload: IBuildingConstructionCancel) {
+    return this._client.put<IGarrison>(
+      `${environment.apiUrl}/${environment.dbNameDynamic}/${this._endpoint}/building/cancel`,
+      payload
+    ).pipe(
+      tap((garrison: IGarrison) => this.garrison = garrison)
+    );
+  }
   
   create(payload: IGarrisonCreate) {
     return this._client.post<IGarrison>(
       `${environment.apiUrl}/${environment.dbNameDynamic}/${this._endpoint}`,
       payload
+    );
+  }
+
+  createBuilding(payload: IBuildingCreate) {
+    return this._client.post<IGarrison>(
+      `${environment.apiUrl}/${environment.dbNameDynamic}/${this._endpoint}/building`,
+      payload
+    ).pipe(
+      tap((garrison: IGarrison) => this.garrison = garrison)
     );
   }
 

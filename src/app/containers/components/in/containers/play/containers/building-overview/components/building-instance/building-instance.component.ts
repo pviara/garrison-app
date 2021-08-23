@@ -7,6 +7,7 @@ import { BuildingService } from 'src/app/containers/components/in/services/stati
 import { FetchByCodePipe } from '../../../../pipes/static/fetch-by-code.pipe';
 import { GarrisonService } from 'src/app/containers/components/in/services/dynamic/garrison.service';
 import { IBuilding } from 'src/models/static/IBuilding';
+import { IBuildingCreate } from 'src/models/dynamic/payloads/IBuildingCreate';
 import { IStaticEntity } from 'src/models/static/IStaticEntity';
 import { ICharacter } from 'src/models/dynamic/ICharacter';
 import { IGarrison } from 'src/models/dynamic/IGarrison';
@@ -66,6 +67,17 @@ export class BuildingInstanceComponent implements OnInit {
         }
 
         this.staticEntity = building;
+      });
+  }
+
+  onBuildingCreation(payload: IBuildingCreate) {
+    this._garrisonService
+      .createBuilding({
+        ...payload,
+        garrisonId: this.garrison._id
+      })
+      .subscribe(result => {
+        // // alert('🛠 Building is being created !');
       });
   }
 }

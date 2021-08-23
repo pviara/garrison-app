@@ -141,4 +141,9 @@ export interface IOperatedProject {
   level?: number;
 }
 
+/**
+ * A unit assignment inside a Garrison.
+ */
+export type IGarrisonUnitAssignment = IGarrison['instances']['units'][any]['state']['assignments'][any];
+
 export type InstanceType = keyof IGarrison['instances'];

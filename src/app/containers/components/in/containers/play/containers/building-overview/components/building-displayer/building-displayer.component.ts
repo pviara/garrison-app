@@ -1,7 +1,9 @@
 import {
   Component,
+  EventEmitter,
   Input,
-  OnInit
+  OnInit,
+  Output
 } from '@angular/core';
 import {
   FormBuilder,
@@ -14,6 +16,7 @@ import {
   GarrisonResources,
   GarrisonUnit
 } from 'src/models/dynamic/IGarrison';
+import { IBuildingCreate } from 'src/models/dynamic/payloads/IBuildingCreate';
 import { ICharacter } from 'src/models/dynamic/ICharacter';
 import { IStaticEntity } from 'src/models/static/IStaticEntity';
 
@@ -27,6 +30,9 @@ export class BuildingDisplayerComponent implements OnInit {
   
   @Input()
   character!: ICharacter;
+
+  @Output()
+  createBuilding = new EventEmitter<IBuildingCreate>();
 
   @Input()
   dynamicBuildings!: GarrisonBuilding[];
@@ -64,7 +70,7 @@ export class BuildingDisplayerComponent implements OnInit {
       });
   }
 
-  onBuildingCreation(buildingCreation: FormGroup) {
-    console.log(buildingCreation);
+  onBuildingCreation(buildingCreation: IBuildingCreate) {
+    this.createBuilding.emit(buildingCreation);
   }
 }

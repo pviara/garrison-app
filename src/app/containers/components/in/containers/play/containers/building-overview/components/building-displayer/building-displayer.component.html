@@ -34,7 +34,8 @@
           [dynamicResearches]="dynamicResearches"
           [dynamicUnits]="dynamicUnits"
           [resources]="resources"
-          [staticEntity]="staticEntity">
+          [staticEntity]="staticEntity"
+          (createBuilding)="onBuildingCreation($event)">
         </garrison-in-play-building-construction>
       </div>
     </div>

@@ -11,6 +11,108 @@
   </div>
 
   <div class="element body">
+
+    <div
+      class="processes"
+      *ngIf="
+        garrison 
+        | compute_entity_global_state
+        : now as states">
+      <div class="title">
+        <h5>🛠 Processing</h5>
+      </div>
+      <div class="description">
+        <p>This dashboard displays ongoing processes.</p>
+      </div>
+
+      <div class="separation"></div>
+
+      <div class="content">
+        <div
+          class="category"
+          *ngFor="let state of states">
+          <h5>
+            {{ state.entityType | string_capitalize }}
+            (
+              <span class="quantity">
+                {{ state.entities.length }}
+              </span>
+            )
+          </h5>
+
+          <div
+            class="entity"
+            *ngFor="let entity of state.entities">
+            <div class="info">
+              <img
+              draggable="false"
+              [src]="
+                entity
+                | compute_image_path
+                :'thumbnails'
+                :state.entityType
+                :character
+              ">
+              <div class="text">
+                <div class="word">
+                  <h4>
+                    {{
+                      buildings
+                      | fetch_by_code
+                      : entity.code
+                      | fetch_appropriate_word
+                      : character.side.faction
+                      | string_capitalize
+                    }}
+                  </h4>
+                  <p
+                    class="workforce"
+                    *ngIf="entity.workforce as workforce">
+                    {{ workforce }}x
+                    <ng-container *ngIf="state.entityType === 'buildings'">
+                      {{
+                        units
+                        | fetch_by_code
+                        : 'peasant'
+                        | fetch_appropriate_word
+                        : character.side.faction
+                        | uppercase
+                      }}
+                    </ng-container>
+                    <ng-container *ngIf="state.entityType === 'researches'">
+                      {{
+                        units
+                        | fetch_by_code
+                        : 'researcher'
+                        | fetch_appropriate_word
+                        : character.side.faction
+                        | uppercase
+                      }}
+                    </ng-container>
+                  </p>
+                  <p class="remaining">
+                    {{
+                      { endDate: entity.endDate }
+                      | compute_occupation_remaining_time
+                      : now
+                    }}
+                  </p>
+                </div>
+              </div>
+            </div>
+            <div class="action">
+              <ng-container [ngSwitch]="state.entityType">
+                <ng-container *ngSwitchCase="'buildings'">
+                  <button
+                    (click)="onConstructionCancelation(entity)">Cancel</button>
+                </ng-container>
+              </ng-container>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    
     <div class="menu">
       <div class="content">
         

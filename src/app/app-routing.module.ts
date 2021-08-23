@@ -115,10 +115,12 @@ const routes: Routes = [{
             path: '',
             component: PlayComponent,
             resolve: {
+              character: CharacterResolver,
               banners: BannerResolver,
               buildings: BuildingResolver,
               factions: FactionResolver,
               garrison: GarrisonResolver,
+              units: UnitResolver,
               zones: ZoneResolver
             },
             children: [{
@@ -128,7 +130,8 @@ const routes: Routes = [{
                   component: BuildingOverviewComponent,
                   resolve: {
                     buildings: BuildingResolver,
-                    character: CharacterResolver
+                    character: CharacterResolver,
+                    units: UnitResolver
                   },
                   children: [{
                     path: ':code',
