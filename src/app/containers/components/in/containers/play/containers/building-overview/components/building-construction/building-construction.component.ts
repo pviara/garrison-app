@@ -4,6 +4,7 @@ import {
   FormGroup,
   Validators
 } from '@angular/forms';
+import { ActivatedRoute } from '@angular/router';
 import { BuildingService } from 'src/app/containers/components/in/services/static/building.service';
 import {
   Component,
@@ -28,6 +29,7 @@ import {
   IInstantiableBuilding
 } from 'src/models/static/IBuilding';
 import { IBuildingCreate } from 'src/models/dynamic/payloads/IBuildingCreate';
+import { ICharacter } from 'src/models/dynamic/ICharacter';
 import {
   IInstantiable,
   IStaticEntity
@@ -49,6 +51,8 @@ import { UnitService } from 'src/app/containers/components/in/services/static/un
 })
 export class BuildingConstructionComponent implements OnChanges, OnDestroy, OnInit {  
   buildingCreation!: FormGroup;
+
+  _character!: ICharacter;
 
   @Output()
   createBuilding = new EventEmitter<IBuildingCreate>();
@@ -83,6 +87,7 @@ export class BuildingConstructionComponent implements OnChanges, OnDestroy, OnIn
   private _timer: any;
 
   constructor(
+    private _route: ActivatedRoute,
     private _buildingService: BuildingService,
     private _computeAvailableWorkforcePipe: ComputeAvailableWorkforcePipe,
     private _computeInstantiationRequirementsPipe: ComputeInstantiationRequirementsPipe,
@@ -146,6 +151,8 @@ export class BuildingConstructionComponent implements OnChanges, OnDestroy, OnIn
       throw new Error('Static units should be existing in storage.');
     }
     this._staticUnits = staticUnits;
+
+    this._character = this._route.snapshot.data.character;
     
     this._timer = setInterval(() => {
       this._availableWorkforce = this
@@ -220,6 +227,17 @@ export class BuildingConstructionComponent implements OnChanges, OnDestroy, OnIn
   }
   
   onBuildingCreation(buildingCreation: FormGroup) {
+    this._soundService.play('click');
+
+    const { faction } = this._character.side;
+    if (faction === 'alliance') {
+      this._soundService.playRandomly('peasant_yes', 1, 4);
+
+    } else if (faction === 'horde') {
+      this._soundService.playRandomly('peon_yes', 1, 4);
+      
+    } else throw new Error("Character's faction is not valid.");
+    
     const { code } = this.staticEntity;
     const workforce = buildingCreation.get('workforce');
     if (!workforce) return;

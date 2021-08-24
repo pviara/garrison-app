@@ -4,12 +4,13 @@ import {
   OnDestroy,
   OnInit
 } from '@angular/core';
+import { GarrisonService } from '../../services/dynamic/garrison.service';
 import { IBuilding } from 'src/models/static/IBuilding';
 import { IBuildingConstructionCancel } from 'src/models/dynamic/payloads/IBuildingConstructionCancel';
 import { IGarrison } from 'src/models/dynamic/IGarrison';
-import { GarrisonService } from '../../services/dynamic/garrison.service';
 import { ICharacter } from 'src/models/dynamic/ICharacter';
 import { IUnit } from 'src/models/static/IUnit';
+import { SoundService } from 'src/app/shared/services/sound.service';
 
 @Component({
   selector: 'garrison-in-play',
@@ -17,11 +18,11 @@ import { IUnit } from 'src/models/static/IUnit';
   styleUrls: ['./play.component.scss']
 })
 export class PlayComponent implements OnDestroy, OnInit {
+  buildings!: IBuilding[];
+
   character!: ICharacter;
   
   garrison!: IGarrison;
-
-  buildings!: IBuilding[];
   
   now = new Date();
 
@@ -31,7 +32,8 @@ export class PlayComponent implements OnDestroy, OnInit {
   
   constructor(
     private _garrisonService: GarrisonService,
-    private _route: ActivatedRoute
+    private _route: ActivatedRoute,
+    private _soundService: SoundService
   ) {}
 
   ngOnDestroy() {
@@ -39,8 +41,8 @@ export class PlayComponent implements OnDestroy, OnInit {
   }
 
   ngOnInit() {
-    this.character = this._route.snapshot.data.character;
     this.buildings = this._route.snapshot.data.buildings;
+    this.character = this._route.snapshot.data.character;
     this.units = this._route.snapshot.data.units;
     
     this._garrisonService
@@ -59,7 +61,8 @@ export class PlayComponent implements OnDestroy, OnInit {
   }
 
   onConstructionCancelation(payload: IBuildingConstructionCancel) {
-    console.log(payload);
+    this._soundService.play('click');
+
     this._garrisonService
       .cancelConstruction({
         garrisonId: this.garrison._id,
