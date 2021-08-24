@@ -1,14 +1,9 @@
-import { BuildingService } from "../../../../services/static/building.service";
 import { IGarrison } from "src/models/dynamic/IGarrison";
 import {
   Pipe,
   PipeTransform
 } from "@angular/core";
-import { IBuilding } from "src/models/static/IBuilding";
-import { IResearch } from "src/models/static/IResearch";
-import { IUnit } from "src/models/static/IUnit";
-import { ResearchService } from "../../../../services/static/research.service";
-import { UnitService } from "../../../../services/static/unit.service";
+import { SoundService } from "src/app/shared/services/sound.service";
 import { StaticHelper as _h } from "../../../../utils/helper";
 
 @Pipe({
@@ -16,33 +11,9 @@ import { StaticHelper as _h } from "../../../../utils/helper";
 })
 export class ComputeEntityGlobalStatePipe implements PipeTransform {
   
-  private _buildings!: IBuilding[];
-  private _researches!: IResearch[];
-  private _units!: IUnit[];
+  private _savedBuildings: any[] = [];
   
-  constructor(
-    private _buildingService: BuildingService,
-    private _researchService: ResearchService,
-    private _unitService: UnitService
-  ) {
-    // const buildingsFromStorage = this._buildingService.getBuildingsFromStorage();
-    // if (!buildingsFromStorage) {
-    //   throw new Error('Static buildings should be existing in storage.');
-    // }
-    // this._buildings = buildingsFromStorage;
-
-    // const researchesFromStorage = this._researchService.getResearchesFromStorage();
-    // if (!researchesFromStorage) {
-    //   throw new Error('Static researches should be existing in storage.');
-    // }
-    // this._researches = researchesFromStorage;
-
-    // const unitsFromStorage = this._unitService.getUnitsFromStorage();
-    // if (!unitsFromStorage) {
-    //   throw new Error('Static units should be existing in storage.');
-    // }
-    // this._units = unitsFromStorage;
-  }
+  constructor(private _soundService: SoundService) {}
   
   transform(
     garrison: IGarrison,
@@ -107,6 +78,31 @@ export class ComputeEntityGlobalStatePipe implements PipeTransform {
     let states: any;
     if (buildings.entities.length > 0) {
       states = (states || []).concat(buildings);
+      
+      for (const building of buildings.entities) {
+        const index = this
+          ._savedBuildings
+          .findIndex(onGoing =>
+            onGoing.buildingId === building._id
+          );
+        if (this._savedBuildings[index] < 0) {
+          this
+            ._savedBuildings
+            .push(building);
+          continue;
+        }
+
+        const isPassing = new Date(
+          building.endDate
+        ).getTime() - new Date().getTime() <= 1000;
+        if (isPassing) {
+          this
+            ._savedBuildings
+            .splice(index, 1);
+          this._soundService.play('building_finished');
+          continue;
+        }
+      }
     }
     if (researches.entities.length > 0) {
       states = (states || []).concat(researches);
