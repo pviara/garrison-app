@@ -84,6 +84,8 @@
 
 export type GarrisonBuilding = IGarrison['instances']['buildings'][any];
 
+export type GarrisonBuildingImprovement = 'upgrade' | 'extension';
+
 export type GarrisonUnit = IGarrison['instances']['units'][any];
 
 export type GarrisonResearch = IGarrison['instances']['researches'][any];

@@ -53,7 +53,7 @@ export class GlobalResourceDisplayerComponent implements AfterViewChecked, OnDes
 
   ngOnInit() {
     this._initTextColor();
-    this._timer = setInterval((_: any) => {
+    this._timer = setInterval(() => {
       this.now = new Date();
     }, 1000);
   }

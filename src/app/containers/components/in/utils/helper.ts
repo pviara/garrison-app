@@ -7,7 +7,7 @@ import {
   IOperatedConstruction,
   IOperatedProject
 } from 'src/models/dynamic/IGarrison';
-import { BuildingImprovementType, IInstantiableBuilding } from 'src/models/static/IBuilding';
+import { BuildingImprovementType, IBuildingCost, IInstantiableBuilding } from 'src/models/static/IBuilding';
 
 export class StaticHelper {
   static extractCharacterOutOf(characters: ICharacter[]) {
@@ -26,6 +26,24 @@ export class StaticHelper {
     }
 
     return date.getTime() <= now.getTime();
+  }
+  
+  static computeConstructionCost(
+    instantiationCost: IBuildingCost,
+    improvementLevel = 0
+  ) {
+    const getPowerFactor = (factor = this.getFactor('default')) => {
+      return Math.pow(factor, improvementLevel);
+    };
+    return {
+      gold: Math.floor(instantiationCost.gold * getPowerFactor()),
+      wood: Math.floor(instantiationCost.wood * getPowerFactor()),
+      plot: Math.floor(
+        instantiationCost.plot * getPowerFactor(
+          this.getFactor('decreased')
+        )
+      )
+    } as IBuildingCost;
   }
 
   static computeConstructionDurationAndWorkforce(
@@ -151,5 +169,17 @@ export class StaticHelper {
       .every(
         construction => this.hasPast(construction.endDate, moment)
       );
+  }
+  
+  static getFactor(type: 'default' | 'decreased') {
+    switch (type) {
+      case 'default':
+        if (!environment.defaultFactor) throw new Error('Couldn\'t retrieve DEFAULT_FACTOR from environment file.');
+        return environment.defaultFactor;
+
+      case 'decreased':
+        if (!environment.decreasedFactor) throw new Error('Couldn\'t retrieve DECREASED_FACTOR from environment file.');
+        return +environment.decreasedFactor;
+    }
   }
 }

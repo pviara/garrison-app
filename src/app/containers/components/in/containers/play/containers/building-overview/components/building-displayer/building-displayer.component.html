@@ -40,4 +40,12 @@
       </div>
     </div>
   </div>
+  <ng-container *ngIf="
+    isImprovableBuilding(staticEntity)
+    || isHarvestableBuilding(staticEntity)
+  ">
+    <div class="second-line">
+      hey
+    </div>
+  </ng-container>
 </div>

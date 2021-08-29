@@ -2,9 +2,11 @@ import {
   Component,
   EventEmitter,
   Input,
+  OnDestroy,
   OnInit,
   Output
 } from '@angular/core';
+import { ComputeMostAffordableImprovementPipe } from '../../../../pipes/dynamic/compute_most_affordable_improvement.pipe';
 import {
   FormBuilder,
   FormGroup,
@@ -19,13 +21,18 @@ import {
 import { IBuildingCreate } from 'src/models/dynamic/payloads/IBuildingCreate';
 import { ICharacter } from 'src/models/dynamic/ICharacter';
 import { IStaticEntity } from 'src/models/static/IStaticEntity';
+import { IBuilding } from 'src/models/static/IBuilding';
+import { StaticHelper as _h } from 'src/app/containers/components/in/utils/helper';
 
 @Component({
   selector: 'garrison-in-play-building-displayer',
   templateUrl: './building-displayer.component.html',
-  styleUrls: ['./building-displayer.component.scss']
+  styleUrls: ['./building-displayer.component.scss'],
+  providers: [
+    ComputeMostAffordableImprovementPipe
+  ]
 })
-export class BuildingDisplayerComponent implements OnInit {
+export class BuildingDisplayerComponent implements OnDestroy, OnInit {
   buildingCreation!: FormGroup;
   
   @Input()
@@ -43,15 +50,30 @@ export class BuildingDisplayerComponent implements OnInit {
   @Input()
   dynamicUnits!: GarrisonUnit[];
   
+  now = new Date();
+  
   @Input()
   resources!: GarrisonResources;
   
   @Input()
   staticEntity!: IStaticEntity;
 
-  constructor(private _formBuilder: FormBuilder) {}
+  private _timer: any;
+
+  constructor(
+    private _computeMostAffordableImprovementPipe: ComputeMostAffordableImprovementPipe,
+    private _formBuilder: FormBuilder
+  ) {}
+  
+  ngOnDestroy() {
+    clearInterval(this._timer);
+  }
   
   ngOnInit() {
+    this._timer = setInterval(() => {
+      this.now = new Date();
+    }, 1000);
+    
     this.buildingCreation = this
       ._formBuilder
       .group({
@@ -70,6 +92,37 @@ export class BuildingDisplayerComponent implements OnInit {
       });
   }
 
+  isHarvestableBuilding(staticBuilding: IStaticEntity) {
+    const dynamicBuilding = this
+      .dynamicBuildings
+      .find(
+        building => building.code === staticBuilding.code
+      );
+    
+    return (staticBuilding as any).harvest?.maxWorkforce
+      && dynamicBuilding
+      && _h
+        .checkBuildingAvailability(
+          this.now,
+          dynamicBuilding
+        );
+  }
+
+  isImprovableBuilding(staticBuilding: IStaticEntity) {
+    return (
+        (staticBuilding as any).extension
+        || (staticBuilding as any).upgrades.length > 0
+      )
+      && this
+        ._computeMostAffordableImprovementPipe
+        .transform(
+          staticBuilding.code,
+          staticBuilding as IBuilding,
+          this.dynamicBuildings,
+          this.now
+        );
+  }
+  
   onBuildingCreation(buildingCreation: IBuildingCreate) {
     this.createBuilding.emit(buildingCreation);
   }
