@@ -34,16 +34,16 @@ export class ComputeEntityGlobalStatePipe implements PipeTransform {
       entities: [] as any[]
     };
 
-    for (const building of garrison.instances.buildings) {
-      const onGoing = building
+    for (const dynamicBuilding of garrison.instances.buildings) {
+      const onGoing = dynamicBuilding
         .constructions
         .find(c => !_h.hasPast(c.endDate, now));
       if (!onGoing) continue;
 
       buildings.entities = buildings.entities.concat({
         ...onGoing,
-        code: building.code,
-        buildingId: building._id
+        code: dynamicBuilding.code,
+        buildingId: dynamicBuilding._id
       });
     }
 

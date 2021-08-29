@@ -210,10 +210,10 @@ export class ComputeResourceValuePipe implements PipeTransform {
 
             let totalPlots = 60;
 
-            for (const building of dynamicBuildings) {
+            for (const dynamicBuilding of dynamicBuildings) {
               const staticBuilding = staticBuildings
                 .find(
-                  sBuilding => sBuilding.code === building.code
+                  sBuilding => sBuilding.code === dynamicBuilding.code
                 );
               if (!staticBuilding) {
                 throw new Error(
@@ -238,7 +238,7 @@ export class ComputeResourceValuePipe implements PipeTransform {
                 .computeBuildingCurrentLevel(
                   now,
                   improvementType,
-                  building.constructions
+                  dynamicBuilding.constructions
                 );
               
               for (let i = 0; i < currentLevel + 1; i++) {

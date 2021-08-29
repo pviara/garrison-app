@@ -1,3 +1,4 @@
+import { CastToHarvestBuildingPipe } from '../pipes/static/cast-to-harvest-building.pipe';
 import { CastToInstantiableBuildingPipe } from '../pipes/static/cast-to-instantiable-building.pipe';
 import { CastToInstantiablePipe } from '../pipes/static/cast-to-instantiable.pipe';
 import { CastToNotDynamicResource } from '../pipes/resource/cast-to-not-dynamic-resource.pipe';
@@ -24,6 +25,7 @@ import { SmoothTextChangerDirective } from '../directives/smooth-text-changer.di
 
 @NgModule({
   declarations: [
+    CastToHarvestBuildingPipe,
     CastToInstantiableBuildingPipe,
     CastToInstantiablePipe,
     CastToNotDynamicResource,
@@ -50,6 +52,7 @@ import { SmoothTextChangerDirective } from '../directives/smooth-text-changer.di
     RouterModule
   ],
   exports: [
+    CastToHarvestBuildingPipe,
     CastToInstantiableBuildingPipe,
     CastToInstantiablePipe,
     CastToNotDynamicResource,

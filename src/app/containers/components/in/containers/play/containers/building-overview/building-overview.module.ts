@@ -7,7 +7,9 @@ import { BuildingOverviewComponent } from './building-overview.component';
 import { BuildingStateComponent } from './components/building-state/building-state.component';
 import { CommonModule } from '@angular/common';
 import { ComputeAvailableWorkforcePipe } from '../../pipes/dynamic/compute-available-workforce.pipe';
+import { ComputeHarvestWorkforceLimitPipe } from '../../pipes/dynamic/compute-harvest-workforce-limit.pipe';
 import { ComputeMostAffordableImprovementPipe } from '../../pipes/dynamic/compute_most_affordable_improvement.pipe';
+import { ComputeTotalUnitsHarvestingPipe } from '../../pipes/dynamic/compute-total-units-harvesting.pipe';
 import { GarrisonService } from '../../../../services/dynamic/garrison.service';
 import { NgModule } from "@angular/core";
 import { ReactiveFormsModule } from '@angular/forms';
@@ -23,7 +25,9 @@ import { SharedModule } from '../../components/shared.module';
     BuildingOverviewComponent,
     BuildingStateComponent,
     ComputeAvailableWorkforcePipe,
-    ComputeMostAffordableImprovementPipe
+    ComputeHarvestWorkforceLimitPipe,
+    ComputeMostAffordableImprovementPipe,
+    ComputeTotalUnitsHarvestingPipe
   ],
   imports: [
     CommonModule,
@@ -33,6 +37,7 @@ import { SharedModule } from '../../components/shared.module';
   ],
   providers: [
     BuildingInstanceGuard,
+    ComputeAvailableWorkforcePipe,
     GarrisonService
   ]
 })

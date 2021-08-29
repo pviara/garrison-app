@@ -1,0 +1,81 @@
+.container {
+  display: flex;
+  flex-direction: row;
+
+  .harvesting {
+    margin: 20px;
+    text-align: center;
+
+    p {
+      margin: 0;
+      
+      &.total {
+        color: #f8d532;
+      }
+    }
+  }
+
+  .form {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+
+    flex: 2;
+    display: flex;
+
+    form {
+      display: flex;
+
+      .control {
+        flex: 1;
+        display: flex;
+        align-items: center;
+
+        .input {
+          flex: 1;
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+
+          label {
+            font-size: 60%;
+            color: #aeaeae;
+
+            text-align: center;
+          }
+
+          input {
+            margin-top: 0.3em;
+
+            outline: none;
+
+            max-width: 60px;
+
+            font-size: 70%;
+            padding: 0.2em;
+
+            color: #f8d532;
+
+            &[type=number] {
+              appearance: textfield;
+            }
+          }
+        }
+      }
+
+      .submit {
+        margin-left: 0.4em;
+        
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+
+        button {
+          margin-top: 0.4em;
+          
+          font-size: 1em;
+        }
+      }
+    }
+  }
+}

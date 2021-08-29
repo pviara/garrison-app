@@ -1,3 +1,52 @@
 <div class="container">
-  all in babe!!
+  <div class="harvesting">
+    <p>Units</p>
+    <p class="total">
+      {{ 
+        staticEntity.code
+        | compute_total_units_harvesting
+        : dynamicBuildings
+        : dynamicUnits
+       }}
+    </p>
+  </div>
+
+  <div class="form">
+    <form
+      [formGroup]="unitAssignment">
+
+    <div class="control">
+      <div class="input">
+        <label>
+          Quantity
+          <br>
+          <small>
+            [ max: {{ 
+              (staticEntity
+              | cast_to_harvest_building)
+              | compute_harvest_workforce_limit
+              : dynamicBuildings
+              : dynamicUnits
+              : now
+            }} ]
+          </small>
+        </label>
+        <input
+          type="number"
+          formControlName="quantity"
+          [min]="0"
+          [max]="0">
+      </div>
+    </div>
+
+    <div class="submit">
+      <button (click)="onUnitAssignment(unitAssignment)">
+        +
+      </button>
+      <button (click)="onUnitUnassignment(unitAssignment)">
+        -
+      </button>
+    </div>
+    </form>
+  </div>
 </div>

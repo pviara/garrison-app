@@ -45,7 +45,43 @@
     || isHarvestableBuilding(staticEntity)
   ">
     <div class="second-line">
-      hey
+      <div class="harvest">
+        <div class="title">
+          <h5>Harvest</h5>
+        </div>
+        <div class="separation"></div>
+        <ng-container *ngIf="isHarvestableBuilding(staticEntity); else noHarvest">
+          <div class="content">
+            <garrison-in-play-building-harvest
+              [dynamicBuildings]="dynamicBuildings"
+              [dynamicUnits]="dynamicUnits"
+              [now]="now"
+              [staticEntity]="staticEntity">
+            </garrison-in-play-building-harvest>
+          </div>
+        </ng-container>
+      </div>
+      <ng-template #noHarvest>
+        <p class="no-harvest">
+          No harvest available
+        </p>
+      </ng-template>
+
+      <div class="improvement">
+        <div class="title">
+          <h5>Improvement</h5>
+        </div>
+        <div class="separation"></div>
+      </div>
+      <ng-container *ngIf="isImprovableBuilding(staticEntity) as nextImprovement; else noImprovement">
+        <div class="content">
+        </div>
+      </ng-container>
+      <ng-template #noImprovement>
+        <p class="no-improvement">
+          No improvement available
+        </p>
+      </ng-template>
     </div>
   </ng-container>
 </div>
