@@ -18,34 +18,41 @@
     <div class="control">
       <div class="input">
         <label>
-          Quantity
+          Workforce
           <br>
           <small>
-            [ max: {{ 
-              (staticEntity
-              | cast_to_harvest_building)
-              | compute_harvest_workforce_limit
-              : dynamicBuildings
-              : dynamicUnits
-              : now
-            }} ]
+            [ max: {{ harvestWorkforceLimit }} ]
           </small>
         </label>
         <input
           type="number"
-          formControlName="quantity"
-          [min]="0"
-          [max]="0">
+          formControlName="workforce"
+          [max]="harvestWorkforceLimit">
       </div>
     </div>
 
     <div class="submit">
-      <button (click)="onUnitAssignment(unitAssignment)">
-        +
-      </button>
-      <button (click)="onUnitUnassignment(unitAssignment)">
-        -
-      </button>
+      <ng-container *ngIf="isInvalidFormForUnitAssignment(unitAssignment) as error; else noError">
+        <button
+          [disabled]="error"
+          [title]="error"
+          (click)="onUnitAssignment(unitAssignment)">
+          +
+        </button>
+      </ng-container>
+      <ng-template #noError>
+        <button (click)="onUnitAssignment(unitAssignment)">
+          +
+        </button>
+      </ng-template>
+      <ng-container *ngIf="(isInvalidFormForUnitUnassignment(unitAssignment) || 'Unassign') as error">
+        <button
+          [disabled]="error"
+          [title]="error"
+          (click)="onUnitUnassignment(unitAssignment)">
+          -
+        </button>
+      </ng-container>
     </div>
     </form>
   </div>
