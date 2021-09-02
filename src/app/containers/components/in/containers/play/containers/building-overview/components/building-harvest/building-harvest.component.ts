@@ -139,9 +139,7 @@ export class BuildingHarvestComponent implements OnChanges {
   }
 
   onUnitAssignment(unitAssignment: FormGroup) {
-    if (this.isInvalidFormForUnitAssignment(unitAssignment)) {
-      alert('');
-    }
+    console.log('assignment', unitAssignment.value);
   }
 
   onUnitUnassignment(unitAssignment: FormGroup) {

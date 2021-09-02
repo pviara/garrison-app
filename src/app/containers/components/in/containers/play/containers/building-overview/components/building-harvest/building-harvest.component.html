@@ -45,7 +45,7 @@
           +
         </button>
       </ng-template>
-      <ng-container *ngIf="(isInvalidFormForUnitUnassignment(unitAssignment) || 'Unassign') as error">
+      <ng-container *ngIf="isInvalidFormForUnitUnassignment(unitAssignment) as error; else noError">
         <button
           [disabled]="error"
           [title]="error"
@@ -53,6 +53,11 @@
           -
         </button>
       </ng-container>
+      <ng-template #noError>
+        <button (click)="onUnitAssignment(unitAssignment)">
+          -
+        </button>
+      </ng-template>
     </div>
     </form>
   </div>
