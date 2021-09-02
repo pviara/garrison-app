@@ -23,6 +23,7 @@ import { ICharacter } from 'src/models/dynamic/ICharacter';
 import { IStaticEntity } from 'src/models/static/IStaticEntity';
 import { IBuilding } from 'src/models/static/IBuilding';
 import { StaticHelper as _h } from 'src/app/containers/components/in/utils/helper';
+import { IUnitAssign } from 'src/models/dynamic/payloads/IUnitAssign';
 
 @Component({
   selector: 'garrison-in-play-building-displayer',
@@ -33,6 +34,9 @@ import { StaticHelper as _h } from 'src/app/containers/components/in/utils/helpe
   ]
 })
 export class BuildingDisplayerComponent implements OnDestroy, OnInit {
+  @Output()
+  assignUnit = new EventEmitter<IUnitAssign>();
+  
   buildingCreation!: FormGroup;
   
   @Input()
@@ -57,6 +61,9 @@ export class BuildingDisplayerComponent implements OnDestroy, OnInit {
   
   @Input()
   staticEntity!: IStaticEntity;
+
+  @Output()
+  unassignUnit = new EventEmitter<IUnitAssign>();
 
   private _timer: any;
 
@@ -125,5 +132,13 @@ export class BuildingDisplayerComponent implements OnDestroy, OnInit {
   
   onBuildingCreation(buildingCreation: IBuildingCreate) {
     this.createBuilding.emit(buildingCreation);
+  }
+
+  onUnitAssignment(unitAssignment: IUnitAssign) {
+    this.assignUnit.emit(unitAssignment);
+  }
+
+  onUnitUnassignment(unitUnassignment: IUnitAssign) {
+    this.unassignUnit.emit(unitUnassignment);
   }
 }

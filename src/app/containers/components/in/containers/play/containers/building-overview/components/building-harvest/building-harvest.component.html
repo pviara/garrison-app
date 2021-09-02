@@ -32,29 +32,27 @@
     </div>
 
     <div class="submit">
-      <ng-container *ngIf="isInvalidFormForUnitAssignment(unitAssignment) as error; else noError">
+      <ng-container *ngIf="isInvalidFormForUnitAssignment(unitAssignment) as error; else noErrorForAssignment">
         <button
           [disabled]="error"
-          [title]="error"
-          (click)="onUnitAssignment(unitAssignment)">
+          [title]="error">
           +
         </button>
       </ng-container>
-      <ng-template #noError>
+      <ng-template #noErrorForAssignment>
         <button (click)="onUnitAssignment(unitAssignment)">
           +
         </button>
       </ng-template>
-      <ng-container *ngIf="isInvalidFormForUnitUnassignment(unitAssignment) as error; else noError">
+      <ng-container *ngIf="isInvalidFormForUnitUnassignment(unitAssignment) as error; else noErrorForUnassignment">
         <button
           [disabled]="error"
-          [title]="error"
-          (click)="onUnitUnassignment(unitAssignment)">
+          [title]="error">
           -
         </button>
       </ng-container>
-      <ng-template #noError>
-        <button (click)="onUnitAssignment(unitAssignment)">
+      <ng-template #noErrorForUnassignment>
+        <button (click)="onUnitUnassignment(unitAssignment)">
           -
         </button>
       </ng-template>

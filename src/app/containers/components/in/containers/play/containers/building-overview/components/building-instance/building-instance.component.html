@@ -16,7 +16,9 @@
       [dynamicUnits]="garrison.instances.units"
       [resources]="garrison.resources"
       [staticEntity]="staticEntity"
-      (createBuilding)="onBuildingCreation($event)">
+      (assignUnit)="onUnitAssignment($event)"
+      (createBuilding)="onBuildingCreation($event)"
+      (unassignUnit)="onUnitUnassignment($event)">
     </garrison-in-play-building-displayer>
   </div>
 </div>

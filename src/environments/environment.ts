@@ -6,7 +6,7 @@ export const environment = {
   production: false,
 
   // related to the API and database
-  apiUrl: 'http://localhost:3000/api',
+  apiUrl: 'http://localhost:5000/api',
   dbNameStatic: 'static',
   dbNameDynamic: 'dynamic',
 

@@ -11,6 +11,7 @@ import { IBuildingCreate } from 'src/models/dynamic/payloads/IBuildingCreate';
 import { IStaticEntity } from 'src/models/static/IStaticEntity';
 import { ICharacter } from 'src/models/dynamic/ICharacter';
 import { IGarrison } from 'src/models/dynamic/IGarrison';
+import { IUnitAssign } from 'src/models/dynamic/payloads/IUnitAssign';
 
 @Component({
   selector: 'garrison-in-play-building-instance',
@@ -77,7 +78,29 @@ export class BuildingInstanceComponent implements OnInit {
         garrisonId: this.garrison._id
       })
       .subscribe(result => {
-        // // alert('🛠 Building is being created !');
+        // ...
+      });
+  }
+
+  onUnitAssignment(payload: IUnitAssign) {
+    this._garrisonService
+      .assignUnit({
+        ...payload,
+        garrisonId: this.garrison._id
+      })
+      .subscribe(result => {
+        // ...
+      });
+  }
+
+  onUnitUnassignment(payload: IUnitAssign) {
+    this._garrisonService
+      .unassignUnit({
+        ...payload,
+        garrisonId: this.garrison._id
+      })
+      .subscribe(result => {
+        // ...
       });
   }
 }

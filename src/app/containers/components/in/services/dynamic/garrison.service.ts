@@ -7,6 +7,7 @@ import { IBuildingConstructionCancel } from 'src/models/dynamic/payloads/IBuildi
 import { IGarrison } from 'src/models/dynamic/IGarrison';
 import { IGarrisonCreate } from 'src/models/dynamic/payloads/IGarrisonCreate';
 import { Injectable } from '@angular/core';
+import { IUnitAssign } from 'src/models/dynamic/payloads/IUnitAssign';
 import { LocalStorageService } from 'src/app/shared/services/local-storage.service';
 import { tap } from 'rxjs/operators';
 
@@ -36,6 +37,15 @@ export class GarrisonService {
   addGarrisonIdToLocalStorage(id: IGarrison['_id']) {
     this._localStorageService.garrisonId = id;
     return this._localStorageService.garrisonId;
+  }
+
+  assignUnit(payload: IUnitAssign) {
+    return this._client.put<IGarrison>(
+      `${environment.apiUrl}/${environment.dbNameDynamic}/${this._endpoint}/unit/assign`,
+      payload
+    ).pipe(
+      tap((garrison: IGarrison) => this.garrison = garrison)
+    );
   }
 
   cancelConstruction(payload: IBuildingConstructionCancel) {
@@ -80,5 +90,14 @@ export class GarrisonService {
 
   getCurrentGarrisonIdFromStorage() {
     return this._localStorageService.garrisonId;
+  }
+
+  unassignUnit(payload: IUnitAssign) {
+    return this._client.put<IGarrison>(
+      `${environment.apiUrl}/${environment.dbNameDynamic}/${this._endpoint}/unit/unassign`,
+      payload
+    ).pipe(
+      tap((garrison: IGarrison) => this.garrison = garrison)
+    );
   }
 }

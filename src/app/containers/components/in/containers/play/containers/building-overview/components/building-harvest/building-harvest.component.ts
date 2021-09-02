@@ -1,7 +1,9 @@
 import {
   Component,
+  EventEmitter,
   Input,
-  OnChanges
+  OnChanges,
+  Output
 } from "@angular/core";
 import { ComputeAvailableWorkforcePipe } from '../../../../pipes/dynamic/compute-available-workforce.pipe';
 import { ComputeHarvestingPeasantsPipe } from '../../../../pipes/dynamic/compute-harvesting-peasants.pipe';
@@ -17,6 +19,7 @@ import {
 } from "src/models/dynamic/IGarrison";
 import { IHarvestBuilding } from 'src/models/static/IBuilding';
 import { IStaticEntity } from "src/models/static/IStaticEntity";
+import { IUnitAssign } from 'src/models/dynamic/payloads/IUnitAssign';
 import { SoundService } from 'src/app/shared/services/sound.service';
 
 @Component({
@@ -30,6 +33,9 @@ import { SoundService } from 'src/app/shared/services/sound.service';
   ]
 })
 export class BuildingHarvestComponent implements OnChanges {
+  @Output()
+  assignUnit = new EventEmitter<IUnitAssign>();
+  
   @Input()
   dynamicBuildings!: GarrisonBuilding[];
 
@@ -42,6 +48,9 @@ export class BuildingHarvestComponent implements OnChanges {
   harvestWorkforceLimit!: number;
 
   now = new Date();
+
+  @Output()
+  unassignUnit = new EventEmitter<IUnitAssign>();
   
   unitAssignment!: FormGroup;
   
@@ -139,10 +148,28 @@ export class BuildingHarvestComponent implements OnChanges {
   }
 
   onUnitAssignment(unitAssignment: FormGroup) {
-    console.log('assignment', unitAssignment.value);
+    if (this.isInvalidFormForUnitAssignment(unitAssignment)) {
+      return;
+    }
+
+    this.assignUnit.emit({
+      code: 'peasant',
+      garrisonId: '',
+      harvestCode: this.staticEntity.code as 'goldmine' | 'sawmill',
+      quantity: unitAssignment.get('workforce')?.value
+    });
   }
 
   onUnitUnassignment(unitAssignment: FormGroup) {
-    console.log('unassignement', unitAssignment.value);
+    if (this.isInvalidFormForUnitUnassignment(unitAssignment)) {
+      return;
+    }
+
+    this.unassignUnit.emit({
+      code: 'peasant',
+      garrisonId: '',
+      harvestCode: this.staticEntity.code as 'goldmine' | 'sawmill',
+      quantity: unitAssignment.get('workforce')?.value
+    });
   }
 }

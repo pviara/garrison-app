@@ -55,7 +55,9 @@
             <garrison-in-play-building-harvest
               [dynamicBuildings]="dynamicBuildings"
               [dynamicUnits]="dynamicUnits"
-              [staticEntity]="staticEntity">
+              [staticEntity]="staticEntity"
+              (assignUnit)="onUnitAssignment($event)"
+              (unassignUnit)="onUnitUnassignment($event)">
             </garrison-in-play-building-harvest>
           </div>
         </ng-container>
