@@ -159,12 +159,6 @@ export class StaticHelper {
           return null;
         }
       );
-    if (improvements.length === 0) {
-      // no improvement was found, but is the building at least been instantiated ?
-      if (!this.hasPast(constructions[0].endDate)) {
-        return -1;
-      }
-    }
 
     return improvements
       .map(construction => <number>construction.improvement?.level)
