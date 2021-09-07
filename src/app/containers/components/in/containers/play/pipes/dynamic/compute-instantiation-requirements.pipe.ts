@@ -31,16 +31,16 @@ export class ComputeInstantiationRequirementsPipe implements PipeTransform {
         }) - 1;
       
       const existing = dynamicBuildings.find(dB => dB.code === required.code);
+      if (!existing) {
+        continue;
+      }
 
       // check whether the required building is an upgraded building or not
       const { upgradeLevel } = required;
       if (!upgradeLevel) {
-
-        // check whether instantiation has already been cleaned up because it was finished
-        const instantiation = existing?.constructions[0];
-        if (!instantiation) continue;
         
         // check whether the building is still being processed for its instantiation
+        const instantiation = existing?.constructions[0];
         const endDate = new Date(instantiation.endDate);
         if (endDate.getTime() < now.getTime()) {
           requiredBuildings[addedIndex].completed = true;
