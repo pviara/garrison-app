@@ -202,7 +202,7 @@ export class ComputeResourceValuePipe implements PipeTransform {
 
             return {
               available: totalFood.toString(),
-              inComing: Math.floor(inComing).toString()
+              inComing: Math.floor(inComing)
             };
           }
 
@@ -241,6 +241,10 @@ export class ComputeResourceValuePipe implements PipeTransform {
                   dynamicBuilding.constructions,
                   false
                 );
+
+              if (staticBuilding.code === 'scout-tower') {
+                console.log(currentLevel);
+              }
               
               for (let i = 0; i < currentLevel + 1; i++) {
                 const plotCost = Math.pow(

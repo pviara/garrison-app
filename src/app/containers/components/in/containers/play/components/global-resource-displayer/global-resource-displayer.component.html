@@ -209,6 +209,14 @@
           | cast_to_not_dynamic_resource)
           .available
         }}
+        <ng-container *ngIf="
+          (food
+          | cast_to_not_dynamic_resource)
+          .inComing as inComing">
+          <span class="extra-small">
+            ({{ inComing }})
+          </span>
+        </ng-container>
       </ng-container>
       </p>
     </garrison-in-play-resource-displayer>

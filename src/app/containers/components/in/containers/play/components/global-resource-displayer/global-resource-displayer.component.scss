@@ -5,6 +5,10 @@
   .element {
     margin: 1.5em;
 
+    .extra-small {
+      font-size: 0.7em;
+    }
+
     &.resource {
       flex: 1;
     }
