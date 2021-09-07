@@ -12,6 +12,7 @@ import { IStaticEntity } from 'src/models/static/IStaticEntity';
 import { ICharacter } from 'src/models/dynamic/ICharacter';
 import { IGarrison } from 'src/models/dynamic/IGarrison';
 import { IUnitAssign } from 'src/models/dynamic/payloads/IUnitAssign';
+import { IBuildingUpgradeOrExtend } from 'src/models/dynamic/payloads/IBuildingUpgradeOrExtend';
 
 @Component({
   selector: 'garrison-in-play-building-instance',
@@ -74,6 +75,28 @@ export class BuildingInstanceComponent implements OnInit {
   onBuildingCreation(payload: IBuildingCreate) {
     this._garrisonService
       .createBuilding({
+        ...payload,
+        garrisonId: this.garrison._id
+      })
+      .subscribe(result => {
+        // ...
+      });
+  }
+
+  onBuildingExtension(payload: IBuildingUpgradeOrExtend) {
+    this._garrisonService
+      .extendBuilding({
+        ...payload,
+        garrisonId: this.garrison._id
+      })
+      .subscribe(result => {
+        // ...
+      });
+  }
+
+  onBuildingUpgrade(payload: IBuildingUpgradeOrExtend) {
+    this._garrisonService
+      .upgradeBuilding({
         ...payload,
         garrisonId: this.garrison._id
       })

@@ -250,11 +250,8 @@ export class ComputeResourceValuePipe implements PipeTransform {
               }
             }
             return Math.floor(totalPlots).toString();
-            
-            break;
           }
         }
-        
         break;
       }
     }

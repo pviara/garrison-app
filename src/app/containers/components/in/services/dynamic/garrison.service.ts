@@ -10,6 +10,7 @@ import { Injectable } from '@angular/core';
 import { IUnitAssign } from 'src/models/dynamic/payloads/IUnitAssign';
 import { LocalStorageService } from 'src/app/shared/services/local-storage.service';
 import { tap } from 'rxjs/operators';
+import { IBuildingUpgradeOrExtend } from 'src/models/dynamic/payloads/IBuildingUpgradeOrExtend';
 
 @Injectable()
 export class GarrisonService {
@@ -73,6 +74,15 @@ export class GarrisonService {
     );
   }
 
+  extendBuilding(payload: IBuildingUpgradeOrExtend) {
+    return this._client.put<IGarrison>(
+      `${environment.apiUrl}/${environment.dbNameDynamic}/${this._endpoint}/building/extend`,
+      payload
+    ).pipe(
+      tap((garrison: IGarrison) => this.garrison = garrison)
+    );
+  }
+
   getCurrentGarrison() {
     const userFromStorage = this._authService.getCurrentUserFromStorage();
     if (!userFromStorage) {
@@ -95,6 +105,15 @@ export class GarrisonService {
   unassignUnit(payload: IUnitAssign) {
     return this._client.put<IGarrison>(
       `${environment.apiUrl}/${environment.dbNameDynamic}/${this._endpoint}/unit/unassign`,
+      payload
+    ).pipe(
+      tap((garrison: IGarrison) => this.garrison = garrison)
+    );
+  }
+
+  upgradeBuilding(payload: IBuildingUpgradeOrExtend) {
+    return this._client.put<IGarrison>(
+      `${environment.apiUrl}/${environment.dbNameDynamic}/${this._endpoint}/building/upgrade`,
       payload
     ).pipe(
       tap((garrison: IGarrison) => this.garrison = garrison)

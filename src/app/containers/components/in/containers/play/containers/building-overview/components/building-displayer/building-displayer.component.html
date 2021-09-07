@@ -73,11 +73,25 @@
           <h5>Improvement</h5>
         </div>
         <div class="separation"></div>
+        <ng-container *ngIf="isImprovableBuilding(staticEntity) as nextImprovement; else noImprovement">
+          <div class="content">
+            <garrison-in-play-building-improvement
+              [buildingId]="nextImprovement.building._id"
+              [cost]="nextImprovement.cost"
+              [dynamicBuildings]="dynamicBuildings"
+              [dynamicResearches]="dynamicResearches"
+              [dynamicUnits]="dynamicUnits"
+              [improvementLevel]="nextImprovement.nextLevel"
+              [maxWorkforce]="nextImprovement.workforce.max"
+              [minWorkforce]="nextImprovement.workforce.min"
+              [resources]="resources"
+              [staticEntity]="staticEntity"
+              (extendBuilding)="onBuildingExtension($event)"
+              (upgradeBuilding)="onBuildingUpgrade($event)">
+            </garrison-in-play-building-improvement>
+          </div>
+        </ng-container>
       </div>
-      <ng-container *ngIf="isImprovableBuilding(staticEntity) as nextImprovement; else noImprovement">
-        <div class="content">
-        </div>
-      </ng-container>
       <ng-template #noImprovement>
         <p class="no-improvement">
           No improvement available

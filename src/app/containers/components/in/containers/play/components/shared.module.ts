@@ -22,9 +22,11 @@ import { ResourceDisplayerComponent } from './resource-displayer/resource-displa
 import { RouterModule } from '@angular/router';
 import { SharedModule as GlobalSharedModule } from 'src/app/shared/shared.module';
 import { SmoothTextChangerDirective } from '../directives/smooth-text-changer.directive';
+import { CastToBuildingPipe } from '../pipes/static/cast-to-building.pipe';
 
 @NgModule({
   declarations: [
+    CastToBuildingPipe,
     CastToHarvestBuildingPipe,
     CastToInstantiableBuildingPipe,
     CastToInstantiablePipe,
@@ -52,6 +54,7 @@ import { SmoothTextChangerDirective } from '../directives/smooth-text-changer.di
     RouterModule
   ],
   exports: [
+    CastToBuildingPipe,
     CastToHarvestBuildingPipe,
     CastToInstantiableBuildingPipe,
     CastToInstantiablePipe,

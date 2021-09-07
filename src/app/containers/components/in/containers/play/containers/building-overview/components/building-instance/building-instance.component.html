@@ -18,7 +18,9 @@
       [staticEntity]="staticEntity"
       (assignUnit)="onUnitAssignment($event)"
       (createBuilding)="onBuildingCreation($event)"
-      (unassignUnit)="onUnitUnassignment($event)">
+      (extendBuilding)="onBuildingExtension($event)"
+      (unassignUnit)="onUnitUnassignment($event)"
+      (upgradeBuilding)="onBuildingUpgrade($event)">
     </garrison-in-play-building-displayer>
   </div>
 </div>

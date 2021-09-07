@@ -24,6 +24,7 @@ import { IStaticEntity } from 'src/models/static/IStaticEntity';
 import { IBuilding } from 'src/models/static/IBuilding';
 import { StaticHelper as _h } from 'src/app/containers/components/in/utils/helper';
 import { IUnitAssign } from 'src/models/dynamic/payloads/IUnitAssign';
+import { IBuildingUpgradeOrExtend } from 'src/models/dynamic/payloads/IBuildingUpgradeOrExtend';
 
 @Component({
   selector: 'garrison-in-play-building-displayer',
@@ -53,6 +54,9 @@ export class BuildingDisplayerComponent implements OnDestroy, OnInit {
   
   @Input()
   dynamicUnits!: GarrisonUnit[];
+
+  @Output()
+  extendBuilding = new EventEmitter<IBuildingUpgradeOrExtend>();
   
   now = new Date();
   
@@ -61,6 +65,9 @@ export class BuildingDisplayerComponent implements OnDestroy, OnInit {
   
   @Input()
   staticEntity!: IStaticEntity;
+
+  @Output()
+  upgradeBuilding = new EventEmitter<IBuildingUpgradeOrExtend>();
 
   @Output()
   unassignUnit = new EventEmitter<IUnitAssign>();
@@ -100,19 +107,22 @@ export class BuildingDisplayerComponent implements OnDestroy, OnInit {
   }
 
   isHarvestableBuilding(staticBuilding: IStaticEntity) {
-    const dynamicBuilding = this
+    const dynamicBuildings = this
       .dynamicBuildings
-      .find(
+      .filter(
         building => building.code === staticBuilding.code
       );
     
     return (staticBuilding as any).harvest?.maxWorkforce
-      && dynamicBuilding
-      && _h
-        .checkBuildingAvailability(
-          this.now,
-          dynamicBuilding
-        );
+      && dynamicBuildings.length > 0
+      && dynamicBuildings
+        .some(
+          building => _h
+            .checkBuildingAvailability(
+              this.now,
+              building
+            )
+        )
   }
 
   isImprovableBuilding(staticBuilding: IStaticEntity) {
@@ -134,6 +144,14 @@ export class BuildingDisplayerComponent implements OnDestroy, OnInit {
     this.createBuilding.emit(buildingCreation);
   }
 
+  onBuildingExtension(buildingExtension: IBuildingUpgradeOrExtend) {
+    this.extendBuilding.emit(buildingExtension);
+  }
+
+  onBuildingUpgrade(buildingUpgrade: IBuildingUpgradeOrExtend) {
+    this.upgradeBuilding.emit(buildingUpgrade);
+  }
+  
   onUnitAssignment(unitAssignment: IUnitAssign) {
     this.assignUnit.emit(unitAssignment);
   }
