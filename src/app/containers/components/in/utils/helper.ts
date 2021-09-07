@@ -143,16 +143,27 @@ export class StaticHelper {
   static computeBuildingCurrentLevel(
     moment: Date,
     improvementType: BuildingImprovementType,
-    constructions: IOperatedConstruction[]
+    constructions: IOperatedConstruction[],
+    hasPastCheck = true
   ) {
     const improvements = constructions
       .filter(
-        construction => this.hasPast(construction.endDate, moment)
-        && construction.improvement?.type === improvementType
+        construction => {
+          if (construction.improvement?.type === improvementType) {
+            if (hasPastCheck && !this.hasPast(construction.endDate, moment)) {
+              return null;
+            } else {
+              return construction;
+            }
+          }
+          return null;
+        }
       );
     if (improvements.length === 0) {
       // no improvement was found, but is the building at least been instantiated ?
-      if (constructions.length > 1) return -1;
+      if (!this.hasPast(constructions[0].endDate)) {
+        return -1;
+      }
     }
 
     return improvements

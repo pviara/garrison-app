@@ -238,7 +238,8 @@ export class ComputeResourceValuePipe implements PipeTransform {
                 .computeBuildingCurrentLevel(
                   now,
                   improvementType,
-                  dynamicBuilding.constructions
+                  dynamicBuilding.constructions,
+                  false
                 );
               
               for (let i = 0; i < currentLevel + 1; i++) {
