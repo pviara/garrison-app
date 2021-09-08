@@ -34,7 +34,7 @@ export class ComputeTotalAvailableUnitsPipe implements PipeTransform {
         staticEntity,
         dynamicUnits,
         now
-      );
+      ) as number;
     
     return unit.quantity - unavailable;
   }

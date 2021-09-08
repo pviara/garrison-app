@@ -2,7 +2,11 @@
   display: flex;
   flex-direction: row;
 
-  .trained, .training {
+  &.peasant-or-researcher {
+    font-size: 0.8em;
+  }
+
+  .trained, .training, .building, .harvesting, .researching {
     margin: 20px;
     text-align: center;
 

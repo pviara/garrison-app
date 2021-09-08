@@ -6,6 +6,7 @@ import {
 } from "@angular/core";
 import { GarrisonUnit } from "src/models/dynamic/IGarrison";
 import { IStaticEntity } from "src/models/static/IStaticEntity";
+import { IUnit } from 'src/models/static/IUnit';
 
 @Component({
   selector: 'garrison-in-play-unit-state',
@@ -31,5 +32,13 @@ export class UnitStateComponent implements OnDestroy, OnInit {
     this._timer = setInterval(() => {
       this.now = new Date();
     }, 1000);
+  }
+
+  isBuilderOrHarvester(staticUnit: IStaticEntity) {
+    return staticUnit.code === 'peasant';
+  }
+
+  isResearcher(staticUnit: IStaticEntity) {
+    return staticUnit.code === 'researcher';
   }
 }

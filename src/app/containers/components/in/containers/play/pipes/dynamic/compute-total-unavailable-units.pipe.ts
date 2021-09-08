@@ -1,10 +1,13 @@
 import {
+  GarrisonUnit,
+  GarrisonUnitAssignment
+} from "src/models/dynamic/IGarrison";
+import { IStaticEntity } from "src/models/static/IStaticEntity";
+import { StaticHelper as _h } from "../../../../utils/helper";
+import {
   Pipe,
   PipeTransform
 } from "@angular/core";
-import { GarrisonUnit } from "src/models/dynamic/IGarrison";
-import { IStaticEntity } from "src/models/static/IStaticEntity";
-import { StaticHelper as _h } from "../../../../utils/helper";
 
 @Pipe({
   name: 'compute_total_unavailable_units'
@@ -13,7 +16,8 @@ export class ComputeTotalUnvailableUnitsPipe implements PipeTransform {
   transform(
     staticEntity: IStaticEntity,
     dynamicUnits: GarrisonUnit[],
-    now: Date
+    now: Date,
+    improvementType?: GarrisonUnitAssignment
   ) {
     const unit = dynamicUnits
       .find(
@@ -27,7 +31,13 @@ export class ComputeTotalUnvailableUnitsPipe implements PipeTransform {
       .state
       .assignments
       .filter(
-        assignment => !_h.hasPast(assignment.endDate, now)
+        assignment => {
+          let condition = !_h.hasPast(assignment.endDate, now);
+          if (improvementType) {
+            condition = condition && assignment.type === improvementType;
+          }
+          return condition;
+        }
       )
       .map(
         assignment => assignment.quantity

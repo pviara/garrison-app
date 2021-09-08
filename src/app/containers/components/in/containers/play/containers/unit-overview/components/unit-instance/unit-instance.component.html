@@ -9,7 +9,10 @@
     </garrison-in-play-entity-displayer>
   </div>
   <div class="element">
-    <!-- <garrison-in-play-unit-displayer>
-    </garrison-in-play-unit-displayer> -->
+    <garrison-in-play-unit-displayer
+      [character]="character"
+      [dynamicUnits]="garrison.instances.units"
+      [staticEntity]="staticEntity">
+    </garrison-in-play-unit-displayer>
   </div>
 </div>

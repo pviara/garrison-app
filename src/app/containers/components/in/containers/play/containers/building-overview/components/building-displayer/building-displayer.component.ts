@@ -38,8 +38,6 @@ export class BuildingDisplayerComponent implements OnDestroy, OnInit {
   @Output()
   assignUnit = new EventEmitter<IUnitAssign>();
   
-  buildingCreation!: FormGroup;
-  
   @Input()
   character!: ICharacter;
 
@@ -76,7 +74,6 @@ export class BuildingDisplayerComponent implements OnDestroy, OnInit {
 
   constructor(
     private _computeMostAffordableImprovementPipe: ComputeMostAffordableImprovementPipe,
-    private _formBuilder: FormBuilder
   ) {}
   
   ngOnDestroy() {
@@ -87,23 +84,6 @@ export class BuildingDisplayerComponent implements OnDestroy, OnInit {
     this._timer = setInterval(() => {
       this.now = new Date();
     }, 1000);
-    
-    this.buildingCreation = this
-      ._formBuilder
-      .group({
-        code: this
-          ._formBuilder
-          .control(this.staticEntity.code, Validators.required),
-        workforce: this
-          ._formBuilder
-          .control(
-            0,
-            [
-              Validators.required,
-              Validators.min(1)
-            ]
-          )
-      });
   }
 
   isHarvestableBuilding(staticBuilding: IStaticEntity) {

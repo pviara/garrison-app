@@ -1,30 +1,76 @@
-<div class="container">
-  <div
-    class="built"
-    *ngIf="
-      staticEntity
-      | compute_total_available_units
-      : dynamicUnits
-      : now
-      as available
-    ">
-    <p>Trained</p>
-    <p class="total">
-      {{ available }}
-    </p>
-  </div>
-  <div
-    class="processing"
-    *ngIf="
-      staticEntity
-      | compute_total_unavailable_units
-      : dynamicUnits
-      : now
-      as unavailable
-    ">
-    <p>Training</p>
-    <p class="total">
-      {{ unavailable }}
-    </p>
-  </div>
+<div
+  class="container"
+  [ngClass]="
+    isBuilderOrHarvester(staticEntity)
+    || isResearcher(staticEntity)
+      ? 'peasant-or-researcher' : ''">
+    <div class="first-line">
+      <div class="trained">
+        <p>Available</p>
+        <p class="total">
+          {{
+            staticEntity
+            | compute_total_available_units
+            : dynamicUnits
+            : now
+          }}
+        </p>
+      </div>
+      <div class="training">
+        <p>Training</p>
+        <p class="total">
+          {{
+            staticEntity
+            | compute_total_unavailable_units
+            : dynamicUnits
+            : now
+            : 'instantiation'
+          }}
+        </p>
+      </div>
+    </div>
+    <ng-container *ngIf="isBuilderOrHarvester(staticEntity)">
+      <div class="second-line">
+        <div class="building">
+          <p>Building</p>
+          <p class="total">
+            {{
+              staticEntity
+              | compute_total_unavailable_units
+              : dynamicUnits
+              : now
+              : 'construction'
+            }}
+          </p>
+        </div>
+        <div class="harvesting">
+          <p>Harvesting</p>
+          <p class="total">
+            {{
+              staticEntity
+              | compute_total_unavailable_units
+              : dynamicUnits
+              : now
+              : 'harvest'
+            }}
+          </p>
+        </div>
+      </div>
+    </ng-container>
+    <ng-container *ngIf="isResearcher(staticEntity)">
+      <div class="second-line">
+        <div class="researching">
+          <p>Researching</p>
+          <p class="total">
+            {{
+              staticEntity
+              | compute_total_unavailable_units
+              : dynamicUnits
+              : now
+              : 'research'
+            }}
+          </p>
+        </div>
+      </div>
+    </ng-container>
 </div>

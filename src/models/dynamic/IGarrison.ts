@@ -57,7 +57,7 @@
           buildingId?: string;
 
           /** Assignement type. */
-          type: 'instantiation' | 'construction' | 'harvest';
+          type: GarrisonUnitAssignment;
 
           /** Number of assigned units. */
           quantity: number;
@@ -87,6 +87,8 @@ export type GarrisonBuilding = IGarrison['instances']['buildings'][any];
 export type GarrisonBuildingImprovement = 'upgrade' | 'extension';
 
 export type GarrisonUnit = IGarrison['instances']['units'][any];
+
+export type GarrisonUnitAssignment = 'instantiation' | 'construction' | 'harvest' | 'research';
 
 export type GarrisonResearch = IGarrison['instances']['researches'][any];
 
