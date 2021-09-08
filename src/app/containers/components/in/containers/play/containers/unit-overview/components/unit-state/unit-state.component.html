@@ -1,0 +1,30 @@
+<div class="container">
+  <div
+    class="built"
+    *ngIf="
+      staticEntity
+      | compute_total_available_units
+      : dynamicUnits
+      : now
+      as available
+    ">
+    <p>Trained</p>
+    <p class="total">
+      {{ available }}
+    </p>
+  </div>
+  <div
+    class="processing"
+    *ngIf="
+      staticEntity
+      | compute_total_unavailable_units
+      : dynamicUnits
+      : now
+      as unavailable
+    ">
+    <p>Training</p>
+    <p class="total">
+      {{ unavailable }}
+    </p>
+  </div>
+</div>
