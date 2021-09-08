@@ -6,7 +6,7 @@ import {
   OnInit,
   Output
 } from '@angular/core';
-import { ComputeMostAffordableImprovementPipe } from '../../../../pipes/dynamic/compute_most_affordable_improvement.pipe';
+import { ComputeMostAffordableImprovementPipe } from '../../../../pipes/dynamic/compute-most-affordable-improvement.pipe';
 import {
   FormBuilder,
   FormGroup,

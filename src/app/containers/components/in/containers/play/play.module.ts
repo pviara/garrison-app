@@ -1,7 +1,7 @@
 import { BuildingOverviewModule } from './containers/building-overview/building-overview.module';
 import { CommonModule } from '@angular/common';
 import { ComputeEntityGlobalStatePipe } from './pipes/dynamic/compute-entity-global-state.pipe';
-import { ComputeOccupationRemainingTime } from './pipes/dynamic/compute_occupation_remaining_time.pipe';
+import { ComputeOccupationRemainingTime } from './pipes/dynamic/compute-occupation-remaining-time.pipe';
 import { NgModule } from '@angular/core';
 import { PlayComponent } from './play.component';
 import { ResearchOverviewModule } from './containers/research-overview/research-overview.module';

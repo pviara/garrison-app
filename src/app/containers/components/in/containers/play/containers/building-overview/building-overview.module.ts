@@ -11,7 +11,7 @@ import { ComputeAvailableWorkforcePipe } from '../../pipes/dynamic/compute-avail
 import { ComputeHarvestingPeasantsPipe } from '../../pipes/dynamic/compute-harvesting-peasants.pipe';
 import { ComputeHarvestWorkforceLimitPipe } from '../../pipes/dynamic/compute-harvest-workforce-limit.pipe';
 import { ComputeImprovementTypePipe } from '../../pipes/dynamic/compute-improvement-type.pipe';
-import { ComputeMostAffordableImprovementPipe } from '../../pipes/dynamic/compute_most_affordable_improvement.pipe';
+import { ComputeMostAffordableImprovementPipe } from '../../pipes/dynamic/compute-most-affordable-improvement.pipe';
 import { ComputeTotalUnitsHarvestingPipe } from '../../pipes/dynamic/compute-total-units-harvesting.pipe';
 import { ComputeUnvailableWorkforcePipe } from '../../pipes/dynamic/compute-unavailable-workforce.pipe';
 import { GarrisonService } from '../../../../services/dynamic/garrison.service';
