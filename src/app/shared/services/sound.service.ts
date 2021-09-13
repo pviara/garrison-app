@@ -11,6 +11,10 @@ export class SoundService {
 
   constructor() {
     this._sounds = [{
+      name: 'alliance_unit',
+      path: 'alliance_unit.ogg'
+    },
+    {
       name: 'building_finished',
       path: 'building_finished.ogg'
     },
@@ -37,6 +41,10 @@ export class SoundService {
     {
       name: 'greetings',
       path: 'global_greetings.ogg'
+    },
+    {
+      name: 'horde_unit',
+      path: 'horde_unit.ogg'
     },
     {
       name: 'peasant_yes_1',

@@ -7,8 +7,14 @@ import {
 } from "@angular/core";
 import { Subscription } from "rxjs";
 import { LocalStorageService } from "src/app/shared/services/local-storage.service";
-import { GarrisonBuilding, GarrisonResearch, GarrisonResources, GarrisonUnit } from 'src/models/dynamic/IGarrison';
+import {
+  GarrisonBuilding,
+  GarrisonResearch,
+  GarrisonResources,
+  GarrisonUnit
+} from 'src/models/dynamic/IGarrison';
 import { IBuilding } from 'src/models/static/IBuilding';
+import { IUnit } from 'src/models/static/IUnit';
 
 @Component({
   selector: 'garrison-in-play-global-resource-displayer',
@@ -36,6 +42,9 @@ export class GlobalResourceDisplayerComponent implements AfterViewChecked, OnDes
 
   @Input()
   staticBuildings!: IBuilding[];
+
+  @Input()
+  staticUnits!: IUnit[];
   
   private _timer: any;
   

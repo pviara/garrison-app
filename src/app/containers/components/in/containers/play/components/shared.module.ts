@@ -1,6 +1,7 @@
 import { CastToHarvestBuildingPipe } from '../pipes/static/cast-to-harvest-building.pipe';
 import { CastToInstantiableBuildingPipe } from '../pipes/static/cast-to-instantiable-building.pipe';
 import { CastToInstantiablePipe } from '../pipes/static/cast-to-instantiable.pipe';
+import { CastToInstantiableUnitPipe } from '../pipes/static/cast-to-instantiable-unit.pipe';
 import { CastToNotDynamicResource } from '../pipes/resource/cast-to-not-dynamic-resource.pipe';
 import { CommonModule } from '@angular/common';
 import { ComputeConstructionDurationPipe } from '../pipes/dynamic/compute-construction-duration.pipe';
@@ -30,6 +31,7 @@ import { CastToBuildingPipe } from '../pipes/static/cast-to-building.pipe';
     CastToHarvestBuildingPipe,
     CastToInstantiableBuildingPipe,
     CastToInstantiablePipe,
+    CastToInstantiableUnitPipe,
     CastToNotDynamicResource,
     ComputeConstructionDurationPipe,
     ComputeInstantiationRequirementsPipe,
@@ -58,6 +60,7 @@ import { CastToBuildingPipe } from '../pipes/static/cast-to-building.pipe';
     CastToHarvestBuildingPipe,
     CastToInstantiableBuildingPipe,
     CastToInstantiablePipe,
+    CastToInstantiableUnitPipe,
     CastToNotDynamicResource,
     ComputeConstructionDurationPipe,
     ComputeInstantiationRequirementsPipe,

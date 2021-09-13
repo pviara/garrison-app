@@ -1,9 +1,3 @@
-import {
-  AbstractControl,
-  FormBuilder,
-  FormGroup,
-  Validators
-} from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { BuildingService } from 'src/app/containers/components/in/services/static/building.service';
 import {
@@ -15,47 +9,45 @@ import {
   OnInit,
   Output
 } from '@angular/core';
-import { ComputeAvailableWorkforcePipe } from '../../../../pipes/dynamic/compute-available-workforce.pipe';
 import { ComputeInstantiationRequirementsPipe } from '../../../../pipes/dynamic/compute-instantiation-requirements.pipe';
 import { ComputeResourceValuePipe } from '../../../../pipes/resource/compute-resource-value.pipe';
+import {
+  FormBuilder,
+  FormGroup,
+  Validators
+} from '@angular/forms';
 import {
   GarrisonBuilding,
   GarrisonResearch,
   GarrisonResources,
   GarrisonUnit
 } from 'src/models/dynamic/IGarrison';
-import {
-  IBuilding,
-  IInstantiableBuilding
-} from 'src/models/static/IBuilding';
-import { IBuildingCreate } from 'src/models/dynamic/payloads/IBuildingCreate';
+import { IBuilding } from 'src/models/static/IBuilding';
 import { ICharacter } from 'src/models/dynamic/ICharacter';
 import {
   IInstantiable,
   IStaticEntity
 } from 'src/models/static/IStaticEntity';
-import { IUnit } from 'src/models/static/IUnit';
+import {
+  IInstantiableUnit,
+  IUnit
+} from 'src/models/static/IUnit';
+import { IUnitCreate } from 'src/models/dynamic/payloads/IUnitCreate';
 import { SoundService } from 'src/app/shared/services/sound.service';
-import { StaticHelper as _h } from 'src/app/containers/components/in/utils/helper';
 import { UnitService } from 'src/app/containers/components/in/services/static/unit.service';
 
 @Component({
-  selector: 'garrison-in-play-building-construction',
-  templateUrl: './building-construction.component.html',
-  styleUrls: ['./building-construction.component.scss'],
+  selector: 'garrison-in-play-unit-training',
+  templateUrl: './unit-training.component.html',
+  styleUrls: ['./unit-training.component.scss'],
   providers: [
-    ComputeAvailableWorkforcePipe,
     ComputeInstantiationRequirementsPipe,
     ComputeResourceValuePipe
   ]
 })
-export class BuildingConstructionComponent implements OnChanges, OnDestroy, OnInit {  
-  buildingCreation!: FormGroup;
-
-  _character!: ICharacter;
-
+export class UnitTrainingComponent implements OnChanges, OnDestroy, OnInit {
   @Output()
-  createBuilding = new EventEmitter<IBuildingCreate>();
+  createUnit = new EventEmitter<IUnitCreate>();
   
   @Input()
   dynamicBuildings!: GarrisonBuilding[];
@@ -65,31 +57,30 @@ export class BuildingConstructionComponent implements OnChanges, OnDestroy, OnIn
   
   @Input()
   dynamicUnits!: GarrisonUnit[];
-
-  minWorkforce!: number;
   
   now = new Date();
 
   @Input()
   resources!: GarrisonResources;
   
-  selectedWorkforce!: number;
+  selectedQuantity!: number;
   
   @Input()
   staticEntity!: IStaticEntity;
 
-  private _availableWorkforce!: number;
+  unitTraining!: FormGroup;
 
+  private _character!: ICharacter;
+  
   private _staticBuildings!: IBuilding[];
 
   private _staticUnits!: IUnit[];
   
   private _timer: any;
-
+  
   constructor(
     private _route: ActivatedRoute,
     private _buildingService: BuildingService,
-    private _computeAvailableWorkforcePipe: ComputeAvailableWorkforcePipe,
     private _computeInstantiationRequirementsPipe: ComputeInstantiationRequirementsPipe,
     private _computeResourceValuePipe: ComputeResourceValuePipe,
     private _formBuilder: FormBuilder,
@@ -98,37 +89,23 @@ export class BuildingConstructionComponent implements OnChanges, OnDestroy, OnIn
   ) {}
 
   ngOnChanges() {
-    this.buildingCreation = {} as FormGroup;
-    
-    this.minWorkforce = (this.staticEntity as IInstantiableBuilding)
-      .instantiation
-      .minWorkforce;
-    
-    this.selectedWorkforce = this.minWorkforce;
-
-    let workforceDefaultValue = this.minWorkforce;
-    
-    this._availableWorkforce = this
-      ._computeAvailableWorkforcePipe
-      .transform(this.dynamicUnits, this.now);
-
-    if (this._availableWorkforce < this.minWorkforce) {
-      workforceDefaultValue = 0;
-      this.selectedWorkforce = 0;
-    }
-
-    this.buildingCreation = this
+    this.unitTraining = this
       ._formBuilder
       .group({
         code: this
           ._formBuilder
           .control(this.staticEntity.code, Validators.required),
-        workforce: this
+        quantity: this
           ._formBuilder
-          .control(workforceDefaultValue,
-            this._workforceValidator()
-          )
+          .control(
+            1,
+            [
+              Validators.min(1),
+              Validators.max(100)
+            ])
       });
+    
+    this.selectedQuantity = 1;
   }
 
   ngOnDestroy() {
@@ -155,16 +132,12 @@ export class BuildingConstructionComponent implements OnChanges, OnDestroy, OnIn
     this._character = this._route.snapshot.data.character;
     
     this._timer = setInterval(() => {
-      this._availableWorkforce = this
-        ._computeAvailableWorkforcePipe
-        .transform(this.dynamicUnits, this.now);
-
       this.now = new Date();
     }, 1000);
   }
 
-  isInvalidForm(buildingCreation: FormGroup) {
-    if (buildingCreation.invalid) {
+  isInvalidForm(unitTraining: FormGroup) {
+    if (unitTraining.invalid) {
       return true;
     }
 
@@ -205,10 +178,10 @@ export class BuildingConstructionComponent implements OnChanges, OnDestroy, OnIn
         this.now
       ) as string);
 
-    const plot = +(this
+    const food = (this
       ._computeResourceValuePipe
       .transform(
-        'plot',
+        'food',
         this.resources,
         this._staticBuildings,
         this._staticUnits,
@@ -216,93 +189,74 @@ export class BuildingConstructionComponent implements OnChanges, OnDestroy, OnIn
         this.dynamicResearches,
         this.dynamicUnits,
         this.now
-      ) as string);
+      ) as unknown) as { available: number; inComing: number; }
     
-    const { instantiation: { cost } } = this.staticEntity as IInstantiableBuilding;
-    if (gold < cost.gold || wood < cost.wood || plot < cost.plot) {
+    const { instantiation: { cost } } = this.staticEntity as IInstantiableUnit;
+    const quantity = unitTraining.get('quantity')?.value;
+    const computedCost = {
+      gold: cost.gold * quantity,
+      wood: cost.wood * quantity,
+      food: cost.food * quantity
+    };
+
+    if (
+      gold < computedCost.gold
+      || wood < computedCost.wood
+      || +food.available < computedCost.food
+    ) {
       return true;
     }
 
     return false;
   }
+
+  onQuantityChange({ target: { value } }: any) {
+    let error = '';
+    if (value > 100) {
+      error = 'You can\'t train more than 100 units in one shot.';
+    }
+
+    if (value < 1) {
+      error = 'You must train at least 1 unit.';
+    }
+
+    if (error.length > 0) {
+      this._soundService.play('error');
+      alert(error);
+
+      this.unitTraining
+        .get('quantity')
+        ?.setValue(1);
+    
+      this.selectedQuantity = 1;
+        
+      return;
+    }
+    
+    this.selectedQuantity = value;
+  }
   
-  onBuildingCreation(buildingCreation: FormGroup) {
+  onUnitTraining(unitTraining: FormGroup) {
     this._soundService.play('click');
 
     const { faction } = this._character.side;
     if (faction === 'alliance') {
-      this._soundService.playRandomly('peasant_yes', 1, 4);
+      this._soundService.play('alliance_unit');
 
     } else if (faction === 'horde') {
-      this._soundService.playRandomly('peon_yes', 1, 4);
+      this._soundService.play('horde_unit');
       
     } else throw new Error("Character's faction is not valid.");
     
-    const workforce = buildingCreation.get('workforce');
-    if (!workforce) return;
-    
-    const payload: IBuildingCreate = {
+    const quantity = unitTraining.get('quantity');
+    if (!quantity) return;
+
+    const payload: IUnitCreate = {
       garrisonId: '',
-      code: buildingCreation.get('code')?.value,
-      workforce: workforce.value
+      code: unitTraining.get('code')?.value,
+      quantity: quantity.value
     };
 
-    this.createBuilding.emit(payload);
-  }
-
-  onWorkforceChange({ target: { value } }: any) {
-    let error = '';
-    if (value > this._availableWorkforce) {
-      error = `You don't have ${value} available peasants, but only ${this._availableWorkforce}.`;
-    }
-
-    if (value > this.minWorkforce * 2) {
-      error += ` Maximum workforce for this building is ${this.minWorkforce * 2} peasants.`;
-    }
-    
-    if (value < this.minWorkforce) {
-      error = ` Minimum workforce for this building is ${this.minWorkforce} peasants.`
-    }
-    
-    if (error.length > 0) {
-      this._soundService.play('error');
-      alert(error);
-    
-      let newValue = this.minWorkforce;
-      if (this._availableWorkforce < this.minWorkforce) {
-        newValue = 0;
-      }
-
-      this.buildingCreation
-        .get('workforce')
-        ?.setValue(newValue);
-      
-      this.selectedWorkforce = newValue;
-      return;
-    }
-    
-    this.selectedWorkforce = value;
-  }
-
-  private _workforceValidator() {
-    return (control: AbstractControl) => {
-
-      let invalid = false;
-      if (control.value < this.minWorkforce) {
-        invalid = true;
-      }
-
-      if (control.value > this.minWorkforce * 2) {
-        invalid = true;
-      }
-
-      if (control.value > this._availableWorkforce) {
-        invalid = true;
-      }
-      
-      return !invalid ? null : {
-        invalid: { value: control.value }
-      };
-    };
+    this.createUnit.emit(payload);
   }
 }

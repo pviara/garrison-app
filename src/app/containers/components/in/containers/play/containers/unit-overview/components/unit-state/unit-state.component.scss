@@ -1,12 +1,16 @@
 .container {
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
 
   &.peasant-or-researcher {
     font-size: 0.8em;
   }
 
-  .trained, .training, .building, .harvesting, .researching {
+  .first-line, .second-line {
+    display: flex;
+  }
+
+  .available, .training, .building, .harvesting, .researching {
     margin: 20px;
     text-align: center;
 

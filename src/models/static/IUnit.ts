@@ -66,7 +66,7 @@ interface IUnitStatistic {
 /**
  * An instantiable unit.
  */
- export interface IInstantiableUnit extends IInstantiable {
+ export interface IInstantiableUnit extends IInstantiable, IUnit {
   /** Instantiation requirements and characteristics. */
   instantiation: {
     cost: IUnitCost;

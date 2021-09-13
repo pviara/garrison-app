@@ -3,6 +3,7 @@ import { ComputeTotalAvailableUnitsPipe } from '../../pipes/dynamic/compute-tota
 import { ComputeTotalUnvailableUnitsPipe } from '../../pipes/dynamic/compute-total-unavailable-units.pipe';
 import { GarrisonService } from '../../../../services/dynamic/garrison.service';
 import { NgModule } from "@angular/core";
+import { ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { SharedModule } from '../../components/shared.module';
 import { UnitDisplayerComponent } from './components/unit-displayer/unit-displayer.component';
@@ -10,6 +11,7 @@ import { UnitInstanceComponent } from './components/unit-instance/unit-instance.
 import { UnitInstanceGuard } from './components/unit-instance/unit-instance.guard';
 import { UnitOverviewComponent } from './unit-overview.component';
 import { UnitStateComponent } from './components/unit-state/unit-state.component';
+import { UnitTrainingComponent } from './components/unit-training/unit-training.component';
 
 @NgModule({
   declarations: [
@@ -18,10 +20,12 @@ import { UnitStateComponent } from './components/unit-state/unit-state.component
     UnitDisplayerComponent,
     UnitInstanceComponent,
     UnitOverviewComponent,
-    UnitStateComponent
+    UnitStateComponent,
+    UnitTrainingComponent
   ],
   imports: [
     CommonModule,
+    ReactiveFormsModule,
     RouterModule,
     SharedModule
   ],

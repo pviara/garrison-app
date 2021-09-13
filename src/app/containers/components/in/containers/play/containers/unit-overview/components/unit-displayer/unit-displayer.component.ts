@@ -4,8 +4,13 @@ import {
   OnDestroy,
   OnInit
 } from "@angular/core";
+import {
+  GarrisonBuilding,
+  GarrisonResearch,
+  GarrisonResources,
+  GarrisonUnit
+} from 'src/models/dynamic/IGarrison';
 import { ICharacter } from 'src/models/dynamic/ICharacter';
-import { GarrisonUnit } from 'src/models/dynamic/IGarrison';
 import { IStaticEntity } from 'src/models/static/IStaticEntity';
 
 @Component({
@@ -18,7 +23,16 @@ export class UnitDisplayerComponent implements OnDestroy, OnInit {
   character!: ICharacter;
 
   @Input()
+  dynamicBuildings!: GarrisonBuilding[];
+
+  @Input()
+  dynamicResearches!: GarrisonResearch[];
+
+  @Input()
   dynamicUnits!: GarrisonUnit[];
+
+  @Input()
+  resources!: GarrisonResources;
 
   now = new Date();
   
