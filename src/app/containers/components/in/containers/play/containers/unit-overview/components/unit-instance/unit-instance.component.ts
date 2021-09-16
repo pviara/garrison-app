@@ -9,6 +9,7 @@ import { ICharacter } from 'src/models/dynamic/ICharacter';
 import { IGarrison } from 'src/models/dynamic/IGarrison';
 import { IStaticEntity } from 'src/models/static/IStaticEntity';
 import { IUnit } from 'src/models/static/IUnit';
+import { IUnitCreate } from 'src/models/dynamic/payloads/IUnitCreate';
 import { UnitService } from 'src/app/containers/components/in/services/static/unit.service';
 
 @Component({
@@ -66,6 +67,17 @@ export class UnitInstanceComponent implements OnInit {
         }
 
         this.staticEntity = unit;
+      });
+  }
+
+  onUnitTraining(payload: IUnitCreate) {
+    this._garrisonService
+      .trainUnit({
+        ...payload,
+        garrisonId: this.garrison._id
+      })
+      .subscribe(result => {
+        // ...
       });
   }
 }

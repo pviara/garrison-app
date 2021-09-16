@@ -11,6 +11,8 @@ import { IUnitAssign } from 'src/models/dynamic/payloads/IUnitAssign';
 import { LocalStorageService } from 'src/app/shared/services/local-storage.service';
 import { tap } from 'rxjs/operators';
 import { IBuildingUpgradeOrExtend } from 'src/models/dynamic/payloads/IBuildingUpgradeOrExtend';
+import { IUnitCreate } from 'src/models/dynamic/payloads/IUnitCreate';
+import { IUnitTrainingCancel } from 'src/models/dynamic/payloads/IUnitTrainingCancel';
 
 @Injectable()
 export class GarrisonService {
@@ -52,6 +54,15 @@ export class GarrisonService {
   cancelConstruction(payload: IBuildingConstructionCancel) {
     return this._client.put<IGarrison>(
       `${environment.apiUrl}/${environment.dbNameDynamic}/${this._endpoint}/building/cancel`,
+      payload
+    ).pipe(
+      tap((garrison: IGarrison) => this.garrison = garrison)
+    );
+  }
+
+  cancelTraining(payload: IUnitTrainingCancel) {
+    return this._client.put<IGarrison>(
+      `${environment.apiUrl}/${environment.dbNameDynamic}/${this._endpoint}/unit/cancel`,
       payload
     ).pipe(
       tap((garrison: IGarrison) => this.garrison = garrison)
@@ -100,6 +111,15 @@ export class GarrisonService {
 
   getCurrentGarrisonIdFromStorage() {
     return this._localStorageService.garrisonId;
+  }
+
+  trainUnit(payload: IUnitCreate) {
+    return this._client.post<IGarrison>(
+      `${environment.apiUrl}/${environment.dbNameDynamic}/${this._endpoint}/unit`,
+      payload
+    ).pipe(
+      tap((garrison: IGarrison) => this.garrison = garrison)
+    );
   }
 
   unassignUnit(payload: IUnitAssign) {

@@ -11,6 +11,7 @@ import { IGarrison } from 'src/models/dynamic/IGarrison';
 import { ICharacter } from 'src/models/dynamic/ICharacter';
 import { IUnit } from 'src/models/static/IUnit';
 import { SoundService } from 'src/app/shared/services/sound.service';
+import { IUnitTrainingCancel } from 'src/models/dynamic/payloads/IUnitTrainingCancel';
 
 @Component({
   selector: 'garrison-in-play',
@@ -71,6 +72,18 @@ export class PlayComponent implements OnDestroy, OnInit {
       })
       .subscribe(result => {
         // // alert('✖ Building construction has been canceled !');
+      });
+  }
+
+  onTrainingCancelation(payload: IUnitTrainingCancel) {
+    this._garrisonService
+      .cancelTraining({
+        garrisonId: this.garrison._id,
+        code: payload.code,
+        instantiationId: payload.instantiationId || (payload as any)._id
+      })
+      .subscribe(result => {
+        // // alert('✖ Unit training has been canceled !');
       });
   }
 }

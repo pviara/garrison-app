@@ -34,7 +34,8 @@
           [dynamicResearches]="dynamicResearches"
           [dynamicUnits]="dynamicUnits"
           [resources]="resources"
-          [staticEntity]="staticEntity">
+          [staticEntity]="staticEntity"
+          (createUnit)="onUnitTraining($event)">
         </garrison-in-play-unit-training>
       </div>
     </div>

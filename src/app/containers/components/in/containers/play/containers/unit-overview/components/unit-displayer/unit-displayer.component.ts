@@ -1,8 +1,10 @@
 import {
   Component,
+  EventEmitter,
   Input,
   OnDestroy,
-  OnInit
+  OnInit,
+  Output
 } from "@angular/core";
 import {
   GarrisonBuilding,
@@ -12,6 +14,7 @@ import {
 } from 'src/models/dynamic/IGarrison';
 import { ICharacter } from 'src/models/dynamic/ICharacter';
 import { IStaticEntity } from 'src/models/static/IStaticEntity';
+import { IUnitCreate } from 'src/models/dynamic/payloads/IUnitCreate';
 
 @Component({
   selector: 'garrison-in-play-unit-displayer',
@@ -21,6 +24,9 @@ import { IStaticEntity } from 'src/models/static/IStaticEntity';
 export class UnitDisplayerComponent implements OnDestroy, OnInit {
   @Input()
   character!: ICharacter;
+  
+  @Output()
+  createUnit = new EventEmitter<IUnitCreate>();
 
   @Input()
   dynamicBuildings!: GarrisonBuilding[];
@@ -49,5 +55,9 @@ export class UnitDisplayerComponent implements OnDestroy, OnInit {
     this._timer = setInterval(() => {
       this.now = new Date();
     }, 1000);
+  }
+
+  onUnitTraining(payload: IUnitCreate) {
+    this.createUnit.emit(payload);
   }
 }

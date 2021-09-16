@@ -12,7 +12,6 @@
   </div>
 
   <div class="element body">
-
     <div
       class="processes"
       *ngIf="
@@ -55,50 +54,75 @@
                 :character
               ">
               <div class="text">
-                <div class="word">
-                  <h4>
-                    {{
-                      buildings
-                      | fetch_by_code
-                      : entity.code
-                      | fetch_appropriate_word
-                      : character.side.faction
-                      | string_capitalize
-                    }}
-                  </h4>
-                  <p
-                    class="workforce"
-                    *ngIf="entity.workforce as workforce">
-                    {{ workforce }}x
-                    <ng-container *ngIf="state.entityType === 'buildings'">
-                      {{
-                        units
-                        | fetch_by_code
-                        : 'peasant'
-                        | fetch_appropriate_word
-                        : character.side.faction
-                        | uppercase
-                      }}
-                    </ng-container>
-                    <ng-container *ngIf="state.entityType === 'researches'">
-                      {{
-                        units
-                        | fetch_by_code
-                        : 'researcher'
-                        | fetch_appropriate_word
-                        : character.side.faction
-                        | uppercase
-                      }}
-                    </ng-container>
-                  </p>
-                  <p class="remaining">
-                    {{
-                      { endDate: entity.endDate }
-                      | compute_occupation_remaining_time
-                      : now
-                    }}
-                  </p>
-                </div>
+                <ng-container [ngSwitch]="state.entityType">
+                  <ng-container *ngSwitchCase="'buildings'">
+                    <div class="word">
+                      <h4>
+                        {{
+                          buildings
+                          | fetch_by_code
+                          : entity.code
+                          | fetch_appropriate_word
+                          : character.side.faction
+                          | string_capitalize
+                        }}
+                      </h4>
+                      <p
+                        class="workforce"
+                        *ngIf="entity.workforce as workforce">
+                        {{ workforce }}x
+                        <ng-container *ngIf="state.entityType === 'buildings'">
+                          {{
+                            units
+                            | fetch_by_code
+                            : 'peasant'
+                            | fetch_appropriate_word
+                            : character.side.faction
+                            | uppercase
+                          }}
+                        </ng-container>
+                        <ng-container *ngIf="state.entityType === 'researches'">
+                          {{
+                            units
+                            | fetch_by_code
+                            : 'researcher'
+                            | fetch_appropriate_word
+                            : character.side.faction
+                            | uppercase
+                          }}
+                        </ng-container>
+                      </p>
+                      <p class="remaining">
+                        {{
+                          { endDate: entity.endDate }
+                          | compute_occupation_remaining_time
+                          : now
+                        }}
+                      </p>
+                    </div>
+                  </ng-container>
+                  <ng-container *ngSwitchCase="'units'">
+                    <div class="word">
+                      <h4>
+                        {{
+                          units
+                          | fetch_by_code
+                          : entity.code
+                          | fetch_appropriate_word
+                          : character.side.faction
+                          | string_capitalize
+                        }}
+                      </h4>
+                      <p class="remaining">
+                        {{
+                          { endDate: entity.endDate }
+                          | compute_occupation_remaining_time
+                          : now
+                        }}
+                      </p>
+                    </div>
+                  </ng-container>
+                </ng-container>
               </div>
             </div>
             <div class="action">
@@ -106,6 +130,10 @@
                 <ng-container *ngSwitchCase="'buildings'">
                   <button
                     (click)="onConstructionCancelation(entity)">Cancel</button>
+                </ng-container>
+                <ng-container *ngSwitchCase="'units'">
+                  <button
+                    (click)="onTrainingCancelation(entity)">Cancel</button>
                 </ng-container>
               </ng-container>
             </div>
@@ -152,6 +180,5 @@
     </div>
 
     <div class="element blank"></div>
-    
   </div>
 </div>
