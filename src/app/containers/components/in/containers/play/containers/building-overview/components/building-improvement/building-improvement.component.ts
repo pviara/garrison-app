@@ -5,6 +5,11 @@ import {
   Validators
 } from "@angular/forms";
 import { ActivatedRoute } from "@angular/router";
+import {
+  BuildingImprovementType,
+  IBuilding,
+  IInstantiableBuilding
+} from "src/models/static/IBuilding";
 import { BuildingService } from "src/app/containers/components/in/services/static/building.service";
 import {
   Component,
@@ -23,17 +28,12 @@ import {
   GarrisonResources,
   GarrisonUnit
 } from "src/models/dynamic/IGarrison";
-import {
-  BuildingImprovementType,
-  IBuilding,
-  IInstantiableBuilding
-} from "src/models/static/IBuilding";
+import { IBuildingUpgradeOrExtend } from "src/models/dynamic/payloads/IBuildingUpgradeOrExtend";
 import { ICharacter } from "src/models/dynamic/ICharacter";
 import { IStaticEntity } from "src/models/static/IStaticEntity";
 import { IUnit } from "src/models/static/IUnit";
 import { SoundService } from "src/app/shared/services/sound.service";
 import { UnitService } from "src/app/containers/components/in/services/static/unit.service";
-import { IBuildingUpgradeOrExtend } from "src/models/dynamic/payloads/IBuildingUpgradeOrExtend";
 
 @Component({
   selector: 'garrison-in-play-building-improvement',
@@ -44,7 +44,7 @@ import { IBuildingUpgradeOrExtend } from "src/models/dynamic/payloads/IBuildingU
     ComputeResourceValuePipe
   ]
 })
-export class BuildingImprovementComponent implements OnChanges, OnDestroy, OnInit {
+export class BuildingImprovementComponent implements OnDestroy, OnInit {
   @Input()
   buildingId!: string;
   
@@ -110,8 +110,30 @@ export class BuildingImprovementComponent implements OnChanges, OnDestroy, OnIni
     private _soundService: SoundService,
     private _unitService: UnitService
   ) {}
+  
+  ngOnDestroy() {
+    clearInterval(this._timer);
+  }
 
-  ngOnChanges() {
+  ngOnInit() {
+    const staticBuildings = this
+      ._buildingService
+      .getBuildingsFromStorage();
+    if (!staticBuildings) {
+      throw new Error('Static buildings should be existing in storage.');
+    }
+    this._staticBuildings = staticBuildings;
+
+    const staticUnits = this
+      ._unitService
+      .getUnitsFromStorage();
+    if (!staticUnits) {
+      throw new Error('Static units should be existing in storage.');
+    }
+    this._staticUnits = staticUnits;
+
+    this._character = this._route.snapshot.data.character;
+
     this.buildingImprovement = {} as FormGroup;
     
     this.selectedWorkforce = this.minWorkforce;
@@ -139,30 +161,6 @@ export class BuildingImprovementComponent implements OnChanges, OnDestroy, OnIni
             this._workforceValidator()
           )
       });
-  }
-
-  ngOnDestroy() {
-    clearInterval(this._timer);
-  }
-
-  ngOnInit() {
-    const staticBuildings = this
-      ._buildingService
-      .getBuildingsFromStorage();
-    if (!staticBuildings) {
-      throw new Error('Static buildings should be existing in storage.');
-    }
-    this._staticBuildings = staticBuildings;
-
-    const staticUnits = this
-      ._unitService
-      .getUnitsFromStorage();
-    if (!staticUnits) {
-      throw new Error('Static units should be existing in storage.');
-    }
-    this._staticUnits = staticUnits;
-
-    this._character = this._route.snapshot.data.character;
     
     this._timer = setInterval(() => {
       this._availableWorkforce = this

@@ -8,11 +8,6 @@ import {
 } from '@angular/core';
 import { ComputeMostAffordableImprovementPipe } from '../../../../pipes/dynamic/compute-most-affordable-improvement.pipe';
 import {
-  FormBuilder,
-  FormGroup,
-  Validators
-} from '@angular/forms';
-import {
   GarrisonBuilding,
   GarrisonResearch,
   GarrisonResources,
