@@ -8,7 +8,8 @@ import { ActivatedRoute } from "@angular/router";
 import {
   BuildingImprovementType,
   IBuilding,
-  IInstantiableBuilding
+  IInstantiableBuilding,
+  IRequiredBuildingForExtensionLevel
 } from "src/models/static/IBuilding";
 import { BuildingService } from "src/app/containers/components/in/services/static/building.service";
 import {
@@ -21,6 +22,7 @@ import {
   Output
 } from "@angular/core";
 import { ComputeAvailableWorkforcePipe } from "../../../../pipes/dynamic/compute-available-workforce.pipe";
+import { ComputeImprovementTypePipe } from '../../../../pipes/dynamic/compute-improvement-type.pipe';
 import { ComputeResourceValuePipe } from "../../../../pipes/resource/compute-resource-value.pipe";
 import {
   GarrisonBuilding,
@@ -33,6 +35,7 @@ import { ICharacter } from "src/models/dynamic/ICharacter";
 import { IStaticEntity } from "src/models/static/IStaticEntity";
 import { IUnit } from "src/models/static/IUnit";
 import { SoundService } from "src/app/shared/services/sound.service";
+import { StaticHelper as _h } from 'src/app/containers/components/in/utils/helper';
 import { UnitService } from "src/app/containers/components/in/services/static/unit.service";
 
 @Component({
@@ -41,6 +44,7 @@ import { UnitService } from "src/app/containers/components/in/services/static/un
   styleUrls: ['./building-improvement.component.scss'],
   providers: [
     ComputeAvailableWorkforcePipe,
+    ComputeImprovementTypePipe,
     ComputeResourceValuePipe
   ]
 })
@@ -105,11 +109,20 @@ export class BuildingImprovementComponent implements OnDestroy, OnInit {
     private _route: ActivatedRoute,
     private _buildingService: BuildingService,
     private _computeAvailableWorkforcePipe: ComputeAvailableWorkforcePipe,
+    private _computeImprovementTypePipe: ComputeImprovementTypePipe,
     private _computeResourceValuePipe: ComputeResourceValuePipe,
     private _formBuilder: FormBuilder,
     private _soundService: SoundService,
     private _unitService: UnitService
   ) {}
+
+  ngOnChanges() {
+    this.selectedWorkforce = this.minWorkforce;
+
+    this._availableWorkforce = this
+      ._computeAvailableWorkforcePipe
+      .transform(this.dynamicUnits, this.now);
+  }
   
   ngOnDestroy() {
     clearInterval(this._timer);
@@ -133,8 +146,6 @@ export class BuildingImprovementComponent implements OnDestroy, OnInit {
     this._staticUnits = staticUnits;
 
     this._character = this._route.snapshot.data.character;
-
-    this.buildingImprovement = {} as FormGroup;
     
     this.selectedWorkforce = this.minWorkforce;
 
@@ -176,6 +187,61 @@ export class BuildingImprovementComponent implements OnDestroy, OnInit {
       return true;
     }
 
+    // TODO 
+    // TODO 🛠 check improvement requirements
+    // TODO 
+
+    const code = buildingImprovement.get('code')?.value;
+    const staticBuilding = this
+      ._staticBuildings
+      .find(
+        building => building.code === code
+      );
+    if (!staticBuilding) {
+      throw new Error(`Couldn't find static building with code '${code}'`);
+    }
+
+    const dynamicBuilding = this
+      .dynamicBuildings
+      .find(
+        building => building._id === this.buildingId
+      )
+    if (!dynamicBuilding) {
+      throw new Error(`Couldn't find building with id '${this.buildingId}'`);
+    }
+
+    const improvementType = this
+      ._computeImprovementTypePipe
+      .transform(
+        staticBuilding
+      );
+
+    const nextLevel = _h
+      .computeBuildingCurrentLevel(
+        this.now,
+        improvementType,
+        dynamicBuilding.constructions
+      ) + 1;
+    
+    let requiredEntities: IRequiredBuildingForExtensionLevel[] = [];
+    if (improvementType === 'extension' && staticBuilding.extension?.requiredEntities) {
+      requiredEntities = staticBuilding
+        .extension
+        .requiredEntities
+        .buildings;
+    }
+      
+    const fulfilled = _h
+      .checkExtensionConstructionRequirements(
+        this.now,
+        requiredEntities,
+        this.dynamicBuildings,
+        nextLevel
+      );
+    if (!fulfilled) {
+      return true;
+    }
+    
     const gold = +(this
       ._computeResourceValuePipe
       .transform(

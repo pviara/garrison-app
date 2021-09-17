@@ -201,14 +201,14 @@ export class ComputeResourceValuePipe implements PipeTransform {
             }
 
             return {
-              available: totalFood.toString(),
-              inComing: Math.floor(inComing)
+              available: Math.floor(totalFood),
+              inComing: 0
             };
           }
 
           case 'plot': {
 
-            let totalPlots = 60;
+            let totalPlots = 150;
 
             for (const dynamicBuilding of dynamicBuildings) {
               const staticBuilding = staticBuildings

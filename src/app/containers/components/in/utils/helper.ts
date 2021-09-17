@@ -7,7 +7,7 @@ import {
   IOperatedConstruction,
   IOperatedProject
 } from 'src/models/dynamic/IGarrison';
-import { BuildingImprovementType, IBuildingCost, IInstantiableBuilding } from 'src/models/static/IBuilding';
+import { BuildingImprovementType, IBuildingCost, IInstantiableBuilding, IRequiredBuildingForExtensionLevel } from 'src/models/static/IBuilding';
 
 export class StaticHelper {
   static extractCharacterOutOf(characters: ICharacter[]) {
@@ -133,11 +133,39 @@ export class StaticHelper {
           'extension',
           harvestBuilding.constructions
         );
-        const factor = currentLevel > 0 ? currentLevel : 1;
+        const factor = currentLevel + 1;
         profitLimit += 180 * factor;
       }
 
       return profitLimit;
+  }
+
+  static checkExtensionConstructionRequirements(
+    moment: Date,
+    requirements: IRequiredBuildingForExtensionLevel[],
+    buildings: GarrisonBuilding[],
+    nextExtension: number
+  ) {
+    const unfulfilled = requirements
+      .some(building => {
+        // simply look for the required building inside garrison existing buildings
+        const existing = buildings.find(garrBuilding => garrBuilding.code === building.code);
+        if (!existing) return true;
+
+        if (building.upgradeLevel && (building.level === nextExtension)) {
+          // is the building at the required upgrade level ?
+          const upgraded = existing
+            .constructions
+            .find(construction => <number>construction.improvement?.level >= <number>building.upgradeLevel);
+          if (!upgraded) return true;
+
+          // is the building still being processed for this specific upgrade ?
+          if (upgraded.endDate.getTime() > moment.getTime()) return true;
+        }
+        return false;
+      });
+
+    return !unfulfilled;
   }
 
   static computeBuildingCurrentLevel(
