@@ -187,10 +187,6 @@ export class BuildingImprovementComponent implements OnDestroy, OnInit {
       return true;
     }
 
-    // TODO 
-    // TODO 🛠 check improvement requirements
-    // TODO 
-
     const code = buildingImprovement.get('code')?.value;
     const staticBuilding = this
       ._staticBuildings
@@ -215,31 +211,32 @@ export class BuildingImprovementComponent implements OnDestroy, OnInit {
       .transform(
         staticBuilding
       );
-
-    const nextLevel = _h
-      .computeBuildingCurrentLevel(
-        this.now,
-        improvementType,
-        dynamicBuilding.constructions
-      ) + 1;
-    
-    let requiredEntities: IRequiredBuildingForExtensionLevel[] = [];
-    if (improvementType === 'extension' && staticBuilding.extension?.requiredEntities) {
-      requiredEntities = staticBuilding
-        .extension
-        .requiredEntities
-        .buildings;
-    }
+    if (improvementType === 'extension') {
+      const nextLevel = _h
+        .computeBuildingCurrentLevel(
+          this.now,
+          improvementType,
+          dynamicBuilding.constructions
+        ) + 1;
       
-    const fulfilled = _h
-      .checkExtensionConstructionRequirements(
-        this.now,
-        requiredEntities,
-        this.dynamicBuildings,
-        nextLevel
-      );
-    if (!fulfilled) {
-      return true;
+      let requiredEntities: IRequiredBuildingForExtensionLevel[] = [];
+      if (staticBuilding.extension?.requiredEntities) {
+        requiredEntities = staticBuilding
+          .extension
+          .requiredEntities
+          .buildings;
+      }
+        
+      const fulfilled = _h
+        .checkExtensionConstructionRequirements(
+          this.now,
+          requiredEntities,
+          this.dynamicBuildings,
+          nextLevel
+        );
+      if (!fulfilled) {
+        return true;
+      }
     }
     
     const gold = +(this

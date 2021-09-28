@@ -4,5 +4,5 @@
  export interface IUnitTrainingCancel {
   garrisonId: string;
   code: string;
-  instantiationId: string;
+  seriesId: string;
 }

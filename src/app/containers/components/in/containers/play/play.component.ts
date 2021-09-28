@@ -75,12 +75,12 @@ export class PlayComponent implements OnDestroy, OnInit {
       });
   }
 
-  onTrainingCancelation(payload: IUnitTrainingCancel) {
+  onTrainingCancelation({ code, seriesId }: IUnitTrainingCancel) {
     this._garrisonService
       .cancelTraining({
         garrisonId: this.garrison._id,
-        code: payload.code,
-        instantiationId: payload.instantiationId || (payload as any)._id
+        code,
+        seriesId
       })
       .subscribe(result => {
         // // alert('✖ Unit training has been canceled !');

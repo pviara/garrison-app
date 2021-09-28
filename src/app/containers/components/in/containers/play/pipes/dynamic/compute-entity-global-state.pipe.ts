@@ -1,4 +1,7 @@
-import { IGarrison } from "src/models/dynamic/IGarrison";
+import {
+  IGarrison,
+  UnitAssignment
+} from "src/models/dynamic/IGarrison";
 import {
   Pipe,
   PipeTransform
@@ -67,12 +70,37 @@ export class ComputeEntityGlobalStatePipe implements PipeTransform {
         .filter(a => a.type === 'instantiation' && !_h.hasPast(a.endDate, now));
       if (onGoing.length === 0) continue;
 
-      for (const assignement of onGoing) {
-        units.entities.push({
-          ...assignement,
-          code: unit.code
-        });
+      const groups = [] as {
+        seriesId: string;
+        code: string;
+        assignments: UnitAssignment[]
+      }[];
+
+      for (const assignment of onGoing) {
+        if (!assignment.seriesId) {
+          continue;
+        }
+
+        const seriesMatch = groups
+          .find(
+            group => group.seriesId === assignment.seriesId
+          );
+        if (seriesMatch) {
+          seriesMatch
+            .assignments
+            .push(assignment);
+          continue;
+        }
+
+        groups
+          .push({
+            seriesId: assignment.seriesId,
+            code: unit.code,
+            assignments: [assignment]
+          });
       }
+
+      units.entities = groups;
     }
 
     let states: any;

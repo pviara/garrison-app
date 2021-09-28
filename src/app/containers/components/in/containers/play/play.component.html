@@ -104,6 +104,8 @@
                   <ng-container *ngSwitchCase="'units'">
                     <div class="word">
                       <h4>
+                        {{ entity.assignments.length }}
+                        x
                         {{
                           units
                           | fetch_by_code
@@ -115,7 +117,7 @@
                       </h4>
                       <p class="remaining">
                         {{
-                          { endDate: entity.endDate }
+                          { endDate: entity.assignments[entity.assignments.length - 1].endDate }
                           | compute_occupation_remaining_time
                           : now
                         }}

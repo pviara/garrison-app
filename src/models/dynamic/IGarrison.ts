@@ -53,6 +53,9 @@
           /** Assignment unique id. */
           _id?: string;
 
+          /** Instantiation series unique id. */
+          seriesId?: string;
+
           /** Assignment building. */
           buildingId?: string;
 
@@ -81,6 +84,8 @@
     }[];
   };
 }
+
+export type UnitAssignment = IGarrison['instances']['units'][any]['state']['assignments'][any];
 
 export type GarrisonBuilding = IGarrison['instances']['buildings'][any];
 
