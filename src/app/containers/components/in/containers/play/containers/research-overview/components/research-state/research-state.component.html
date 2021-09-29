@@ -1,0 +1,16 @@
+<div class="container">
+  <div
+    class="finished"
+    *ngIf="
+      staticEntity
+      | compute_research_current_level
+      : dynamicResearches
+      : now
+      as currentLevel
+    ">
+    <p>Level</p>
+    <p class="total">
+      {{ currentLevel }}
+    </p>
+  </div>
+</div>

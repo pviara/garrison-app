@@ -1,5 +1,4 @@
 import {
-  AfterViewChecked,
   AfterViewInit,
   Component,
   ElementRef,
@@ -8,18 +7,15 @@ import {
   ViewChild
 } from '@angular/core';
 import { LocalStorageService } from './shared/services/local-storage.service';
-import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
 })
-export class AppComponent implements AfterViewChecked, AfterViewInit, OnInit {
+export class AppComponent implements AfterViewInit, OnInit {
   @ViewChild('appContainer')
   appContainer!: ElementRef;
-
-  private _characterSubscription!: Subscription;
 
   constructor(
     private _localStorageService: LocalStorageService,
@@ -30,16 +26,12 @@ export class AppComponent implements AfterViewChecked, AfterViewInit, OnInit {
     this._initBackgroundImage();
   }
 
-  ngAfterViewChecked() {
-    // this._characterSubscription.unsubscribe();
-  }
-
   ngOnInit() {
     // localStorage.clear();
   }
 
   private _initBackgroundImage() {
-    this._characterSubscription = this
+    this
       ._localStorageService
       .characterSubject
       .subscribe(character => {
