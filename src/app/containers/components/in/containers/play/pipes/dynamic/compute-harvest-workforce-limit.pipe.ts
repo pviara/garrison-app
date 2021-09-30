@@ -1,4 +1,4 @@
-import { ComputeAvailableWorkforcePipe } from "./compute-available-workforce.pipe";
+import { ComputeAvailableBuildingWorkforcePipe } from "./compute-available-building-workforce.pipe";
 import {
   GarrisonBuilding,
   GarrisonUnit
@@ -14,7 +14,7 @@ import { StaticHelper as _h } from "../../../../utils/helper";
   name: 'compute_harvest_workforce_limit'
 })
 export class ComputeHarvestWorkforceLimitPipe implements PipeTransform {
-  constructor(private _computeAvailableWorkforcePipe: ComputeAvailableWorkforcePipe) {}
+  constructor(private _computeAvailableWorkforcePipe: ComputeAvailableBuildingWorkforcePipe) {}
   
   transform(
     staticBuilding: IHarvestBuilding,

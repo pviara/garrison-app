@@ -8,6 +8,7 @@ import {
   IOperatedProject
 } from 'src/models/dynamic/IGarrison';
 import { BuildingImprovementType, IBuildingCost, IInstantiableBuilding, IRequiredBuildingForExtensionLevel } from 'src/models/static/IBuilding';
+import { IResearch } from 'src/models/static/IResearch';
 
 export class StaticHelper {
   static extractCharacterOutOf(characters: ICharacter[]) {
@@ -138,6 +139,22 @@ export class StaticHelper {
       }
 
       return profitLimit;
+  }
+
+  static computeResearchDurationAndWorkforce(
+    workforce: number,
+    research: IResearch,
+    projectLevel = 0
+  ) {
+    let { duration, minWorkforce } = research.instantiation;
+    duration = duration * Math.pow(environment.decreasedFactor, projectLevel);
+    minWorkforce = minWorkforce * Math.pow(2, projectLevel);
+    
+    // apply bonus: each additionnal researcher reduces duration by 3%
+    return {
+      duration: duration * Math.pow(0.97, workforce - minWorkforce),
+      minWorkforce
+    };
   }
 
   static checkExtensionConstructionRequirements(

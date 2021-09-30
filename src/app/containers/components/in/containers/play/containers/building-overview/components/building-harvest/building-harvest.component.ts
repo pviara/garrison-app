@@ -5,7 +5,7 @@ import {
   OnChanges,
   Output
 } from "@angular/core";
-import { ComputeAvailableWorkforcePipe } from '../../../../pipes/dynamic/compute-available-workforce.pipe';
+import { ComputeAvailableBuildingWorkforcePipe } from '../../../../pipes/dynamic/compute-available-building-workforce.pipe';
 import { ComputeHarvestingPeasantsPipe } from '../../../../pipes/dynamic/compute-harvesting-peasants.pipe';
 import { ComputeHarvestWorkforceLimitPipe } from '../../../../pipes/dynamic/compute-harvest-workforce-limit.pipe';
 import {
@@ -27,7 +27,7 @@ import { SoundService } from 'src/app/shared/services/sound.service';
   templateUrl: './building-harvest.component.html',
   styleUrls: ['./building-harvest.component.scss'],
   providers: [
-    ComputeAvailableWorkforcePipe,
+    ComputeAvailableBuildingWorkforcePipe,
     ComputeHarvestingPeasantsPipe,
     ComputeHarvestWorkforceLimitPipe
   ]
@@ -61,7 +61,7 @@ export class BuildingHarvestComponent implements OnChanges {
   private _timer: any;
 
   constructor(
-    private _computeAvailableWorkforcePipe: ComputeAvailableWorkforcePipe,
+    private _computeAvailableBuildingWorkforcePipe: ComputeAvailableBuildingWorkforcePipe,
     private _computeHarvestingPeasantsPipe: ComputeHarvestingPeasantsPipe,
     private _computeHarvestWorkforceLimitPipe: ComputeHarvestWorkforceLimitPipe,
     private _formBuilder: FormBuilder,
@@ -70,7 +70,7 @@ export class BuildingHarvestComponent implements OnChanges {
 
   ngOnChanges() {
     this._availableWorkforce = this
-      ._computeAvailableWorkforcePipe
+      ._computeAvailableBuildingWorkforcePipe
       .transform(this.dynamicUnits, this.now);
 
     this._harvestingPeasants = this

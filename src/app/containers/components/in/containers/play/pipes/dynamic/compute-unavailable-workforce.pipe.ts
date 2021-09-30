@@ -1,4 +1,4 @@
-import { ComputeAvailableWorkforcePipe } from './compute-available-workforce.pipe';
+import { ComputeAvailableBuildingWorkforcePipe } from './compute-available-building-workforce.pipe';
 import { GarrisonUnit } from 'src/models/dynamic/IGarrison';
 import {
   Pipe,
@@ -7,11 +7,11 @@ import {
 import { StaticHelper as _h } from '../../../../utils/helper';
 
 @Pipe({
-  name: 'compute_available_workforce'
+  name: 'compute_unavailable_building_workforce'
 })
-export class ComputeUnvailableWorkforcePipe implements PipeTransform {
+export class ComputeUnvailableBuildingWorkforcePipe implements PipeTransform {
   constructor(
-    private _computeAvailableWorkforcePipe: ComputeAvailableWorkforcePipe
+    private _computeAvailableBuildingWorkforcePipe: ComputeAvailableBuildingWorkforcePipe
   ) {}
   
   transform(
@@ -27,7 +27,7 @@ export class ComputeUnvailableWorkforcePipe implements PipeTransform {
     const { quantity: total } = peasants;
     
     const available = this
-      ._computeAvailableWorkforcePipe
+      ._computeAvailableBuildingWorkforcePipe
       .transform(
         dynamicUnits,
         now

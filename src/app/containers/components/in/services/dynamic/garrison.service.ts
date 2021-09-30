@@ -13,6 +13,7 @@ import { tap } from 'rxjs/operators';
 import { IBuildingUpgradeOrExtend } from 'src/models/dynamic/payloads/IBuildingUpgradeOrExtend';
 import { IUnitCreate } from 'src/models/dynamic/payloads/IUnitCreate';
 import { IUnitTrainingCancel } from 'src/models/dynamic/payloads/IUnitTrainingCancel';
+import { IResearchCreate } from 'src/models/dynamic/payloads/IResearchCreate';
 
 @Injectable()
 export class GarrisonService {
@@ -88,6 +89,15 @@ export class GarrisonService {
   extendBuilding(payload: IBuildingUpgradeOrExtend) {
     return this._client.put<IGarrison>(
       `${environment.apiUrl}/${environment.dbNameDynamic}/${this._endpoint}/building/extend`,
+      payload
+    ).pipe(
+      tap((garrison: IGarrison) => this.garrison = garrison)
+    );
+  }
+
+  launchResearch(payload: IResearchCreate) {
+    return this._client.post<IGarrison>(
+      `${environment.apiUrl}/${environment.dbNameDynamic}/${this._endpoint}/research`,
       payload
     ).pipe(
       tap((garrison: IGarrison) => this.garrison = garrison)

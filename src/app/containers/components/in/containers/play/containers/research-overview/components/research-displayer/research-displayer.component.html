@@ -18,7 +18,14 @@
       </div>
       <div class="separation"></div>
       <div class="content">
-        
+        <garrison-in-play-research-launching
+          [dynamicBuildings]="dynamicBuildings"
+          [dynamicUnits]="dynamicUnits"
+          [dynamicResearches]="dynamicResearches"
+          [resources]="resources"
+          [staticEntity]="staticEntity"
+          (launchResearch)="onResearchLaunching($event)">
+        </garrison-in-play-research-launching>
       </div>
     </div>
   </div>

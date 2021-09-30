@@ -7,13 +7,13 @@ import { BuildingInstanceGuard } from './components/building-instance/building-i
 import { BuildingOverviewComponent } from './building-overview.component';
 import { BuildingStateComponent } from './components/building-state/building-state.component';
 import { CommonModule } from '@angular/common';
-import { ComputeAvailableWorkforcePipe } from '../../pipes/dynamic/compute-available-workforce.pipe';
+import { ComputeAvailableBuildingWorkforcePipe } from '../../pipes/dynamic/compute-available-building-workforce.pipe';
 import { ComputeHarvestingPeasantsPipe } from '../../pipes/dynamic/compute-harvesting-peasants.pipe';
 import { ComputeHarvestWorkforceLimitPipe } from '../../pipes/dynamic/compute-harvest-workforce-limit.pipe';
 import { ComputeImprovementTypePipe } from '../../pipes/dynamic/compute-improvement-type.pipe';
 import { ComputeMostAffordableImprovementPipe } from '../../pipes/dynamic/compute-most-affordable-improvement.pipe';
 import { ComputeTotalUnitsHarvestingPipe } from '../../pipes/dynamic/compute-total-units-harvesting.pipe';
-import { ComputeUnvailableWorkforcePipe } from '../../pipes/dynamic/compute-unavailable-workforce.pipe';
+import { ComputeUnvailableBuildingWorkforcePipe } from '../../pipes/dynamic/compute-unavailable-workforce.pipe';
 import { GarrisonService } from '../../../../services/dynamic/garrison.service';
 import { NgModule } from "@angular/core";
 import { ReactiveFormsModule } from '@angular/forms';
@@ -29,13 +29,13 @@ import { SharedModule } from '../../components/shared.module';
     BuildingInstanceComponent,
     BuildingOverviewComponent,
     BuildingStateComponent,
-    ComputeAvailableWorkforcePipe,
+    ComputeAvailableBuildingWorkforcePipe,
     ComputeHarvestingPeasantsPipe,
     ComputeHarvestWorkforceLimitPipe,
     ComputeImprovementTypePipe,
     ComputeMostAffordableImprovementPipe,
     ComputeTotalUnitsHarvestingPipe,
-    ComputeUnvailableWorkforcePipe
+    ComputeUnvailableBuildingWorkforcePipe
   ],
   imports: [
     CommonModule,
@@ -45,7 +45,7 @@ import { SharedModule } from '../../components/shared.module';
   ],
   providers: [
     BuildingInstanceGuard,
-    ComputeAvailableWorkforcePipe,
+    ComputeAvailableBuildingWorkforcePipe,
     GarrisonService
   ]
 })

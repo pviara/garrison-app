@@ -1,5 +1,6 @@
 import { IRequiredBuilding } from './IBuilding';
 import {
+  IInstantiable,
   IStaticEntity,
   IStaticEntityCost
 } from './IStaticEntity';
@@ -20,4 +21,19 @@ export interface IResearch extends IStaticEntity {
 
   /** Number to add to any base variable in harvest buildings, units attack, defense... */
   bonus: number;
+}
+
+/**
+ * An instantiable research.
+ */
+ export interface IInstantiableResearch extends IInstantiable {
+  /** Instantiation requirements and characteristics. */
+  instantiation: {
+    cost: IStaticEntityCost;
+    duration: number;
+    minWorkforce: number;
+    requiredEntities: {
+      buildings: IRequiredBuilding[];
+    };
+  }
 }

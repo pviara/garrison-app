@@ -4,7 +4,6 @@ import {
   FormGroup,
   Validators
 } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
 import { BuildingService } from 'src/app/containers/components/in/services/static/building.service';
 import {
   Component,
@@ -12,10 +11,9 @@ import {
   Input,
   OnChanges,
   OnDestroy,
-  OnInit,
   Output
 } from '@angular/core';
-import { ComputeAvailableBuildingWorkforcePipe } from '../../../../pipes/dynamic/compute-available-building-workforce.pipe';
+import { ComputeAvailableResearchWorkforcePipe } from '../../../../pipes/dynamic/compute-available-research-workforce.pipe';
 import { ComputeInstantiationRequirementsPipe } from '../../../../pipes/dynamic/compute-instantiation-requirements.pipe';
 import { ComputeResourceValuePipe } from '../../../../pipes/resource/compute-resource-value.pipe';
 import {
@@ -24,48 +22,40 @@ import {
   GarrisonResources,
   GarrisonUnit
 } from 'src/models/dynamic/IGarrison';
-import {
-  IBuilding,
-  IInstantiableBuilding
-} from 'src/models/static/IBuilding';
-import { IBuildingCreate } from 'src/models/dynamic/payloads/IBuildingCreate';
-import { ICharacter } from 'src/models/dynamic/ICharacter';
+import { IBuilding } from 'src/models/static/IBuilding';
+import { IInstantiableResearch } from 'src/models/static/IResearch';
 import {
   IInstantiable,
   IStaticEntity
 } from 'src/models/static/IStaticEntity';
+import { IResearchCreate } from 'src/models/dynamic/payloads/IResearchCreate';
 import { IUnit } from 'src/models/static/IUnit';
 import { SoundService } from 'src/app/shared/services/sound.service';
-import { StaticHelper as _h } from 'src/app/containers/components/in/utils/helper';
 import { UnitService } from 'src/app/containers/components/in/services/static/unit.service';
 
 @Component({
-  selector: 'garrison-in-play-building-construction',
-  templateUrl: './building-construction.component.html',
-  styleUrls: ['./building-construction.component.scss'],
+  selector: 'garrison-in-play-research-launching',
+  templateUrl: './research-launching.component.html',
+  styleUrls: ['./research-launching.component.scss'],
   providers: [
-    ComputeAvailableBuildingWorkforcePipe,
+    ComputeAvailableResearchWorkforcePipe,
     ComputeInstantiationRequirementsPipe,
     ComputeResourceValuePipe
   ]
 })
-export class BuildingConstructionComponent implements OnChanges, OnDestroy, OnInit {  
-  buildingCreation!: FormGroup;
-
-  _character!: ICharacter;
-
-  @Output()
-  createBuilding = new EventEmitter<IBuildingCreate>();
-  
+export class ResearchLaunchingComponent implements OnChanges, OnDestroy {
   @Input()
   dynamicBuildings!: GarrisonBuilding[];
-  
+
   @Input()
   dynamicResearches!: GarrisonResearch[];
-  
+
   @Input()
   dynamicUnits!: GarrisonUnit[];
 
+  @Output()
+  launchResearch = new EventEmitter<IResearchCreate>();
+  
   minWorkforce!: number;
   
   now = new Date();
@@ -73,6 +63,8 @@ export class BuildingConstructionComponent implements OnChanges, OnDestroy, OnIn
   @Input()
   resources!: GarrisonResources;
   
+  researchLaunching!: FormGroup;
+
   selectedWorkforce!: number;
   
   @Input()
@@ -83,13 +75,12 @@ export class BuildingConstructionComponent implements OnChanges, OnDestroy, OnIn
   private _staticBuildings!: IBuilding[];
 
   private _staticUnits!: IUnit[];
-  
+
   private _timer: any;
 
   constructor(
-    private _route: ActivatedRoute,
     private _buildingService: BuildingService,
-    private _computeAvailableBuildingWorkforcePipe: ComputeAvailableBuildingWorkforcePipe,
+    private _computeAvailableResearchWorkforcePipe: ComputeAvailableResearchWorkforcePipe,
     private _computeInstantiationRequirementsPipe: ComputeInstantiationRequirementsPipe,
     private _computeResourceValuePipe: ComputeResourceValuePipe,
     private _formBuilder: FormBuilder,
@@ -98,26 +89,21 @@ export class BuildingConstructionComponent implements OnChanges, OnDestroy, OnIn
   ) {}
 
   ngOnChanges() {
-    this.buildingCreation = {} as FormGroup;
-    
-    this.minWorkforce = (this.staticEntity as IInstantiableBuilding)
+    this.researchLaunching = {} as FormGroup;
+
+    this.minWorkforce = (this.staticEntity as IInstantiableResearch)
       .instantiation
       .minWorkforce;
     
     this.selectedWorkforce = this.minWorkforce;
 
     let workforceDefaultValue = this.minWorkforce;
-    
+
     this._availableWorkforce = this
-      ._computeAvailableBuildingWorkforcePipe
+      ._computeAvailableResearchWorkforcePipe
       .transform(this.dynamicUnits, this.now);
-
-    if (this._availableWorkforce < this.minWorkforce) {
-      workforceDefaultValue = 0;
-      this.selectedWorkforce = 0;
-    }
-
-    this.buildingCreation = this
+    
+    this.researchLaunching = this
       ._formBuilder
       .group({
         code: this
@@ -152,19 +138,17 @@ export class BuildingConstructionComponent implements OnChanges, OnDestroy, OnIn
     }
     this._staticUnits = staticUnits;
 
-    this._character = this._route.snapshot.data.character;
-    
     this._timer = setInterval(() => {
       this._availableWorkforce = this
-        ._computeAvailableBuildingWorkforcePipe
+        ._computeAvailableResearchWorkforcePipe
         .transform(this.dynamicUnits, this.now);
 
       this.now = new Date();
     }, 1000);
   }
 
-  isInvalidForm(buildingCreation: FormGroup) {
-    if (buildingCreation.invalid) {
+  isInvalidForm(researchLaunching: FormGroup) {
+    if (researchLaunching.invalid) {
       return true;
     }
 
@@ -204,64 +188,42 @@ export class BuildingConstructionComponent implements OnChanges, OnDestroy, OnIn
         this.dynamicUnits,
         this.now
       ) as string);
-
-    const plot = +(this
-      ._computeResourceValuePipe
-      .transform(
-        'plot',
-        this.resources,
-        this._staticBuildings,
-        this._staticUnits,
-        this.dynamicBuildings,
-        this.dynamicResearches,
-        this.dynamicUnits,
-        this.now
-      ) as string);
     
-    const { instantiation: { cost } } = this.staticEntity as IInstantiableBuilding;
-    if (gold < cost.gold || wood < cost.wood || plot < cost.plot) {
+    const { instantiation: { cost } } = this.staticEntity as IInstantiableResearch;
+    if (gold < cost.gold || wood < cost.wood) {
       return true;
     }
 
     return false;
   }
-  
-  onBuildingCreation(buildingCreation: FormGroup) {
+
+  onResearchLaunching(researchLaunching: FormGroup) {
     this._soundService.play('click');
 
-    const { faction } = this._character.side;
-    if (faction === 'alliance') {
-      this._soundService.playRandomly('peasant_yes', 1, 4);
-
-    } else if (faction === 'horde') {
-      this._soundService.playRandomly('peon_yes', 1, 4);
-      
-    } else throw new Error("Character's faction is not valid.");
-    
-    const workforce = buildingCreation.get('workforce');
+    const workforce = researchLaunching.get('workforce');
     if (!workforce) return;
     
-    const payload: IBuildingCreate = {
+    const payload: IResearchCreate = {
       garrisonId: '',
-      code: buildingCreation.get('code')?.value,
+      code: researchLaunching.get('code')?.value,
       workforce: workforce.value
     };
 
-    this.createBuilding.emit(payload);
+    this.launchResearch.emit(payload);
   }
 
   onWorkforceChange({ target: { value } }: any) {
     let error = '';
     if (value > this._availableWorkforce) {
-      error = `You don't have ${value} available peasants, but only ${this._availableWorkforce}.`;
+      error = `You don't have ${value} available researchers, but only ${this._availableWorkforce}.`;
     }
 
     if (value > this.minWorkforce * 2) {
-      error += ` Maximum workforce for this building is ${this.minWorkforce * 2} peasants.`;
+      error += ` Maximum workforce for this research is ${this.minWorkforce * 2} researchers.`;
     }
     
     if (value < this.minWorkforce) {
-      error = ` Minimum workforce for this building is ${this.minWorkforce} peasants.`
+      error = ` Minimum workforce for this research is ${this.minWorkforce} researchers.`
     }
     
     if (error.length > 0) {
@@ -273,7 +235,7 @@ export class BuildingConstructionComponent implements OnChanges, OnDestroy, OnIn
         newValue = 0;
       }
 
-      this.buildingCreation
+      this.researchLaunching
         .get('workforce')
         ?.setValue(newValue);
       

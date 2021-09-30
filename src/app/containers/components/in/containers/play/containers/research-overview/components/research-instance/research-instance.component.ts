@@ -10,6 +10,7 @@ import { IGarrison } from 'src/models/dynamic/IGarrison';
 import { IResearch } from 'src/models/static/IResearch';
 import { IStaticEntity } from 'src/models/static/IStaticEntity';
 import { ResearchService } from 'src/app/containers/components/in/services/static/research.service';
+import { IResearchCreate } from 'src/models/dynamic/payloads/IResearchCreate';
 
 @Component({
   selector: 'garrison-in-play-research-instance',
@@ -66,6 +67,17 @@ export class ResearchInstanceComponent implements OnInit {
         }
 
         this.staticEntity = research;
+      });
+  }
+
+  onResearchLaunching(payload: IResearchCreate) {
+    this._garrisonService
+      .launchResearch({
+        ...payload,
+        garrisonId: this.garrison._id
+      })
+      .subscribe(result => {
+        // ...
       });
   }
 }

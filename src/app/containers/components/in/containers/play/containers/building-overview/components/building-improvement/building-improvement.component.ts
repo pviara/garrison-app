@@ -21,7 +21,7 @@ import {
   OnInit,
   Output
 } from "@angular/core";
-import { ComputeAvailableWorkforcePipe } from "../../../../pipes/dynamic/compute-available-workforce.pipe";
+import { ComputeAvailableBuildingWorkforcePipe } from "../../../../pipes/dynamic/compute-available-building-workforce.pipe";
 import { ComputeImprovementTypePipe } from '../../../../pipes/dynamic/compute-improvement-type.pipe';
 import { ComputeResourceValuePipe } from "../../../../pipes/resource/compute-resource-value.pipe";
 import {
@@ -43,7 +43,7 @@ import { UnitService } from "src/app/containers/components/in/services/static/un
   templateUrl: './building-improvement.component.html',
   styleUrls: ['./building-improvement.component.scss'],
   providers: [
-    ComputeAvailableWorkforcePipe,
+    ComputeAvailableBuildingWorkforcePipe,
     ComputeImprovementTypePipe,
     ComputeResourceValuePipe
   ]
@@ -108,7 +108,7 @@ export class BuildingImprovementComponent implements OnDestroy, OnInit {
   constructor(
     private _route: ActivatedRoute,
     private _buildingService: BuildingService,
-    private _computeAvailableWorkforcePipe: ComputeAvailableWorkforcePipe,
+    private _computeAvailableWorkforcePipe: ComputeAvailableBuildingWorkforcePipe,
     private _computeImprovementTypePipe: ComputeImprovementTypePipe,
     private _computeResourceValuePipe: ComputeResourceValuePipe,
     private _formBuilder: FormBuilder,

@@ -6,9 +6,9 @@ import { GarrisonUnit } from 'src/models/dynamic/IGarrison';
 import { StaticHelper as _h } from '../../../../utils/helper';
 
 @Pipe({
-  name: 'compute_available_workforce'
+  name: 'compute_available_building_workforce'
 })
-export class ComputeAvailableWorkforcePipe implements PipeTransform {
+export class ComputeAvailableBuildingWorkforcePipe implements PipeTransform {
   transform(
     dynamicUnits: GarrisonUnit[],
     now: Date
