@@ -15,6 +15,7 @@ import {
 } from '@angular/core';
 import { ComputeAvailableResearchWorkforcePipe } from '../../../../pipes/dynamic/compute-available-research-workforce.pipe';
 import { ComputeInstantiationRequirementsPipe } from '../../../../pipes/dynamic/compute-instantiation-requirements.pipe';
+import { ComputeResearchCurrentLevelPipe } from '../../../../pipes/dynamic/compute-research-current-level.pipe';
 import { ComputeResourceValuePipe } from '../../../../pipes/resource/compute-resource-value.pipe';
 import {
   GarrisonBuilding,
@@ -32,6 +33,8 @@ import { IResearchCreate } from 'src/models/dynamic/payloads/IResearchCreate';
 import { IUnit } from 'src/models/static/IUnit';
 import { SoundService } from 'src/app/shared/services/sound.service';
 import { UnitService } from 'src/app/containers/components/in/services/static/unit.service';
+import { environment } from 'src/environments/environment';
+import { StaticHelper } from 'src/app/containers/components/in/utils/helper';
 
 @Component({
   selector: 'garrison-in-play-research-launching',
@@ -40,10 +43,13 @@ import { UnitService } from 'src/app/containers/components/in/services/static/un
   providers: [
     ComputeAvailableResearchWorkforcePipe,
     ComputeInstantiationRequirementsPipe,
+    ComputeResearchCurrentLevelPipe,
     ComputeResourceValuePipe
   ]
 })
 export class ResearchLaunchingComponent implements OnChanges, OnDestroy {
+  currentLevel!: number;
+  
   @Input()
   dynamicBuildings!: GarrisonBuilding[];
 
@@ -82,13 +88,29 @@ export class ResearchLaunchingComponent implements OnChanges, OnDestroy {
     private _buildingService: BuildingService,
     private _computeAvailableResearchWorkforcePipe: ComputeAvailableResearchWorkforcePipe,
     private _computeInstantiationRequirementsPipe: ComputeInstantiationRequirementsPipe,
+    private _computeResearchCurrentLevel: ComputeResearchCurrentLevelPipe,
     private _computeResourceValuePipe: ComputeResourceValuePipe,
     private _formBuilder: FormBuilder,
     private _soundService: SoundService,
     private _unitService: UnitService
   ) {}
 
+  computeCost(key: 'gold' | 'wood') {
+    return StaticHelper.computeResearchCost(
+      (this.staticEntity as IInstantiableResearch).instantiation.cost,
+      this.currentLevel + 1
+    )[key];
+  }
+
   ngOnChanges() {
+    this.currentLevel = +this
+      ._computeResearchCurrentLevel
+      .transform(
+        this.staticEntity,
+        this.dynamicResearches,
+        this.now
+      );
+
     this.researchLaunching = {} as FormGroup;
 
     this.minWorkforce = (this.staticEntity as IInstantiableResearch)

@@ -14,6 +14,7 @@ import { IBuildingUpgradeOrExtend } from 'src/models/dynamic/payloads/IBuildingU
 import { IUnitCreate } from 'src/models/dynamic/payloads/IUnitCreate';
 import { IUnitTrainingCancel } from 'src/models/dynamic/payloads/IUnitTrainingCancel';
 import { IResearchCreate } from 'src/models/dynamic/payloads/IResearchCreate';
+import { IResearchCancel } from 'src/models/dynamic/payloads/IResearchCancel';
 
 @Injectable()
 export class GarrisonService {
@@ -55,6 +56,15 @@ export class GarrisonService {
   cancelConstruction(payload: IBuildingConstructionCancel) {
     return this._client.put<IGarrison>(
       `${environment.apiUrl}/${environment.dbNameDynamic}/${this._endpoint}/building/cancel`,
+      payload
+    ).pipe(
+      tap((garrison: IGarrison) => this.garrison = garrison)
+    );
+  }
+
+  cancelResearch(payload: IResearchCancel) {
+    return this._client.put<IGarrison>(
+      `${environment.apiUrl}/${environment.dbNameDynamic}/${this._endpoint}/research/cancel`,
       payload
     ).pipe(
       tap((garrison: IGarrison) => this.garrison = garrison)

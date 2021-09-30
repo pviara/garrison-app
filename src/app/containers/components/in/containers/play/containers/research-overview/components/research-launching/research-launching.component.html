@@ -16,13 +16,7 @@
       </div>
       <div class="total">
         <p smooth-text-changer>
-          {{
-            (staticEntity
-            | cast_to_instantiable_research)
-            .instantiation
-            .cost
-            .gold
-          }}
+          {{ computeCost('gold') }}
         </p>
       </div>
     </div>
@@ -145,13 +139,7 @@
       </div>
       <div class="total">
         <p smooth-text-changer>
-          {{
-            (staticEntity
-            | cast_to_instantiable_research)
-            .instantiation
-            .cost
-            .wood
-          }}
+          {{ computeCost('wood') }}
         </p>
       </div>
     </div>
@@ -256,6 +244,7 @@
                   | cast_to_instantiable_research)
                   | compute_launching_duration
                   : selectedWorkforce
+                  : currentLevel
                   | convert_to_readable_duration
                 }}
               </p>

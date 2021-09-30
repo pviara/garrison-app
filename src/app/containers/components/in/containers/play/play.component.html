@@ -71,26 +71,14 @@
                         class="workforce"
                         *ngIf="entity.workforce as workforce">
                         {{ workforce }}x
-                        <ng-container *ngIf="state.entityType === 'buildings'">
-                          {{
-                            units
-                            | fetch_by_code
-                            : 'peasant'
-                            | fetch_appropriate_word
-                            : character.side.faction
-                            | uppercase
-                          }}
-                        </ng-container>
-                        <ng-container *ngIf="state.entityType === 'researches'">
-                          {{
-                            units
-                            | fetch_by_code
-                            : 'researcher'
-                            | fetch_appropriate_word
-                            : character.side.faction
-                            | uppercase
-                          }}
-                        </ng-container>
+                        {{
+                          units
+                          | fetch_by_code
+                          : 'peasant'
+                          | fetch_appropriate_word
+                          : character.side.faction
+                          | uppercase
+                        }}
                       </p>
                       <p class="remaining">
                         {{
@@ -124,6 +112,40 @@
                       </p>
                     </div>
                   </ng-container>
+                  <ng-container *ngSwitchCase="'researches'">
+                    <div class="word">
+                      <h4>
+                        {{
+                          researches
+                          | fetch_by_code
+                          : entity.code
+                          | fetch_appropriate_word
+                          : character.side.faction
+                          | string_capitalize
+                        }}
+                      </h4>
+                      <p
+                        class="workforce"
+                        *ngIf="entity.workforce as workforce">
+                        {{ workforce }}x
+                        {{
+                          units
+                          | fetch_by_code
+                          : 'researcher'
+                          | fetch_appropriate_word
+                          : character.side.faction
+                          | uppercase
+                        }}
+                      </p>
+                      <p class="remaining">
+                        {{
+                          { endDate: entity.endDate }
+                          | compute_occupation_remaining_time
+                          : now
+                        }}
+                      </p>
+                    </div>
+                  </ng-container>
                 </ng-container>
               </div>
             </div>
@@ -136,6 +158,10 @@
                 <ng-container *ngSwitchCase="'units'">
                   <button
                     (click)="onTrainingCancelation(entity)">Cancel</button>
+                </ng-container>
+                <ng-container *ngSwitchCase="'researches'">
+                  <button
+                    (click)="onResearchCancel(entity)">Cancel</button>
                 </ng-container>
               </ng-container>
             </div>

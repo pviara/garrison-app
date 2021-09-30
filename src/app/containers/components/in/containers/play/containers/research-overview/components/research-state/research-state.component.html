@@ -1,16 +1,14 @@
 <div class="container">
   <div
-    class="finished"
-    *ngIf="
-      staticEntity
-      | compute_research_current_level
-      : dynamicResearches
-      : now
-      as currentLevel
-    ">
+    class="finished">
     <p>Level</p>
     <p class="total">
-      {{ currentLevel }}
+      {{
+        staticEntity
+        | compute_research_current_level
+        : dynamicResearches
+        : now
+       }}
     </p>
   </div>
 </div>

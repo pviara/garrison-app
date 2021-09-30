@@ -9,6 +9,7 @@ import {
 } from 'src/models/dynamic/IGarrison';
 import { BuildingImprovementType, IBuildingCost, IInstantiableBuilding, IRequiredBuildingForExtensionLevel } from 'src/models/static/IBuilding';
 import { IResearch } from 'src/models/static/IResearch';
+import { IStaticEntityCost } from 'src/models/static/IStaticEntity';
 
 export class StaticHelper {
   static extractCharacterOutOf(characters: ICharacter[]) {
@@ -89,13 +90,26 @@ export class StaticHelper {
     };
   }
   
+  static computeResearchCost(
+    instantiationCost: IStaticEntityCost,
+    projectLevel = 0
+  ) {
+    const getPowerFactor = (factor = environment.defaultFactor) => {
+      return Math.pow(factor, projectLevel);
+    };
+    return {
+      gold: Math.floor(instantiationCost.gold * getPowerFactor()),
+      wood: Math.floor(instantiationCost.wood * getPowerFactor())
+    } as IStaticEntityCost;
+  }
+  
   static computeResearchCurrentLevel(
     moment: Date,
     projects: IOperatedProject[]
   ) {
     const finished = projects
       .filter(project =>
-        moment.getTime() > project.endDate.getTime()
+        this.hasPast(project.endDate, moment)
       );
 
     return finished

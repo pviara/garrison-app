@@ -120,6 +120,7 @@ const routes: Routes = [{
               buildings: BuildingResolver,
               factions: FactionResolver,
               garrison: GarrisonResolver,
+              researches: ResearchResolver,
               units: UnitResolver,
               zones: ZoneResolver
             },
