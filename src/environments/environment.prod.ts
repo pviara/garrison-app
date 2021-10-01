@@ -2,7 +2,7 @@ export const environment = {
   production: true,
 
   // related to the API and database
-  apiUrl: 'http://localhost:5000/api',
+  apiUrl: 'http://pviara.best/api',
   dbNameStatic: 'static',
   dbNameDynamic: 'dynamic',
 
