@@ -10,8 +10,10 @@ import { FactionService } from './services/static/faction.service';
 import { GarrisonIdResolver } from './resolvers/dynamic/garrison-id.resolver';
 import { GarrisonResolver } from './resolvers/dynamic/garrison.resolver';
 import { GarrisonService } from './services/dynamic/garrison.service';
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { InComponent } from "./in.component";
 import { InGuard } from "./in.guard";
+import { InInterceptor } from './in.interceptor';
 import { LandingComponent } from "./components/landing.component";
 import { NgModule } from "@angular/core";
 import { PlayModule } from './containers/play/play.module';
@@ -53,7 +55,11 @@ import { UnitResolver } from './resolvers/static/unit.resolver';
     UnitResolver,
     UnitService,
     ZoneResolver,
-    ZoneService
+    ZoneService, {
+      provide: HTTP_INTERCEPTORS,
+      useClass: InInterceptor,
+      multi: true
+    }
   ]
 })
 export class InModule {}

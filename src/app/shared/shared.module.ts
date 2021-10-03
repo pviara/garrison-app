@@ -7,7 +7,6 @@ import { LocalStorageService } from './services/local-storage.service';
 import { NgModule } from '@angular/core';
 import { SoundService } from './services/sound.service';
 import { StringCapitalizePipe } from './pipes/global/string_capitalize.pipe';
-import { UserService } from './services/user.service';
 
 @NgModule({
   declarations: [
@@ -27,8 +26,7 @@ import { UserService } from './services/user.service';
     AuthService,
     CharacterService,
     LocalStorageService,
-    SoundService,
-    UserService
+    SoundService
   ]
 })
 export class SharedModule {}

@@ -27,7 +27,7 @@ export class AppComponent implements AfterViewInit, OnInit {
   }
 
   ngOnInit() {
-    // localStorage.clear();
+    // // localStorage.clear();
   }
 
   private _initBackgroundImage() {

@@ -17,7 +17,6 @@ import {
 import { of } from 'rxjs';
 import { Router } from '@angular/router';
 import { SoundService } from 'src/app/shared/services/sound.service';
-import { UserService } from 'src/app/shared/services/user.service';
 
 @Component({
   selector: 'garrison-public-auth-sign-up',
@@ -25,8 +24,7 @@ import { UserService } from 'src/app/shared/services/user.service';
   styleUrls: ['./sign-up.component.scss'],
   providers: [
     AuthService,
-    SoundService,
-    UserService
+    SoundService
   ]
 })
 export class SignUpComponent implements OnInit {
@@ -42,7 +40,6 @@ export class SignUpComponent implements OnInit {
     private _renderer: Renderer2,
     private _router: Router,
     private _soundService: SoundService,
-    private _userService: UserService
   ) {}
 
   ngOnInit() {
@@ -101,7 +98,7 @@ export class SignUpComponent implements OnInit {
       'true'
     );
 
-    this._userService
+    this._authService
       .create(signUp.value)
       .pipe(
         catchError((err) => {
