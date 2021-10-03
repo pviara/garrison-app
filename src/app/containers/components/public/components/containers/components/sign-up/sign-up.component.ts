@@ -49,11 +49,10 @@ export class SignUpComponent implements OnInit {
     this.signUp = this
       ._formBuilder
       .group({
-        email: this
+        password: this
           ._formBuilder
           .control('', [
-            Validators.required,
-            Validators.email
+            Validators.required
           ]),
         username: this
           ._formBuilder
@@ -61,12 +60,12 @@ export class SignUpComponent implements OnInit {
       });
 
     this.signUp.addControl(
-      'emailConfirmation',
+      'passwordConfirmation',
       this
       ._formBuilder
       .control('', [
         Validators.required,
-        this._confirmationValidator('email')
+        this._confirmationValidator('password')
       ])
     );
   }

@@ -16,22 +16,18 @@
       (ngSubmit)="onSignIn(signIn)">
 
       <div class="form-element">
-        <ng-container *ngIf="hasFormControlGotErrors('email') as errors">
+        <ng-container *ngIf="hasFormControlGotErrors('username') as errors">
           <div class="error">
-            {{
-              errors.required
-                ? '❌ E-mail is required.'
-                : '❌ This is not an e-mail.'
-            }}
+            ❌ Username is required.
           </div>
         </ng-container>
         <div class="content">
           <input
-            [ngClass]="hasFormControlGotErrors('email') ? 'error' : ''"
+            [ngClass]="hasFormControlGotErrors('username') ? 'error' : ''"
             type="text"
-            name="email"
-            placeholder="Your e-mail..."
-            formControlName="email">
+            name="username"
+            placeholder="Your username..."
+            formControlName="username">
         </div>
       </div>
       

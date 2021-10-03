@@ -44,11 +44,10 @@ export class SignInComponent implements OnInit {
     this.signIn = this
       ._formBuilder
       .group({
-        email: this
+        username: this
           ._formBuilder
           .control('', [
-            Validators.required,
-            Validators.email
+            Validators.required
           ]),
         password: this
           ._formBuilder
