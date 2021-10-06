@@ -220,8 +220,6 @@ export class ResearchLaunchingComponent implements OnChanges, OnDestroy {
   }
 
   onResearchLaunching(researchLaunching: FormGroup) {
-    this._soundService.play('click');
-
     const workforce = researchLaunching.get('workforce');
     if (!workforce) return;
     

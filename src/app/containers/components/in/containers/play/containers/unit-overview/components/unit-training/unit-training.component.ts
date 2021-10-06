@@ -237,8 +237,6 @@ export class UnitTrainingComponent implements OnChanges, OnDestroy, OnInit {
   }
   
   onUnitTraining(unitTraining: FormGroup) {
-    this._soundService.play('click');
-
     const { faction } = this._character.side;
     if (faction === 'alliance') {
       this._soundService.play('alliance_unit');

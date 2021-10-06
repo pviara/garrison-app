@@ -34,25 +34,31 @@
     <div class="submit">
       <ng-container *ngIf="isInvalidFormForUnitAssignment(unitAssignment) as error; else noErrorForAssignment">
         <button
+          noisemaker
           [disabled]="error"
           [title]="error">
           +
         </button>
       </ng-container>
       <ng-template #noErrorForAssignment>
-        <button (click)="onUnitAssignment(unitAssignment)">
+        <button
+          noisemaker
+          (click)="onUnitAssignment(unitAssignment)">
           +
         </button>
       </ng-template>
       <ng-container *ngIf="isInvalidFormForUnitUnassignment(unitAssignment) as error; else noErrorForUnassignment">
         <button
+          noisemaker
           [disabled]="error"
           [title]="error">
           -
         </button>
       </ng-container>
       <ng-template #noErrorForUnassignment>
-        <button (click)="onUnitUnassignment(unitAssignment)">
+        <button
+          noisemaker
+          (click)="onUnitUnassignment(unitAssignment)">
           -
         </button>
       </ng-template>

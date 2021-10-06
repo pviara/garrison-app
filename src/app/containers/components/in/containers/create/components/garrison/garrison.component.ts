@@ -75,7 +75,6 @@ export class GarrisonComponent implements OnInit {
   }
 
   onGarrisonCreation(garrisonCreation: FormGroup) {
-    this._soundService.play('click');
     if (garrisonCreation.invalid) return;
 
     this._renderer.setAttribute(
@@ -114,15 +113,11 @@ export class GarrisonComponent implements OnInit {
         this._garrisonService.addGarrisonIdToLocalStorage(result._id);
 
         this._router.navigate(['/in']);
-        
-        this._soundService.play('click');
-        this._soundService.play('create');
       });
   }
 
   selectZone(faction: string) {
     this.garrisonCreation.get('zone')?.setValue(faction);
-    this._soundService.play('click');
   }
 
   private _zoneValidator() {

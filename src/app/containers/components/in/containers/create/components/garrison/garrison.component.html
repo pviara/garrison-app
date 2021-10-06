@@ -29,6 +29,7 @@
             <button
               class="no-background"
               type="button"
+              noisemaker
               (click)="selectZone(zone.code)"
               [disabled]="garrisonCreation.get('zone')?.value === zone.code"
               [ngClass]="garrisonCreation.get('zone')?.value === zone.code ? 'selected' : ''"
@@ -59,6 +60,7 @@
       <div class="form-element">
         <button
           #submitButton
+          noisemaker
           type="submit"
           [disabled]="garrisonCreation.invalid">
           Create

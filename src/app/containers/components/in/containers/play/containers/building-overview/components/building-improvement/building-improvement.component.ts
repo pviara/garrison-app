@@ -290,8 +290,6 @@ export class BuildingImprovementComponent implements OnDestroy, OnInit {
     buildingImprovement: FormGroup,
     improvementType: BuildingImprovementType
   ) {
-    this._soundService.play('click');
-
     const { faction } = this._character.side;
     if (faction === 'alliance') {
       this._soundService.playRandomly('peasant_yes', 1, 4);

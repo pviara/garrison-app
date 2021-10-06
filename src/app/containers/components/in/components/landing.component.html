@@ -21,7 +21,9 @@
             You've been summoned by high authority to establish a garrison in the Eastern Kingdoms. But first we need to
             know who you are and who you're fighting for.
           </p>
-          <button (click)="redirectTo('./create/character')">
+          <button
+            noisemaker
+            (click)="redirectTo('./create/character')">
             Create my character
           </button>
         </garrison-shared-infoblock>
@@ -35,7 +37,9 @@
               Your troops are waiting for {{ character.name | string_capitalize }}'s orders to establish their basement.
               Go ahead and build your garrison !
             </p>
-            <button (click)="redirectTo('./create/garrison')">
+            <button
+              noisemaker
+              (click)="redirectTo('./create/garrison')">
               Build my garrison
             </button>
           </garrison-shared-infoblock>
@@ -47,7 +51,9 @@
             <p>
               {{ character.name | string_capitalize }} and his troops are only waiting for you to give them some orders.
             </p>
-            <button (click)="redirectTo('./play')">
+            <button
+              noisemaker
+              (click)="redirectTo('./play')">
               Play
             </button>
           </garrison-shared-infoblock>

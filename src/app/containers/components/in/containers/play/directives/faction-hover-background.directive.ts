@@ -8,7 +8,6 @@ import {
 } from "@angular/core";
 import { LocalStorageService } from "src/app/shared/services/local-storage.service";
 import { Subscription } from "rxjs";
-import { SoundService } from "src/app/shared/services/sound.service";
 
 @Directive({
   selector: '[faction-hover-background]'
@@ -22,7 +21,6 @@ export class FactionHoverBackgroundDirective implements AfterViewChecked, OnInit
 
   @HostListener('click')
   onClick() {
-    this._soundService.play('click');
     const wasSelected = !!this._isSelected;
 
     this._isSelected = !this._isSelected;
@@ -61,8 +59,7 @@ export class FactionHoverBackgroundDirective implements AfterViewChecked, OnInit
   constructor(
     private _element: ElementRef,
     private _localStorageService: LocalStorageService,
-    private _renderer: Renderer2,
-    private _soundService: SoundService
+    private _renderer: Renderer2
   ) {}
 
   ngAfterViewChecked() {

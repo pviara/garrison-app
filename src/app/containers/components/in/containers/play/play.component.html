@@ -153,14 +153,17 @@
               <ng-container [ngSwitch]="state.entityType">
                 <ng-container *ngSwitchCase="'buildings'">
                   <button
+                    noisemaker
                     (click)="onConstructionCancelation(entity)">Cancel</button>
                 </ng-container>
                 <ng-container *ngSwitchCase="'units'">
                   <button
+                    noisemaker
                     (click)="onTrainingCancelation(entity)">Cancel</button>
                 </ng-container>
                 <ng-container *ngSwitchCase="'researches'">
                   <button
+                    noisemaker
                     (click)="onResearchCancel(entity)">Cancel</button>
                 </ng-container>
               </ng-container>
@@ -177,6 +180,7 @@
           <button
             routerLink="buildings"
             routerLinkActive="selected"
+            noisemaker
             faction-hover-background>
             BUILDINGS
           </button>
@@ -186,6 +190,7 @@
           <button
             routerLink="researches"
             routerLinkActive="selected"
+            noisemaker
             faction-hover-background>
             RESEARCHES
           </button>
@@ -195,6 +200,7 @@
           <button
             routerLink="units"
             routerLinkActive="selected"
+            noisemaker
             faction-hover-background>
             UNITS
           </button>

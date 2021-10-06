@@ -63,7 +63,6 @@ export class SignInComponent implements OnInit {
   }
 
   onSignIn(signIn: FormGroup) {
-    this._soundService.play('click');
     if (signIn.invalid) return;
 
     this._renderer.setAttribute(

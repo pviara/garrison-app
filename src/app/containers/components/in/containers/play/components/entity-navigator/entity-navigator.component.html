@@ -7,7 +7,8 @@
       <ng-container *ngIf="staticEntity.code; else unusable">
         <button
           [routerLink]="staticEntity.code"
-          routerLinkActive="selected">
+          routerLinkActive="selected"
+          noisemaker>
           <img
             [src]="
               staticEntity

@@ -66,7 +66,6 @@ export class CharacterComponent implements OnInit {
   }
 
   onCharacterCreation(characterCreation: FormGroup) {
-    this._soundService.play('click');
     if (characterCreation.invalid) return;
 
     this._renderer.setAttribute(
@@ -114,14 +113,10 @@ export class CharacterComponent implements OnInit {
         this._router.navigate(['../garrison'], {
           relativeTo: this._route
         });
-        
-        this._soundService.play('click');
-        this._soundService.play('create');
       });
   }
 
   selectFaction(faction: string) {
-    this._soundService.play('click');
     if (faction === 'alliance') {
       this._soundService.play('create_human');
     } else {

@@ -227,8 +227,6 @@ export class BuildingConstructionComponent implements OnChanges, OnDestroy, OnIn
   }
   
   onBuildingCreation(buildingCreation: FormGroup) {
-    this._soundService.play('click');
-
     const { faction } = this._character.side;
     if (faction === 'alliance') {
       this._soundService.playRandomly('peasant_yes', 1, 4);

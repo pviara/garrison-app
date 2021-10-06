@@ -28,6 +28,7 @@
             <button
               class="no-background"
               type="button"
+              noisemaker
               (click)="selectFaction(faction.code)"
               [disabled]="characterCreation.get('faction')?.value === faction.code"
               [ngClass]="characterCreation.get('faction')?.value === faction.code ? 'selected' : ''"
@@ -59,6 +60,7 @@
         <button
           #submitButton
           type="submit"
+          noisemaker
           [disabled]="characterCreation.invalid">
           Create
         </button>

@@ -67,8 +67,6 @@ export class PlayComponent implements OnDestroy, OnInit {
   }
 
   onConstructionCancelation(payload: IBuildingConstructionCancel) {
-    this._soundService.play('click');
-
     this._garrisonService
       .cancelConstruction({
         garrisonId: this.garrison._id,
@@ -81,8 +79,6 @@ export class PlayComponent implements OnDestroy, OnInit {
   }
 
   onResearchCancel(payload: IResearchCancel) {
-    this._soundService.play('click');
-
     this._garrisonService
       .cancelResearch({
         garrisonId: this.garrison._id,
@@ -95,8 +91,6 @@ export class PlayComponent implements OnDestroy, OnInit {
   }
 
   onTrainingCancelation({ code, seriesId }: IUnitTrainingCancel) {
-    this._soundService.play('click');
-
     this._garrisonService
       .cancelTraining({
         garrisonId: this.garrison._id,

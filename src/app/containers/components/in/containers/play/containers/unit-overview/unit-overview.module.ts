@@ -5,7 +5,8 @@ import { GarrisonService } from '../../../../services/dynamic/garrison.service';
 import { NgModule } from "@angular/core";
 import { ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
-import { SharedModule } from '../../components/shared.module';
+import { SharedModule as GlobalSharedModule } from '../../../../../../../shared/shared.module';
+import { SharedModule as PlaySharedModule } from '../../components/shared.module';
 import { UnitDisplayerComponent } from './components/unit-displayer/unit-displayer.component';
 import { UnitInstanceComponent } from './components/unit-instance/unit-instance.component';
 import { UnitInstanceGuard } from './components/unit-instance/unit-instance.guard';
@@ -25,9 +26,10 @@ import { UnitTrainingComponent } from './components/unit-training/unit-training.
   ],
   imports: [
     CommonModule,
+    GlobalSharedModule,
     ReactiveFormsModule,
     RouterModule,
-    SharedModule
+    PlaySharedModule
   ],
   providers: [
     ComputeTotalUnvailableUnitsPipe,

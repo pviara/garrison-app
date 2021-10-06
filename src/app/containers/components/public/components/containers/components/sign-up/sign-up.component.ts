@@ -89,7 +89,6 @@ export class SignUpComponent implements OnInit {
   }
 
   onSignUp(signUp: FormGroup) {
-    this._soundService.play('click');
     if (signUp.invalid) return;
 
     this._renderer.setAttribute(

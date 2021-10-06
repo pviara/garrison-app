@@ -18,7 +18,8 @@ import { GarrisonService } from '../../../../services/dynamic/garrison.service';
 import { NgModule } from "@angular/core";
 import { ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
-import { SharedModule } from '../../components/shared.module';
+import { SharedModule as GlobalSharedModule } from '../../../../../../../shared/shared.module';
+import { SharedModule as PlaySharedModule } from '../../components/shared.module';
 
 @NgModule({
   declarations: [
@@ -39,9 +40,10 @@ import { SharedModule } from '../../components/shared.module';
   ],
   imports: [
     CommonModule,
+    GlobalSharedModule,
     ReactiveFormsModule,
     RouterModule,
-    SharedModule
+    PlaySharedModule
   ],
   providers: [
     BuildingInstanceGuard,

@@ -51,7 +51,5 @@ export class LandingComponent implements OnInit {
     this._router.navigate([path], {
       relativeTo: this._route
     });
-    this._soundService.play('click');
-    this._soundService.play('create');
   }
 }

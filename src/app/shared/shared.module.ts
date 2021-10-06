@@ -5,6 +5,7 @@ import { FilterZonesByFactionPipe } from './pipes/static/filter-zones-by-faction
 import { InfoblockComponent } from './components/infoblock/infoblock.component';
 import { LocalStorageService } from './services/local-storage.service';
 import { NgModule } from '@angular/core';
+import { NoiseMakerDirective } from './directives/noisemaker.directive';
 import { SoundService } from './services/sound.service';
 import { StringCapitalizePipe } from './pipes/global/string_capitalize.pipe';
 
@@ -13,6 +14,7 @@ import { StringCapitalizePipe } from './pipes/global/string_capitalize.pipe';
     FetchAppropriateWordPipe,
     FilterZonesByFactionPipe,
     InfoblockComponent,
+    NoiseMakerDirective,
     StringCapitalizePipe
   ],
   imports: [],
@@ -20,6 +22,7 @@ import { StringCapitalizePipe } from './pipes/global/string_capitalize.pipe';
     FetchAppropriateWordPipe,
     FilterZonesByFactionPipe,
     InfoblockComponent,
+    NoiseMakerDirective,
     StringCapitalizePipe
   ],
   providers: [
