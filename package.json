@@ -1,6 +1,6 @@
 {
   "name": "garrison-web-app",
-  "version": "1.0.0-alpha.1.0.4",
+  "version": "1.0.0-alpha.1.1.0",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
