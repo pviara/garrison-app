@@ -17,5 +17,20 @@
 
   .content {
     width: 100%;
+
+    .disconnect {
+      position: absolute;
+      top: 0.5em;
+      right: 1em;
+  
+      opacity: 0.3;
+      
+      cursor: pointer;
+
+      p {
+        margin: 0;
+        padding: 0;
+      }
+    }
   }
 }

@@ -2,6 +2,14 @@
   #appContainer
   class="container">
   <div class="content">
-    <router-outlet></router-outlet>
+    <ng-container *ngIf="isStorageFilled">
+      <div
+        class="disconnect"
+        noisemaker
+        (click)="onDisconnect()">
+        <p>↗ EXIT</p>
+      </div>
+    </ng-container>
+  <router-outlet></router-outlet>
   </div>
 </div>

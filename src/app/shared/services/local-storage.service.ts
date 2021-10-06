@@ -46,7 +46,6 @@ export class LocalStorageService {
   }
   
   set character(value: ICharacter | undefined) {
-    if (!value) return;
     const key = 'character';
 
     this.characterSubject.next(value);
@@ -191,6 +190,13 @@ export class LocalStorageService {
     if (!zonesFromStorage) return;
 
     return JSON.parse(zonesFromStorage) as IZone[];
+  }
+
+  removeElementFromLocalStorage(key: string) {
+    if (!this._getFromStorage(key)) {
+      throw new Error('Element does not exist in local storage and cannot be removed.');
+    }
+    localStorage.removeItem(key);
   }
 
   private _getFromStorage(key: string) {

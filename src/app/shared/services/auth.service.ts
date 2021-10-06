@@ -5,6 +5,7 @@ import { IAuthenticationPayload } from 'src/models/dynamic/payloads/IAuthenticat
 import { Injectable } from '@angular/core';
 import { IUserCreate } from 'src/models/dynamic/payloads/IUserCreate';
 import { LocalStorageService } from './local-storage.service';
+import { of } from 'rxjs';
 
 @Injectable()
 export class AuthService {
@@ -33,6 +34,20 @@ export class AuthService {
     return this._client.post<IAuthenticatedUser>(
       `${environment.apiUrl}/${this._endpoint}/user`,
       payload
+    );
+  }
+
+  disconnect() {
+    return of(
+      this
+        ._localStorageService
+        .removeElementFromLocalStorage('character'),
+      this
+        ._localStorageService
+        .removeElementFromLocalStorage('garrisonId'),
+      this
+        ._localStorageService
+        .removeElementFromLocalStorage('user')
     );
   }
 
