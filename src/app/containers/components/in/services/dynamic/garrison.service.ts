@@ -83,11 +83,14 @@ export class GarrisonService {
   }
 
   cancelTraining(payload: IUnitTrainingCancel) {
-    return this._client.put<IGarrison>(
+    return this._client.put<GarrisonRepoResponse>(
       `${environment.apiUrl}/${environment.dbNameDynamic}/${this._endpoint}/unit/cancel`,
       payload
     ).pipe(
-      tap((garrison: IGarrison) => this.garrison = garrison)
+      tap((response: GarrisonRepoResponse) => {
+        this.garrison = response.garrison;
+        this._localStorageService.character = response.character;
+      })
     );
   }
   
@@ -154,11 +157,14 @@ export class GarrisonService {
   }
 
   trainUnit(payload: IUnitCreate) {
-    return this._client.post<IGarrison>(
+    return this._client.post<GarrisonRepoResponse>(
       `${environment.apiUrl}/${environment.dbNameDynamic}/${this._endpoint}/unit`,
       payload
     ).pipe(
-      tap((garrison: IGarrison) => this.garrison = garrison)
+      tap((response: GarrisonRepoResponse) => {
+        this.garrison = response.garrison;
+        this._localStorageService.character = response.character;
+      })
     );
   }
 
