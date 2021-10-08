@@ -4,17 +4,20 @@ import { environment } from 'src/environments/environment';
 import { HttpClient } from '@angular/common/http';
 import { IBuildingCreate } from 'src/models/dynamic/payloads/IBuildingCreate';
 import { IBuildingConstructionCancel } from 'src/models/dynamic/payloads/IBuildingConstructionCancel';
+import { ICharacter } from 'src/models/dynamic/ICharacter';
 import { IGarrison } from 'src/models/dynamic/IGarrison';
 import { IGarrisonCreate } from 'src/models/dynamic/payloads/IGarrisonCreate';
 import { Injectable } from '@angular/core';
 import { IUnitAssign } from 'src/models/dynamic/payloads/IUnitAssign';
-import { LocalStorageService } from 'src/app/shared/services/local-storage.service';
-import { tap } from 'rxjs/operators';
 import { IBuildingUpgradeOrExtend } from 'src/models/dynamic/payloads/IBuildingUpgradeOrExtend';
+import { IResearchCancel } from 'src/models/dynamic/payloads/IResearchCancel';
+import { IResearchCreate } from 'src/models/dynamic/payloads/IResearchCreate';
 import { IUnitCreate } from 'src/models/dynamic/payloads/IUnitCreate';
 import { IUnitTrainingCancel } from 'src/models/dynamic/payloads/IUnitTrainingCancel';
-import { IResearchCreate } from 'src/models/dynamic/payloads/IResearchCreate';
-import { IResearchCancel } from 'src/models/dynamic/payloads/IResearchCancel';
+import { LocalStorageService } from 'src/app/shared/services/local-storage.service';
+import { tap } from 'rxjs/operators';
+
+type GarrisonRepoResponse = { garrison: IGarrison; character?: ICharacter };
 
 @Injectable()
 export class GarrisonService {
@@ -54,11 +57,16 @@ export class GarrisonService {
   }
 
   cancelConstruction(payload: IBuildingConstructionCancel) {
-    return this._client.put<IGarrison>(
+    return this._client.put<GarrisonRepoResponse>(
       `${environment.apiUrl}/${environment.dbNameDynamic}/${this._endpoint}/building/cancel`,
       payload
     ).pipe(
-      tap((garrison: IGarrison) => this.garrison = garrison)
+      tap((response: GarrisonRepoResponse) => {
+        this.garrison = response.garrison;
+        this._localStorageService.character = response.character;
+
+        console.log(this._localStorageService.character);
+      })
     );
   }
 
@@ -88,20 +96,26 @@ export class GarrisonService {
   }
 
   createBuilding(payload: IBuildingCreate) {
-    return this._client.post<IGarrison>(
+    return this._client.post<GarrisonRepoResponse>(
       `${environment.apiUrl}/${environment.dbNameDynamic}/${this._endpoint}/building`,
       payload
     ).pipe(
-      tap((garrison: IGarrison) => this.garrison = garrison)
+      tap((response: GarrisonRepoResponse) => {
+        this.garrison = response.garrison;
+        this._localStorageService.character = response.character;
+      })
     );
   }
 
   extendBuilding(payload: IBuildingUpgradeOrExtend) {
-    return this._client.put<IGarrison>(
+    return this._client.put<GarrisonRepoResponse>(
       `${environment.apiUrl}/${environment.dbNameDynamic}/${this._endpoint}/building/extend`,
       payload
     ).pipe(
-      tap((garrison: IGarrison) => this.garrison = garrison)
+      tap((response: GarrisonRepoResponse) => {
+        this.garrison = response.garrison;
+        this._localStorageService.character = response.character;
+      })
     );
   }
 
@@ -152,11 +166,14 @@ export class GarrisonService {
   }
 
   upgradeBuilding(payload: IBuildingUpgradeOrExtend) {
-    return this._client.put<IGarrison>(
+    return this._client.put<GarrisonRepoResponse>(
       `${environment.apiUrl}/${environment.dbNameDynamic}/${this._endpoint}/building/upgrade`,
       payload
     ).pipe(
-      tap((garrison: IGarrison) => this.garrison = garrison)
+      tap((response: GarrisonRepoResponse) => {
+        this.garrison = response.garrison;
+        this._localStorageService.character = response.character;
+      })
     );
   }
 }
