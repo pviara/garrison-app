@@ -2,12 +2,13 @@ import { AuthComponent } from './containers/components/public/components/contain
 import { BannerResolver } from './containers/components/in/resolvers/static/banner.resolver';
 import {
   BuildingInstanceComponent
-} from './containers/components/in/containers/play/containers/building-overview/components/building-instance/building-instance.component';
+} from './containers/components/in/containers/play/containers/instances/building-overview/components/building-instance/building-instance.component';
 import {
   BuildingInstanceGuard
-} from './containers/components/in/containers/play/containers/building-overview/components/building-instance/building-instance.guard';
-import { BuildingOverviewComponent } from './containers/components/in/containers/play/containers/building-overview/building-overview.component';
+} from './containers/components/in/containers/play/containers/instances/building-overview/components/building-instance/building-instance.guard';
+import { BuildingOverviewComponent } from './containers/components/in/containers/play/containers/instances/building-overview/building-overview.component';
 import { BuildingResolver } from './containers/components/in/resolvers/static/building.resolver';
+import { CharacterComponent } from './containers/components/in/containers/play/containers/character/character.component';
 import {
   CharacterComponent as CreateCharacterComponent
 } from './containers/components/in/containers/create/components/character/character.component';
@@ -35,15 +36,15 @@ import { PublicComponent } from './containers/components/public/public.component
 import { PublicGuard } from './containers/components/public/public.guard';
 import { RouterModule } from '@angular/router';
 import { Routes } from '@angular/router';
-import { ResearchInstanceComponent } from './containers/components/in/containers/play/containers/research-overview/components/research-instance/research-instance.component';
-import { ResearchInstanceGuard } from './containers/components/in/containers/play/containers/research-overview/components/research-instance/research-instance.guard';
-import { ResearchOverviewComponent } from './containers/components/in/containers/play/containers/research-overview/research-overview.component';
+import { ResearchInstanceComponent } from './containers/components/in/containers/play/containers/instances/research-overview/components/research-instance/research-instance.component';
+import { ResearchInstanceGuard } from './containers/components/in/containers/play/containers/instances/research-overview/components/research-instance/research-instance.guard';
+import { ResearchOverviewComponent } from './containers/components/in/containers/play/containers/instances/research-overview/research-overview.component';
 import { ResearchResolver } from './containers/components/in/resolvers/static/research.resolver';
 import { SignInComponent } from './containers/components/public/components/containers/components/sign-in/sign-in.component';
 import { SignUpComponent } from './containers/components/public/components/containers/components/sign-up/sign-up.component';
-import { UnitInstanceComponent } from './containers/components/in/containers/play/containers/unit-overview/components/unit-instance/unit-instance.component';
-import { UnitInstanceGuard } from './containers/components/in/containers/play/containers/unit-overview/components/unit-instance/unit-instance.guard';
-import { UnitOverviewComponent } from './containers/components/in/containers/play/containers/unit-overview/unit-overview.component';
+import { UnitInstanceComponent } from './containers/components/in/containers/play/containers/instances/unit-overview/components/unit-instance/unit-instance.component';
+import { UnitInstanceGuard } from './containers/components/in/containers/play/containers/instances/unit-overview/components/unit-instance/unit-instance.guard';
+import { UnitOverviewComponent } from './containers/components/in/containers/play/containers/instances/unit-overview/unit-overview.component';
 import { UnitResolver } from './containers/components/in/resolvers/static/unit.resolver';
 import { ZoneResolver } from './containers/components/in/resolvers/static/zone.resolver';
 
@@ -142,6 +143,16 @@ const routes: Routes = [{
                       character: CharacterResolver
                     }
                   }]
+                }]
+              },
+              {
+                path: 'character',
+                children: [{
+                  path: '',
+                  component: CharacterComponent,
+                  resolve: {
+                    character: CharacterResolver
+                  }
                 }]
               },
               {
