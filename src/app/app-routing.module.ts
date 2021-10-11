@@ -36,6 +36,8 @@ import { PublicComponent } from './containers/components/public/public.component
 import { PublicGuard } from './containers/components/public/public.guard';
 import { RouterModule } from '@angular/router';
 import { Routes } from '@angular/router';
+import { RegisterComponent } from './containers/components/in/containers/play/containers/register/register.component';
+import { RegisterResolver } from './containers/components/in/resolvers/dynamic/register.resolver';
 import { ResearchInstanceComponent } from './containers/components/in/containers/play/containers/instances/research-overview/components/research-instance/research-instance.component';
 import { ResearchInstanceGuard } from './containers/components/in/containers/play/containers/instances/research-overview/components/research-instance/research-instance.guard';
 import { ResearchOverviewComponent } from './containers/components/in/containers/play/containers/instances/research-overview/research-overview.component';
@@ -152,6 +154,16 @@ const routes: Routes = [{
                   component: CharacterComponent,
                   resolve: {
                     character: CharacterResolver
+                  }
+                }]
+              },
+              {
+                path: 'register',
+                children: [{
+                  path: '',
+                  component: RegisterComponent,
+                  resolve: {
+                    records: RegisterResolver
                   }
                 }]
               },

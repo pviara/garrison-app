@@ -10,7 +10,7 @@ import { AuthService } from 'src/app/shared/services/auth.service';
 export class InInterceptor implements HttpInterceptor {
   constructor(private _authService: AuthService) {}
   
-  intercept(req: HttpRequest < any > , next: HttpHandler) {
+  intercept(req: HttpRequest<any> , next: HttpHandler) {
     const userFromStorage = this
       ._authService
       .getCurrentUserFromStorage();

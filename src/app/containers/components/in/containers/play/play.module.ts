@@ -5,6 +5,7 @@ import { ComputeEntityGlobalStatePipe } from './pipes/dynamic/compute-entity-glo
 import { ComputeOccupationRemainingTime } from './pipes/dynamic/compute-occupation-remaining-time.pipe';
 import { NgModule } from '@angular/core';
 import { PlayComponent } from './play.component';
+import { RegisterModule } from './containers/register/register.module';
 import { ResearchOverviewModule } from './containers/instances/research-overview/research-overview.module';
 import { RouterModule } from '@angular/router';
 import { SharedModule as PlaySharedModule } from './components/shared.module';
@@ -23,6 +24,7 @@ import { UnitOverviewModule } from './containers/instances/unit-overview/unit-ov
     CommonModule,
     RouterModule,
     PlaySharedModule,
+    RegisterModule,
     ResearchOverviewModule,
     SharedModule,
     UnitOverviewModule

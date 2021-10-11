@@ -19,6 +19,8 @@ import { NgModule } from "@angular/core";
 import { PlayModule } from './containers/play/play.module';
 import { SharedModule } from "src/app/shared/shared.module";
 import { RouterModule } from "@angular/router";
+import { RegisterResolver } from './resolvers/dynamic/register.resolver';
+import { RegisterService } from './services/dynamic/register.service';
 import { ResearchResolver } from './resolvers/static/research.resolver';
 import { ResearchService } from './services/static/research.service';
 import { ZoneResolver } from './resolvers/static/zone.resolver';
@@ -50,6 +52,8 @@ import { UnitResolver } from './resolvers/static/unit.resolver';
     GarrisonResolver,
     GarrisonService,
     InGuard,
+    RegisterResolver,
+    RegisterService,
     ResearchResolver,
     ResearchService,
     UnitResolver,
