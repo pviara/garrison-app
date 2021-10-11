@@ -3,7 +3,7 @@ import {
   Component,
   OnInit
 } from '@angular/core';
-import { FetchByCodePipe } from '../../../../../pipes/static/fetch-by-code.pipe';
+import { FetchByCodePipe } from 'src/app/shared/pipes/static/fetch-by-code.pipe';
 import { GarrisonService } from 'src/app/containers/components/in/services/dynamic/garrison.service';
 import { ICharacter } from 'src/models/dynamic/ICharacter';
 import { IGarrison } from 'src/models/dynamic/IGarrison';

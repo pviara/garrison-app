@@ -163,7 +163,12 @@ const routes: Routes = [{
                   path: '',
                   component: RegisterComponent,
                   resolve: {
-                    records: RegisterResolver
+                    buildings: BuildingResolver,
+                    character: CharacterResolver,
+                    garrisonId: GarrisonIdResolver,
+                    records: RegisterResolver,
+                    researches: ResearchResolver,
+                    units: UnitResolver
                   }
                 }]
               },

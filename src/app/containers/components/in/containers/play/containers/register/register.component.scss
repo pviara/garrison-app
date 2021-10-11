@@ -1,3 +1,145 @@
 .container {
+  padding: 1em;
+
+  max-height: 700px;
+
+  width: 540px;
+  animation: fadeIn ease 0.5s;
+
+  margin-top: 0.5em;
+
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+
+  background-color: #000;
+  border: 5px solid transparent;
+  border-image: url('../../../../../../../../assets/img/textures/game-menu-item-border.jpg') 5;
+
+  box-shadow: 0px 0px 10px rgb(0, 0, 0, 0.6);
+
+  .title {
+    flex: 1;
+    display: flex;
+    flex-direction: row;
+
+    img {
+      border: 3px solid transparent;
+      border-image: url('../../../../../../../../assets/img/textures/game-menu-item-border.jpg') 3;
+    }
+
+    .text {
+      margin-left: 0.5em;
+
+      h2 {
+        margin: 0;
+        font-weight: normal;
+        font-size: 120%;
+        color: #f8d532;
+      }
+
+      h4 {
+        margin: 0;
+        font-weight: normal;
+        font-size: 90%;
+        color: grey;
+      }
+    }
+  }
+
+  .separation {
+    width: 100%;
+    margin-top: 0.5em;
+    height: 3px;
+    margin-bottom: 0.7em;
+  }
+
+  .content {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    overflow: auto;
+
+    .element {
+      display: flex;
+      flex: 1;
+
+      margin-bottom: 1em;
+
+      .entity {
+        flex: 1;
+        display: flex;
+        
+        .text {
+          display: flex;
+          flex-direction: column;
+          margin-left: 0.5em;
+
+          h5 {
+            flex: 1;
+            margin: 0;
+            font-weight: normal;
+            font-size: 80%;
+          }
+
+          p {
+            flex: 1;
+            margin: 0;
+            text-align: left;
+            font-size: 70%;
+
+            &.type {
+              color: #f8d532;
+            }
+
+            &.moment {
+              font-size: 50%;
+              color: grey;
+            }
+          }
+        }
+      }
+
+      .resources {
+        flex: 1;
+        display: flex;
+        text-align: center;
+        
+        .element {
+          flex: 1;
+          display: flex;
+          flex-direction: column;
+
+          align-items: center;
+
+          .img {
+            flex: 1;
+          }
+
+          .amount {
+            flex: 1;
+
+            p {
+              margin: -0.5em;
+              font-size: 60%;
   
+              &.cost {
+                color: #bf2f2f;
+              }
+  
+              &.refund {
+                color: #34bf2f;
+              }
+            }
+          }
+        }
+      }
+    }
+
+    .no-record {
+      text-align: center;
+      font-size: 70%;
+      color: grey;
+    }
+  }
 }

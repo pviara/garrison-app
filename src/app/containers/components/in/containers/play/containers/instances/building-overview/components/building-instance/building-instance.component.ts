@@ -4,7 +4,7 @@ import {
   OnInit
 } from '@angular/core';
 import { BuildingService } from 'src/app/containers/components/in/services/static/building.service';
-import { FetchByCodePipe } from '../../../../../pipes/static/fetch-by-code.pipe';
+import { FetchByCodePipe } from 'src/app/shared/pipes/static/fetch-by-code.pipe';
 import { GarrisonService } from 'src/app/containers/components/in/services/dynamic/garrison.service';
 import { IBuilding } from 'src/models/static/IBuilding';
 import { IBuildingCreate } from 'src/models/dynamic/payloads/IBuildingCreate';

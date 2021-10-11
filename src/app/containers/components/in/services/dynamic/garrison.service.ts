@@ -15,6 +15,7 @@ import { IResearchCreate } from 'src/models/dynamic/payloads/IResearchCreate';
 import { IUnitCreate } from 'src/models/dynamic/payloads/IUnitCreate';
 import { IUnitTrainingCancel } from 'src/models/dynamic/payloads/IUnitTrainingCancel';
 import { LocalStorageService } from 'src/app/shared/services/local-storage.service';
+import { RegisterService } from './register.service';
 import { tap } from 'rxjs/operators';
 
 type GarrisonRepoResponse = { garrison: IGarrison; character?: ICharacter };
@@ -39,7 +40,8 @@ export class GarrisonService {
   constructor(
     private _authService: AuthService,
     private _client: HttpClient,
-    private _localStorageService: LocalStorageService
+    private _localStorageService: LocalStorageService,
+    private _registerService: RegisterService
   ) {}
 
   addGarrisonIdToLocalStorage(id: IGarrison['_id']) {
@@ -64,8 +66,11 @@ export class GarrisonService {
       tap((response: GarrisonRepoResponse) => {
         this.garrison = response.garrison;
         this._localStorageService.character = response.character;
-
-        console.log(this._localStorageService.character);
+        
+        this
+          ._registerService
+          .getFromGarrison(response.garrison._id)
+          .subscribe();
       })
     );
   }
@@ -78,6 +83,11 @@ export class GarrisonService {
       tap((response: GarrisonRepoResponse) => {
         this.garrison = response.garrison;
         this._localStorageService.character = response.character;
+        
+        this
+          ._registerService
+          .getFromGarrison(response.garrison._id)
+          .subscribe();
       })
     );
   }
@@ -90,6 +100,11 @@ export class GarrisonService {
       tap((response: GarrisonRepoResponse) => {
         this.garrison = response.garrison;
         this._localStorageService.character = response.character;
+        
+        this
+          ._registerService
+          .getFromGarrison(response.garrison._id)
+          .subscribe();
       })
     );
   }

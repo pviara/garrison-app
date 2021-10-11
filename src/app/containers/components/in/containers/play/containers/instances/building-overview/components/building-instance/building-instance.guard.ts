@@ -4,7 +4,7 @@ import {
   Router
 } from '@angular/router';
 import { BuildingService } from 'src/app/containers/components/in/services/static/building.service';
-import { FetchByCodePipe } from '../../../../../pipes/static/fetch-by-code.pipe';
+import { FetchByCodePipe } from 'src/app/shared/pipes/static/fetch-by-code.pipe';
 import { Injectable } from '@angular/core';
 import { StaticHelper as _h } from 'src/app/containers/components/in/utils/helper';
 

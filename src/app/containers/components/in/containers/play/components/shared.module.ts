@@ -15,7 +15,6 @@ import { EntityDisplayerComponent } from './entity-displayer/entity-displayer.co
 import { EntityNavigatorComponent } from './entity-navigator/entity-navigator.component';
 import { EntityRequirementsComponent } from './entity-requirements/entity-requirements.component';
 import { FactionHoverBackgroundDirective } from '../directives/faction-hover-background.directive';
-import { FetchByCodePipe } from '../pipes/static/fetch-by-code.pipe';
 import { FillWithUnusableSlotsPipe } from '../pipes/static/fill-with-unusable-slots.pipe';
 import { GlobalResourceDisplayerComponent } from './global-resource-displayer/global-resource-displayer.component';
 import { NgModule } from '@angular/core';
@@ -44,7 +43,6 @@ import { CastToBuildingPipe } from '../pipes/static/cast-to-building.pipe';
     EntityNavigatorComponent,
     EntityRequirementsComponent,
     FactionHoverBackgroundDirective,
-    FetchByCodePipe,
     FillWithUnusableSlotsPipe,
     GlobalResourceDisplayerComponent,
     ResourceDisplayerComponent,
@@ -73,7 +71,6 @@ import { CastToBuildingPipe } from '../pipes/static/cast-to-building.pipe';
     EntityNavigatorComponent,
     EntityRequirementsComponent,
     FactionHoverBackgroundDirective,
-    FetchByCodePipe,
     FillWithUnusableSlotsPipe,
     GlobalResourceDisplayerComponent,
     ResourceDisplayerComponent,

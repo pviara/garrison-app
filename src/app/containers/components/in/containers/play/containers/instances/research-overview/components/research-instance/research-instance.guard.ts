@@ -3,7 +3,7 @@ import {
   CanActivate,
   Router
 } from '@angular/router';
-import { FetchByCodePipe } from '../../../../../pipes/static/fetch-by-code.pipe';
+import { FetchByCodePipe } from 'src/app/shared/pipes/static/fetch-by-code.pipe';
 import { Injectable } from '@angular/core';
 import { ResearchService } from 'src/app/containers/components/in/services/static/research.service';
 import { StaticHelper as _h } from 'src/app/containers/components/in/utils/helper';

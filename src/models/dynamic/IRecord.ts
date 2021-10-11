@@ -2,6 +2,7 @@
  * The representation of a game record.
  */
  export interface IRecord {
+  _id: string;
   garrisonId: string;
   moment: Date;
   entity: 'building' | 'research' | 'unit';
