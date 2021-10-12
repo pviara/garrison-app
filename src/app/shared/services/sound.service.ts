@@ -27,12 +27,20 @@ export class SoundService {
       path: 'create_passed.ogg'
     },
     {
-      name: 'create_human',
-      path: 'create_human.ogg'
+      name: 'create_human_female',
+      path: 'create_human_female.ogg'
     },
     {
-      name: 'create_orc',
-      path: 'create_orc.ogg'
+      name: 'create_orc_female',
+      path: 'create_orc_female.ogg'
+    },
+    {
+      name: 'create_human_male',
+      path: 'create_human_male.ogg'
+    },
+    {
+      name: 'create_orc_male',
+      path: 'create_orc_male.ogg'
     },
     {
       name: 'error',

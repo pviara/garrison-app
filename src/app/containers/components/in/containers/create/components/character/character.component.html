@@ -14,13 +14,33 @@
     <form
       [formGroup]="characterCreation"
       (ngSubmit)="onCharacterCreation(characterCreation)">
-
+      
       <div class="form-element">
-        
-        <div class="title">
-          <div class="bar"></div>
-          <h5>Chose your faction</h5>
-          <div class="bar"></div>
+        <div class="selection">
+          <div class="gender">
+            <button
+              class="no-background"
+              type="button"
+              noisemaker
+              (click)="selectGender('male')"
+              [disabled]="characterCreation.get('gender')?.value === 'male'"
+              [ngClass]="characterCreation.get('gender')?.value === 'male' ? 'selected' : ''">
+              <img
+                draggable="false"
+                src="../../../../../../../../assets/img/creation/gender-male.png">
+            </button>
+            <button
+              class="no-background"
+              type="button"
+              noisemaker
+              (click)="selectGender('female')"
+              [disabled]="characterCreation.get('gender')?.value === 'female'"
+              [ngClass]="characterCreation.get('gender')?.value === 'female' ? 'selected' : ''">
+              <img
+                draggable="false"
+                src="../../../../../../../../assets/img/creation/gender-female.png">
+            </button>
+          </div>
         </div>
 
         <div class="selection">
@@ -35,7 +55,7 @@
               [title]="faction | fetch_appropriate_word | string_capitalize">
                 <img
                   draggable="false"
-                  [src]="'../../../../../../../../assets/img/creation/' + faction.code + '.png'">
+                  [src]="'../../../../../../../../assets/img/creation/' + faction.code + '_' + characterCreation.get('gender')?.value + '.png'">
             </button>
           </div>
         </div>

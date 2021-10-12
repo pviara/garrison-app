@@ -59,6 +59,9 @@ export class CharacterComponent implements OnInit {
             Validators.required,
             this._factionValidator()
           ]),
+        gender: this
+          ._formBuilder
+          .control(this._pickRandomGender(), Validators.required),
         name: this
           ._formBuilder
           .control('', Validators.required)
@@ -75,6 +78,7 @@ export class CharacterComponent implements OnInit {
     );
 
     const { faction } = characterCreation.value;
+    const { gender } = characterCreation.value;
     const { name } = characterCreation.value;
     const userFromStorage = this._authService
       .getCurrentUserFromStorage();
@@ -82,6 +86,7 @@ export class CharacterComponent implements OnInit {
     const payload: ICharacterCreate = {
       userId: userFromStorage?._id as string,
       name,
+      gender,
       side: {
         faction,
         banner: faction === 'alliance'
@@ -117,12 +122,29 @@ export class CharacterComponent implements OnInit {
   }
 
   selectFaction(faction: string) {
+    const gender = this.characterCreation.get('gender')?.value;
+    if (!gender) {
+      return;
+    }
+
     if (faction === 'alliance') {
-      this._soundService.play('create_human');
-    } else {
-      this._soundService.play('create_orc');
+      this._soundService.play(`create_human_${gender}`);
+    } else if (faction === 'horde') {
+      this._soundService.play(`create_orc_${gender}`);
     }
     this.characterCreation.get('faction')?.setValue(faction);
+  }
+
+  selectGender(gender: 'male' | 'female') {
+    const faction = this.characterCreation.get('faction')?.value;
+
+    if (faction === 'alliance') {
+      this._soundService.play(`create_human_${gender}`);
+    } else if (faction === 'horde') {
+      this._soundService.play(`create_orc_${gender}`);
+    }
+    
+    this.characterCreation.get('gender')?.setValue(gender);
   }
 
   private _factionValidator() {
@@ -135,5 +157,11 @@ export class CharacterComponent implements OnInit {
         invalid: { value: control.value }
       }
     }
+  }
+
+  private _pickRandomGender(): 'male' | 'female' {
+    return Math.floor(Math.random() * (2 - 1 + 1)) + 1 === 1
+      ? 'male'
+      : 'female';
   }
 }

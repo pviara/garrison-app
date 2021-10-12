@@ -22,6 +22,7 @@ export class CharacterService {
   }
 
   create(payload: ICharacterCreate) {
+    console.log(this.constructor.name, 'sent payload', payload);
     return this._client.post<ICharacter>(
       `${environment.apiUrl}/${environment.dbNameDynamic}/${this._endpoint}`,
       payload
