@@ -22,7 +22,7 @@
         <div class="entity">
           <ng-container [ngSwitch]="record.entity">
             <ng-container *ngSwitchCase="'building'">
-              <ng-container *ngIf="record.action === 'instantiation'">
+              <!-- <ng-container *ngIf="record.action === 'instantiation'">
                 <img
                   draggable="false"
                   src="../../../../../../../../assets/img/ornamental/building-construction.png">
@@ -36,7 +36,7 @@
                 <img
                   draggable="false"
                   src="../../../../../../../../assets/img/ornamental/cancelation-construction.png">
-              </ng-container>
+              </ng-container> -->
               <div class="text">
                 <h5>
                   {{ 
@@ -61,14 +61,14 @@
               </div>
             </ng-container>
             <ng-container *ngSwitchCase="'research'">
-              <ng-container *ngIf="record.action === 'instantiation'">
+              <!-- <ng-container *ngIf="record.action === 'instantiation'">
                 <img
                   draggable="false"
                   src="../../../../../../../../assets/img/ornamental/research-launching.png">
               </ng-container>
               <ng-container *ngIf="record.action === 'cancelation'">
                 <img src="../../../../../../../../assets/img/ornamental/cancelation-research.png">
-              </ng-container>
+              </ng-container> -->
               <div class="text">
                 <h5>
                   {{ 
@@ -93,7 +93,7 @@
               </div>
             </ng-container>
             <ng-container *ngSwitchCase="'unit'">
-              <ng-container *ngIf="record.action === 'instantiation'">
+              <!-- <ng-container *ngIf="record.action === 'instantiation'">
                 <img
                   draggable="false"
                   src="../../../../../../../../assets/img/ornamental/unit-training.png">
@@ -102,7 +102,7 @@
                 <img
                   draggable="false"
                   src="../../../../../../../../assets/img/ornamental/cancelation-training.png">
-              </ng-container>
+              </ng-container> -->
               <div class="text">
                 <h5>
                   {{ 
@@ -132,7 +132,7 @@
           <ng-container *ngIf="record.resources?.gold as gold">
             <div class="element">
               <div class="img">
-                <svg height="18pt" viewBox="0 0 128 128" width="18pt" xmlns="http://www.w3.org/2000/svg">
+                <svg height="22pt" viewBox="0 0 128 128" width="22pt" xmlns="http://www.w3.org/2000/svg">
                   <g>
                     <path d="m20.875 57.235v12.8c0 3.535 13.152 6.4 29.375 6.4s29.375-2.867 29.375-6.4v-12.8z" fill="#fca40b" />
                     <ellipse cx="50.25" cy="57.235" fill="#fccf23" rx="29.375" ry="6.402" />
@@ -153,7 +153,7 @@
           <ng-container *ngIf="record.resources?.wood as wood">
             <div class="element">
               <div class="img">
-                <svg id="Capa_1" enable-background="new 0 0 497 497" height="18pt" viewBox="0 0 497 497" width="18pt"
+                <svg id="Capa_1" enable-background="new 0 0 497 497" height="22pt" viewBox="0 0 497 497" width="22pt"
                 xmlns="http://www.w3.org/2000/svg">
                 <g>
                   <path d="m361 248.499-150.5 22.5-100.5-22.5s-50 0-50-68 50-68 50-68h251z" fill="#ab7b64" />
@@ -278,7 +278,7 @@
           <ng-container *ngIf="record.resources?.food as food">
             <div class="element">
               <div class="img">
-                <svg height="18pt" viewBox="0 -69 512.00056 512" width="18pt" xmlns="http://www.w3.org/2000/svg">
+                <svg height="22pt" viewBox="0 -69 512.00056 512" width="22pt" xmlns="http://www.w3.org/2000/svg">
                   <path
                     d="m511.992188 141.082031h-511.992188v76.675781c0 61.105469 40.054688 117.410157 101.683594 135.316407 100.957031 29.332031 207.675781 29.332031 308.628906 0 58.898438-17.109375 98.074219-69.28125 101.441406-127.203125zm0 0"
                     fill="#b2785b" />
@@ -312,8 +312,8 @@
           <ng-container *ngIf="record.resources?.plot as plot">
             <div class="element">
               <div class="img">
-                <svg id="Capa_1" enable-background="new 0 0 497.137 497.137" height="18pt" viewBox="0 0 497.137 497.137"
-                  width="18pt" xmlns="http://www.w3.org/2000/svg">
+                <svg id="Capa_1" enable-background="new 0 0 497.137 497.137" height="22pt" viewBox="0 0 497.137 497.137"
+                  width="22pt" xmlns="http://www.w3.org/2000/svg">
                   <g>
                     <g>
                       <path d="m343.289 304.218 102.359-255.169-29.026-12.264-107.278 267.433z" fill="#e3b783" />

@@ -47,6 +47,10 @@ export class SoundService {
       path: 'horde_unit.ogg'
     },
     {
+      name: 'open_register',
+      path: 'open_register.ogg'
+    },
+    {
       name: 'peasant_yes_1',
       path: 'peasant_yes_1.ogg'
     },
