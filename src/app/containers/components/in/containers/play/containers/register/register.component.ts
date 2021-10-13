@@ -60,6 +60,11 @@ export class RegisterComponent implements AfterViewInit, OnInit {
       .recordsSubject
       .subscribe(records => {
         this.records = records || [];
+        this.filteredRecords = this.records;
+
+        if (!this.areFiltersAllRemoved()) {
+          this.filteredRecords = this._applyFilter(this._appliedFilters);
+        }
       });
   }
 
