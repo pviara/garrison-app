@@ -1,13 +1,45 @@
 <div class="container">
   <div class="element filters">
     <div class="content">
-      test
+      <button
+        noisemaker
+        [disabled]="areFiltersAllRemoved()"
+        [ngClass]="areFiltersAllRemoved() ? 'selected' : ''"
+        (click)="removeAllFilters()">
+        <img
+          draggable="false"
+          src="../../../../../../../../assets/img/register/remove_filters.png">
+      </button>
+      <button
+        noisemaker
+        [ngClass]="hasFilterBeenApplied('building') ? 'selected' : ''"
+        (click)="toggleFilter('building')">
+        <img
+          draggable="false"
+          src="../../../../../../../../assets/img/register/buildings.png">
+      </button>
+      <button
+        noisemaker
+        [ngClass]="hasFilterBeenApplied('research') ? 'selected' : ''"
+        (click)="toggleFilter('research')">
+        <img
+          draggable="false"
+          src="../../../../../../../../assets/img/register/researches.png">
+      </button>
+      <button
+        noisemaker
+        [ngClass]="hasFilterBeenApplied('unit') ? 'selected' : ''"
+        (click)="toggleFilter('unit')">
+        <img
+          draggable="false"
+          src="../../../../../../../../assets/img/register/units.png">
+      </button>
     </div>
   </div>
   <div class="element register">
     <div class="content">
       <div class="title">
-        <img draggable="false" src="../../../../../../../../assets/img/ornamental/register.png">
+        <img draggable="false" src="../../../../../../../../assets/img/register/register.png">
         <div class="text">
           <h2>Register</h2>
           <ng-container *ngIf="records.length > 0; else noRecordTitle">
@@ -21,7 +53,7 @@
       <div class="separation"></div>
       <div class="content">
         <ng-container *ngIf="records.length > 0; else noRecordContent">
-          <div class="element" *ngFor="let record of records">
+          <div class="element" *ngFor="let record of filteredRecords">
             <div class="entity">
               <ng-container [ngSwitch]="record.entity">
                 <ng-container *ngSwitchCase="'building'">
