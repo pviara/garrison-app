@@ -3,6 +3,7 @@
     <div class="content">
       <button
         noisemaker
+        title="Remove filters"
         [disabled]="areFiltersAllRemoved()"
         [ngClass]="areFiltersAllRemoved() ? 'selected' : ''"
         (click)="removeAllFilters()">
@@ -12,6 +13,7 @@
       </button>
       <button
         noisemaker
+        title="Show buildings"
         [ngClass]="hasFilterBeenApplied('building') ? 'selected' : ''"
         (click)="toggleFilter('building')">
         <img
@@ -20,6 +22,7 @@
       </button>
       <button
         noisemaker
+        title="Show researches"
         [ngClass]="hasFilterBeenApplied('research') ? 'selected' : ''"
         (click)="toggleFilter('research')">
         <img
@@ -28,6 +31,7 @@
       </button>
       <button
         noisemaker
+        title="Show units"
         [ngClass]="hasFilterBeenApplied('unit') ? 'selected' : ''"
         (click)="toggleFilter('unit')">
         <img
