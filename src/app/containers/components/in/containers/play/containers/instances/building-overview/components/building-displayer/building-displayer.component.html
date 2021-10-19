@@ -69,21 +69,24 @@
       </ng-template>
 
       <div class="improvement">
-        <div class="title">
-          <h5>Improvement</h5>
-        </div>
-        <div class="separation"></div>
-        <ng-container *ngIf="isImprovableBuilding(staticEntity) as nextImprovement; else noImprovement">
+        <ng-container *ngIf="isImprovableBuilding(staticEntity) as improvementInfo; else noImprovementInfo">
+          <div class="title">
+            <h5>
+              Improvement
+              <small>({{ improvementInfo.total }} available)</small>
+            </h5>
+          </div>
+          <div class="separation"></div>
           <div class="content">
             <garrison-in-play-building-improvement
-              [buildingId]="nextImprovement.building._id"
-              [cost]="nextImprovement.cost"
+              [buildingId]="improvementInfo.nextImprovement.building._id"
+              [cost]="improvementInfo.nextImprovement.cost"
               [dynamicBuildings]="dynamicBuildings"
               [dynamicResearches]="dynamicResearches"
               [dynamicUnits]="dynamicUnits"
-              [improvementLevel]="nextImprovement.nextLevel"
-              [maxWorkforce]="nextImprovement.workforce.max"
-              [minWorkforce]="nextImprovement.workforce.min"
+              [improvementLevel]="improvementInfo.nextImprovement.nextLevel"
+              [maxWorkforce]="improvementInfo.nextImprovement.workforce.max"
+              [minWorkforce]="improvementInfo.nextImprovement.workforce.min"
               [resources]="resources"
               [staticEntity]="staticEntity"
               (extendBuilding)="onBuildingExtension($event)"
@@ -92,7 +95,7 @@
           </div>
         </ng-container>
       </div>
-      <ng-template #noImprovement>
+      <ng-template #noImprovementInfo>
         <p class="no-improvement">
           No improvement available
         </p>

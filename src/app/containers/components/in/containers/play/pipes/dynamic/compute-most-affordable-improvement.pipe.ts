@@ -123,9 +123,12 @@ export class ComputeMostAffordableImprovementPipe implements PipeTransform {
           workforce
         });
     }
-    return improvableBuildings
-      .sort(
-        (a, b) => a.nextLevel - b.nextLevel
-      )[0];
+    return {
+      nextImprovement: improvableBuildings
+        .sort(
+          (a, b) => a.nextLevel - b.nextLevel
+        )[0],
+      total: improvableBuildings.length
+    }
   }
 }
