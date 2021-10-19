@@ -14,6 +14,5 @@ export class CharacterComponent implements OnInit {
 
   ngOnInit() {
     this.character = this._route.snapshot.data.character;
-    console.log('resolved character:', this.character);
   }
 }

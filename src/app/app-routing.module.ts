@@ -147,16 +147,16 @@ const routes: Routes = [{
                   }]
                 }]
               },
-              {
-                path: 'character',
-                children: [{
-                  path: '',
-                  component: CharacterComponent,
-                  resolve: {
-                    character: CharacterResolver
-                  }
-                }]
-              },
+              // {
+              //   path: 'character',
+              //   children: [{
+              //     path: '',
+              //     component: CharacterComponent,
+              //     resolve: {
+              //       character: CharacterResolver
+              //     }
+              //   }]
+              // },
               {
                 path: 'register',
                 children: [{
