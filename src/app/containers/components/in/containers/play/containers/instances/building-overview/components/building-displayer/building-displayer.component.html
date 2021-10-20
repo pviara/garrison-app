@@ -41,7 +41,7 @@
     </div>
   </div>
   <ng-container *ngIf="
-    isImprovableBuilding(staticEntity)
+    isImprovableBuilding(staticEntity).nextImprovement
     || isHarvestableBuilding(staticEntity)
   ">
     <div class="second-line">
@@ -67,39 +67,47 @@
           No harvest available
         </p>
       </ng-template>
-
       <div class="improvement">
-        <ng-container *ngIf="isImprovableBuilding(staticEntity) as improvementInfo; else noImprovementInfo">
-          <div class="title">
-            <h5>
-              Improvement
-              <small>({{ improvementInfo.total }} available)</small>
-            </h5>
-          </div>
-          <div class="separation"></div>
-          <div class="content">
-            <garrison-in-play-building-improvement
-              [buildingId]="improvementInfo.nextImprovement.building._id"
-              [cost]="improvementInfo.nextImprovement.cost"
-              [dynamicBuildings]="dynamicBuildings"
-              [dynamicResearches]="dynamicResearches"
-              [dynamicUnits]="dynamicUnits"
-              [improvementLevel]="improvementInfo.nextImprovement.nextLevel"
-              [maxWorkforce]="improvementInfo.nextImprovement.workforce.max"
-              [minWorkforce]="improvementInfo.nextImprovement.workforce.min"
-              [resources]="resources"
-              [staticEntity]="staticEntity"
-              (extendBuilding)="onBuildingExtension($event)"
-              (upgradeBuilding)="onBuildingUpgrade($event)">
-            </garrison-in-play-building-improvement>
-          </div>
+        <ng-container *ngIf="isImprovableBuilding(staticEntity) as improvementInfo">
+          <ng-container *ngIf="improvementInfo.nextImprovement; else noNextImprovement">
+            <div class="title">
+              <h5>
+                Improvement
+                <small>({{ improvementInfo?.total }} available)</small>
+              </h5>
+            </div>
+            <div class="separation"></div>
+            <div class="content">
+              <garrison-in-play-building-improvement
+                [buildingId]="improvementInfo?.nextImprovement?.building._id"
+                [cost]="improvementInfo?.nextImprovement?.cost"
+                [dynamicBuildings]="dynamicBuildings"
+                [dynamicResearches]="dynamicResearches"
+                [dynamicUnits]="dynamicUnits"
+                [improvementLevel]="improvementInfo?.nextImprovement?.nextLevel"
+                [maxWorkforce]="improvementInfo?.nextImprovement?.workforce.max"
+                [minWorkforce]="improvementInfo?.nextImprovement?.workforce.min"
+                [resources]="resources"
+                [staticEntity]="staticEntity"
+                (extendBuilding)="onBuildingExtension($event)"
+                (upgradeBuilding)="onBuildingUpgrade($event)">
+              </garrison-in-play-building-improvement>
+            </div>
+          </ng-container>
+          <ng-template #noNextImprovement>
+            <div class="title">
+              <h5>
+                Improvement
+              </h5>
+            </div>
+            <div class="separation"></div>
+            <p class="no-improvement">
+              No improvement available
+            </p>
+          </ng-template>
+          
         </ng-container>
       </div>
-      <ng-template #noImprovementInfo>
-        <p class="no-improvement">
-          No improvement available
-        </p>
-      </ng-template>
     </div>
   </ng-container>
 </div>

@@ -123,6 +123,7 @@ export class ComputeMostAffordableImprovementPipe implements PipeTransform {
           workforce
         });
     }
+    
     return {
       nextImprovement: improvableBuildings
         .sort(
