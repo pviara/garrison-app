@@ -2,7 +2,7 @@ export const environment = {
   production: true,
 
   // related to the API and database
-  apiUrl: 'https://pviara.best/api',
+  apiUrl: 'https://garrisondemo.com/api',
   dbNameStatic: 'static',
   dbNameDynamic: 'dynamic',
 
