@@ -190,6 +190,8 @@ export class StaticHelper {
             .find(construction => <number>construction.improvement?.level >= <number>building.upgradeLevel);
           if (!upgraded) return true;
 
+          upgraded.endDate = new Date(upgraded.endDate);
+          
           // is the building still being processed for this specific upgrade ?
           if (upgraded.endDate.getTime() > moment.getTime()) return true;
         }
